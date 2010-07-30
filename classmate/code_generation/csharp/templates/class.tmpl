@@ -1,0 +1,163 @@
+// This file was generated automatically.
+// Please edit user code sections only!
+
+using System;
+#! user_code top
+// Insert your code here...
+#! end
+
+#! if nspace class
+namespace $nspace(class)$
+{
+#! end
+
+$classDecl(class)$
+{
+
+// public section
+
+#! user_code public_top
+// Insert your code here...
+#! end
+
+#! for attr in class.attrs where equal attr.visi '1'
+	#! if equal attr.scope '1'
+	public $attr.type_$ $attr.name$;
+	#! else
+		#! if not attr.initValue
+	static public $attr.type_$ $attr.name$;
+		#! else
+	static public $attr.type_$ $attr.name$ = $attr.initValue$;
+		#! end
+	#! end
+#! end
+
+#! for meth in class.methods where equal meth.visi '1' and equal meth.name 'new'
+    #! if not hasSuper
+	public $class.name$($sig(meth)$)
+	#! else
+	public $class.name$($sig(meth)$) : 
+	    #! user_code base_call
+		base(arg1, ...)
+		#! end
+	#! end	
+	{
+	#! user_code constructor
+		// ...
+	#! end
+	}
+#! end
+
+#! for meth in class.methods where equal meth.visi '1' and not equal meth.name 'new'
+	$methBegin(meth)$ $meth.name$($sig(meth)$)
+	{
+	#! user_code $meth.name$
+		// ...
+	#! end
+	}
+
+#! end
+
+#! for meth in overwritten where equal meth.visi '1'
+	public override $meth.resultType$ $meth.name$($sig(meth)$)
+	{
+	#! user_code $meth.name$
+		// ...
+	#! end
+	}
+#! end
+
+#! for intf in class.intfImpls
+	#! for meth in intf.methods
+	public $meth.resultType$ $meth.name$($sig(meth)$)
+	{
+		#! user_code $meth.name$
+		//...
+		#! end
+	}
+	
+	#! end
+#! end 
+
+#! user_code public_bottom
+// Insert your code here...
+#! end
+
+// protected section
+
+#! user_code protected_top
+// Insert your code here...
+#! end
+
+#! for attr in class.attrs where equal attr.visi '2'
+	#! if equal attr.scope '1'
+	protected $attr.type_$ $attr.name$;
+	#! else
+		#! if not attr.initValue
+	static protected $attr.type_$ $attr.name$;
+		#! else
+	static protected $attr.type_$ $attr.name$ = $attr.initValue$;
+		#! end
+	#! end
+#! end
+
+#! for meth in class.methods where equal meth.visi '2'
+	$methBegin(meth)$ $meth.name$($sig(meth)$)
+	{
+		#! user_code $meth.name$
+		// ...
+		#! end
+	}
+	
+#! end
+
+#! for meth in overwritten where equal meth.visi '2'
+	public override $meth.resultType$ $meth.name$($sig(meth)$)
+	{
+	#! user_code $meth.name$
+		// ...
+	#! end
+	}
+#! end 
+
+#! user_code protected_bottom
+// Insert your code here...
+#! end
+
+// private section
+
+#! user_code private_top
+// Insert your code here...
+#! end
+
+#! for attr in class.attrs where equal attr.visi '3'
+	#! if equal attr.scope '1'
+	private $attr.type_$ $attr.name$;
+	#! else
+		#! if not attr.initValue
+	static private $attr.type_$ $attr.name$;
+		#! else
+	static private $attr.type_$ $attr.name$ = $attr.initValue$;
+		#! end
+	#! end
+#! end
+
+#! for meth in class.methods where equal meth.visi '3'
+	$methBegin(meth)$ $meth.name$($sig(meth)$)
+	{
+		#! user_code $meth.name$
+		// ...
+		#! end
+	}
+	
+#! end
+
+#! user_code private_bottom
+// Insert your code here...
+#! end
+
+}
+
+#! if nspace class
+}
+#! end

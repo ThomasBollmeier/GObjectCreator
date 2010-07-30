@@ -1,0 +1,82 @@
+/*
+* This file was generated automatically.
+* Please edit user code sections only!
+*/
+
+#include "$filename(intf)$.h"
+
+static guint $prefix$_base_init_count = 0;
+
+void $prefix$_base_init($Intfname$Iface* in_class) {
+
+	$prefix$_base_init_count++;
+	
+	if ($prefix$_base_init_count == 1) {
+#! user_code interface_init
+		/* do some stuff... */
+#! end	
+	}
+
+}  
+
+void $prefix$_base_finalize($Intfname$Iface* in_class) {
+
+	if ($prefix$_base_init_count == 0)
+		return;
+
+	$prefix$_base_init_count--;
+	
+	if ($prefix$_base_init_count == 0) {
+#! user_code interface_finalize
+		/* do some stuff... */
+#! end	
+	}
+
+}  
+
+GType $prefix$_get_type() {
+
+	static GType $prefix$_type = 0;
+	
+	if (!$prefix$_type) {
+	
+		const GTypeInfo $prefix$_info = {
+			sizeof($Intfname$Iface),
+			(GBaseInitFunc) $prefix$_base_init,
+			(GBaseFinalizeFunc) $prefix$_base_finalize
+			};
+			
+		$prefix$_type = g_type_register_static(
+			G_TYPE_INTERFACE,
+			"$Intfname$",
+			&$prefix$_info,
+			0
+			);
+		
+		/* all classes are allowed to implement this interface: */
+		g_type_interface_add_prerequisite($prefix$_type, G_TYPE_OBJECT);
+		
+	}
+	
+	return $prefix$_type;
+}
+
+#! for meth in intf.methods
+$meth.resultType$
+$prefix$_$meth.name$($signature(meth)$) {
+
+	#! if withNamespace
+	$Intfname$Iface* intf = $NAMESPACE$_$BASENAME$_GET_INTERFACE(object);
+	#! else
+	$Intfname$Iface* intf = $BASENAME$_GET_INTERFACE(object);
+	#! end
+	
+	#! if not equal meth.resultType 'void'
+	return intf->$meth.name$($signature(meth, False, True, False)$);
+	#! else
+	intf->$meth.name$($signature(meth, False, True, False)$);
+	#! end
+
+}
+
+#! end

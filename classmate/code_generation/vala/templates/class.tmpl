@@ -1,0 +1,216 @@
+// This file was generated automatically.
+// Please edit user code sections only!
+
+using GLib;
+#! user_code namespaces
+// add further using declarations...
+#! end
+
+#! if not hasSuperClass class 
+    #! if empty class.intfImpls
+public class $absName(class)$ : Object
+    #! else
+public class $absName(class)$ : Object, $intfList(class)$
+    #! end
+#! else
+    #! if empty class.intfImpls
+public class $absName(class)$ : $absName(class.superClass)$
+    #! else
+public class $absName(class)$ : $absName(class.superClass)$, $intfList(class)$   
+    #! end
+#! end
+{
+
+    // ===== Public Section:
+    
+#! for prop in class.props
+    #! if first
+    // Properties:
+    
+    #! end 
+    public $propertyType(prop)$ $prop.varname$ {
+	// $prop.descr$
+	get {
+    #! user_code property_get_$prop.varname$
+	    // return ...
+    #! end
+	}
+    #! if equal prop.access '2'
+	set {
+	#! user_code property_set_$prop.varname$
+	    // ... = value;
+	#! end
+	}
+    #! end
+    }
+    
+#! end
+
+#! for meth in class.methods where equal meth.visi '1' and meth.isSignal
+    #! if first
+    // Signals:
+    
+    #! end
+    public signal $meth.resultType$ $meth.name$($argList(meth)$);
+#! end
+
+#! user_code public_section_top
+    // add further public members (e.g. delegates)...
+#! end
+    
+    public $class.name$($argList(class.constructor)$)
+    {
+#! user_code constructor
+        // base(...);
+#! end
+    }
+
+#! for meth in class.methods where equal meth.visi '1'
+    #! if not equal meth.name class.constructor.name
+        #! if equal meth.scope '1'
+            #! if not meth.virtual
+    public $meth.resultType$ $meth.name$($argList(meth)$)
+            #! elif not meth.abstract
+    public virtual $meth.resultType$ $meth.name$($argList(meth)$)
+            #! elif not meth.isSignal
+    public abstract $meth.resultType$ $meth.name$($argList(meth)$);            
+            #! end
+        #! else
+    public static $meth.resultType$ $meth.name$($argList(meth)$)
+        #! end
+        #! if not meth.abstract
+    {
+            #! user_code $meth.name$
+        // insert implementation code here...    
+            #! end
+    }
+        #! end
+    #! end
+    
+#! end
+
+#! for intf in class.intfImpls
+    // Interface $absName(intf)$
+    
+	#! for meth in intf.methods
+    public virtual $meth.resultType$ $meth.name$($argList(meth)$)
+    {
+        #! user_code $meth.name$
+        // insert implementation code here...   
+        #! end
+    }
+	
+	#! end
+#! end
+
+#! for meth in overwritten where equal meth.visi '1'
+    #! if first
+    // Redefinitions:
+    #! end
+    public override $meth.resultType$ $meth.name$($argList(meth)$)
+    {
+        #! user_code $meth.name$
+        // insert implementation code here...
+        #! end
+    }
+    
+#! end
+
+#! for attr in class.attrs where equal attr.visi '1'
+    #! if equal attr.scope '1'
+    public $attr.type_$ $attr.name$;
+    #! else
+    public static $attr.type_$ $attr.name$; 
+    #! end
+#! end 
+
+#! user_code public_section_bottom
+    // add further public members...
+#! end
+
+    // ===== Protected Section:
+
+#! user_code protected_section_top
+    // add protected members...
+#! end
+
+#! for meth in class.methods where equal meth.visi '2'
+    #! if equal meth.scope '1'
+            #! if not meth.virtual
+    protected $meth.resultType$ $meth.name$($argList(meth)$)
+            #! elif not meth.abstract
+    protected virtual $meth.resultType$ $meth.name$($argList(meth)$)
+            #! else
+    protected abstract $meth.resultType$ $meth.name$($argList(meth)$);            
+            #! end
+    #! else
+    protected static $meth.resultType$ $meth.name$($argList(meth)$)
+    #! end
+    #! if not meth.abstract
+    {
+        #! user_code $meth.name$
+        // insert implementation code here...    
+        #! end
+    }
+    #! end
+    
+#! end
+
+#! for meth in overwritten where equal meth.visi '2'
+    #! if first
+    // Redefinitions:
+    #! end
+    protected override $meth.resultType$ $meth.name$($argList(meth)$)
+    {
+        #! user_code $meth.name$
+        // insert implementation code here...
+        #! end
+    }
+    
+#! end
+
+#! for attr in class.attrs where equal attr.visi '2'
+    #! if equal attr.scope '1'
+    public $attr.type_$ $attr.name$;
+    #! else
+    public static $attr.type_$ $attr.name$; 
+    #! end
+#! end 
+
+#! user_code protected_section_bottom
+    // add further protected members...
+#! end
+
+    // ===== Private Section:
+
+#! user_code private_section_top
+    // add private members...
+#! end
+
+#! for meth in class.methods where equal meth.visi '3'
+    #! if equal meth.scope '1'
+    private $meth.resultType$ $meth.name$($argList(meth)$)
+    #! else
+    private static $meth.resultType$ $meth.name$($argList(meth)$)
+    #! end
+    {
+    #! user_code $meth.name$
+        // insert implementation code here...    
+    #! end
+    }
+    
+#! end
+
+#! for attr in class.attrs where equal attr.visi '3'
+    #! if equal attr.scope '1'
+    public $attr.type_$ $attr.name$;
+    #! else
+    public static $attr.type_$ $attr.name$; 
+    #! end
+#! end 
+
+#! user_code private_section_bottom
+    // add further private members...
+#! end
+
+}

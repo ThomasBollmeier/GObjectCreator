@@ -1,0 +1,86 @@
+/*
+* This file was generated automatically.
+* Please edit user code sections only!
+*/
+
+#ifndef $INTFNAME$_H
+#define $INTFNAME$_H 
+
+#include "glib-object.h"
+
+G_BEGIN_DECLS
+
+#! if hasExtendedIntfs
+	#! for i in extendedIntfs
+#include "$filename(i)$.h"
+	#! end
+#! end
+
+#! for depHeader in depHeaders
+#include "$depHeader$"
+#! end
+
+$user_code(header_top)$
+
+/* ===== Instance ===== */
+
+typedef struct _$Intfname$ $Intfname$;
+
+/* ===== Interface ===== */
+
+typedef struct _$Intfname$Iface {
+
+	GTypeInterface base_interface;
+	
+	/* Methods: */
+#! for meth in allMethods	
+	$meth.resultType$ (*$meth.name$)($signature(meth)$);
+#! end
+
+} $Intfname$Iface;
+
+GType $prefix$_get_type();
+
+#! for meth in intf.methods
+$meth.resultType$
+$prefix$_$meth.name$($signature(meth)$);
+
+#! end
+
+/* ===== Macros ===== */
+
+#! if not withNamespace
+
+#define TYPE_$BASENAME$ \
+	($prefix$_get_type())
+#define $BASENAME$(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_$BASENAME$, $Intfname$))
+#define $BASENAME$_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST((cls), TYPE_$BASENAME$, $Intfname$Iface))
+#define IS_$BASENAME$(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_$BASENAME$))
+#define $BASENAME$_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_INTERFACE((obj), TYPE_$BASENAME$, $Intfname$Iface))
+#define $BASENAME$_GET_INTERFACE(obj) \
+	(G_TYPE_INSTANCE_GET_INTERFACE((obj), TYPE_$BASENAME$, $Intfname$Iface))
+	
+#! else
+
+#define $NAMESPACE$_TYPE_$BASENAME$ \
+	($prefix$_get_type())
+#define $NAMESPACE$_$BASENAME$(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST((obj), $NAMESPACE$_TYPE_$BASENAME$, $Intfname$))
+#define $NAMESPACE$_$BASENAME$_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST((cls), $NAMESPACE$_TYPE_$BASENAME$, $Intfname$Iface))
+#define $NAMESPACE$_IS_$BASENAME$(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE((obj), $NAMESPACE$_TYPE_$BASENAME$))
+#define $NAMESPACE$_$BASENAME$_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_INTERFACE((obj), $NAMESPACE$_TYPE_$BASENAME$, $Intfname$Iface))
+#define $NAMESPACE$_$BASENAME$_GET_INTERFACE(obj) \
+	(G_TYPE_INSTANCE_GET_INTERFACE((obj), $NAMESPACE$_TYPE_$BASENAME$, $Intfname$Iface))
+
+#! end
+
+G_END_DECLS
+
+#endif
