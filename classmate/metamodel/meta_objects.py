@@ -41,6 +41,10 @@ class _PackageComponent(object):
         
 class Package(_WithContext):
     
+    """
+    A package contains classes, interfaces, error domains and enumeration types
+    """
+    
     __instances = {}
     
     def __init__(self, inName):
