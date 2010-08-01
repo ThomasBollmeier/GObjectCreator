@@ -31,10 +31,31 @@ class _GenOutput(object):
         pass
     
     def writeCode(self, inLines):
-        pass
-    
+        
+        lines = self._remove_duplicate_empty_lines(inLines)
+        
+        self._writeCode(lines)
+        
     def close(self):
         pass
+
+    def _writeCode(self, inLines):
+        pass
+
+    def _remove_duplicate_empty_lines(self, inLines):
+        
+        result = []
+        last_line_empty = False
+        
+        for line in inLines:
+            if not line.strip() == "":
+                result.append(line)
+                last_line_empty = False
+            elif not last_line_empty:
+                result.append(line)
+                last_line_empty = True
+            
+        return result
     
 class GenInputNull(_GenInput):
 
@@ -70,28 +91,11 @@ class GenOutputStd(_GenOutput):
         print "<" * 20
         print
         
-    def writeCode(self, inLines):
-        
-        lines = self._remove_duplicate_empty_lines(inLines)
+    def _writeCode(self, inLines):
         
         for line in lines:
             print line
 
-    def _remove_duplicate_empty_lines(self, inLines):
-        
-        result = []
-        last_line_empty = False
-        
-        for line in inLines:
-            if not line.strip() == "":
-                result.append(line)
-                last_line_empty = False
-            elif not last_line_empty:
-                result.append(line)
-                last_line_empty = True
-            
-        return result
-    
 class GenOutputDir(_GenOutput):
 
     def __init__(self, inDir = ".", inVerbose = False):
@@ -121,7 +125,7 @@ class GenOutputDir(_GenOutput):
         if self._verbose:
             print "done"
                 
-    def writeCode(self, inLines):
+    def _writeCode(self, inLines):
         
         for line in inLines:
             self._file.write(line + "\n")
