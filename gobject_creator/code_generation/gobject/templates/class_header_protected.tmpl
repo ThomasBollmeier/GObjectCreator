@@ -1,0 +1,61 @@
+/*
+* This file was generated automatically.
+* Please edit user code sections only!
+*/
+
+#ifndef $CLASSNAME$_PROT_H
+#define $CLASSNAME$_PROT_H
+
+#include "glib-object.h"
+
+G_BEGIN_DECLS
+
+#include "$filename(class)$.h"
+
+$user_code(header_top)$
+
+#! if hasProtAttrs
+struct _$Classname$Protected {
+  #! for attr in class.attrs
+    #! if equal attr.scope INSTANCE
+      #! if equal attr.visi PROTECTED
+  $attr.type_$ $attr.name$;
+      #! end
+    #! end  
+  #! end
+};
+#! end
+
+#! for meth in class.methods
+	#! if first
+/* protected methods: */
+	#! end
+	#! if equal meth.visi PROTECTED and not isConstructor class meth
+		#! if not meth.isSignal
+		
+$meth.resultType$ 
+$prefix$_$meth.name$($signature(meth)$);
+
+      #! if meth.virtual and not meth.abstract
+/* implementation of method "$meth.name$" */
+$meth.resultType$ 
+$prefix$_$meth.name$_im($signature(meth)$);
+      #! end
+
+		#! end
+	#! end 
+#! end
+
+#! for meth in redefinedMethods where equal meth.visi PROTECTED
+
+/* implementation of method $meth.name$ */ 
+$meth.resultType$ 
+$prefix$_$meth.name$_im($signature(meth)$);
+
+#! end
+
+$user_code(header_bottom)$
+
+G_END_DECLS
+
+#endif

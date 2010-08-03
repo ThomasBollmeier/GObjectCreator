@@ -1,0 +1,34 @@
+/*
+* This file was generated automatically.
+* Please edit user code sections only!
+*/
+
+#ifndef $ERROR_DOMAIN_NAME$_H
+#define $ERROR_DOMAIN_NAME$_H
+
+#include "glib-object.h"
+
+G_BEGIN_DECLS
+
+#define $ERROR_DOMAIN_NAME$ $error_domain_name$_quark()
+GQuark $error_domain_name$_quark();
+
+enum $ErrorDomainName$ {
+#! for code in errorDomain.errorCodeNames
+    #! if first
+        #! if not last
+    $ERROR_DOMAIN_NAME$_$code$ = 1,
+        #! else
+    $ERROR_DOMAIN_NAME$_$code$ = 1
+        #! end
+    #! elif last
+    $ERROR_DOMAIN_NAME$_$code$
+    #! else
+    $ERROR_DOMAIN_NAME$_$code$,
+    #! end
+#! end
+};
+
+G_END_DECLS
+
+#endif
