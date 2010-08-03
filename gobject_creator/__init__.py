@@ -8,7 +8,7 @@ if _root_dir not in sys.path:
 
 tstmp = datetime.now()
 
-VERSION="0.9.25-%02d%02d%04d%02d%02d%02d" \
+VERSION="0.9.25-%02d%02d%04d%02d%02d%02d" %\
         (tstmp.day, tstmp.month, tstmp.year,
          tstmp.hour, tstmp.minute, tstmp.second)
 
