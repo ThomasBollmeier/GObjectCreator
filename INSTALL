@@ -1,0 +1,26 @@
+[Installation]
+
+GObjectCreator is installed with the standard python distribution utilities. Open a terminal, navigate to the GObjectCreator directory and enter:
+
+	python setup.py install 
+
+or 
+	python setup.py install --prefix=<your_install_path>.
+
+For all available options run the setup.py script with the --help option.
+
+[Running GObjectCreator]
+
+After GObjectCreator has been installed successfully you should find a script named "gobjects_create.py" in the "bin" subdirectory within your installation path. Make sure that <your_directory>/bin is in your PATH. To generate or update your GObject files enter:
+
+	gobjects_create.py <metafile1> [<metafile2> ...]
+
+There are several options to control the code generation. See the --help option of gobjects_create.py for details.
+
+[Syntax of Meta Definition]
+
+TODO...
+
+
+
+

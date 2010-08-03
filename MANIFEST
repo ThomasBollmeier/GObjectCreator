@@ -1,6 +1,7 @@
 AUTHORS
 COPYING
 MANIFEST
+INSTALL
 README
 setup.py
 bin/gobjects_create.py
