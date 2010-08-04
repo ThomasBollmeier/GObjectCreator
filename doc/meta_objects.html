@@ -8,8 +8,22 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>meta_objects</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/bolle/Entwicklung/Python/Classmate/classmate/metamodel/meta_objects.py">/home/bolle/Entwicklung/Python/Classmate/classmate/metamodel/meta_objects.py</a></font></td></tr></table>
-    <p><tt>#&nbsp;coding=UTF-8</tt></p>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/bolle/Entwicklung/Python/GObjectCreator/gobject_creator/metamodel/meta_objects.py">/home/bolle/Entwicklung/Python/GObjectCreator/gobject_creator/metamodel/meta_objects.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;file&nbsp;is&nbsp;part&nbsp;of&nbsp;GObjectCreator.<br>
+&nbsp;<br>
+GObjectCreator&nbsp;is&nbsp;free&nbsp;software:&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify<br>
+it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by<br>
+the&nbsp;Free&nbsp;Software&nbsp;Foundation,&nbsp;either&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or<br>
+(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.<br>
+&nbsp;<br>
+GObjectCreator&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,<br>
+but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of<br>
+MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;See&nbsp;the<br>
+GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.<br>
+&nbsp;<br>
+You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License<br>
+along&nbsp;with&nbsp;GObjectCreator&nbsp;(see&nbsp;file&nbsp;COPYING).&nbsp;If&nbsp;not,&nbsp;see<br>
+&lt;<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ee77aa">
@@ -135,7 +149,15 @@ Data descriptors inherited from <a href="meta_objects.html#Value">Value</a>:<br>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="Class-__init__"><strong>__init__</strong></a>(self, inName, inSuperClass<font color="#909090">=None</font>, inAlias<font color="#909090">=''</font>, inAbstract<font color="#909090">=False</font>)</dt></dl>
+<dl><dt><a name="Class-__init__"><strong>__init__</strong></a>(self, inName, inSuperClass<font color="#909090">=None</font>, inAlias<font color="#909090">=''</font>, inAbstract<font color="#909090">=False</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;class.<br>
+&nbsp;<br>
+--&gt;&nbsp;inName:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Class">Class</a>&nbsp;name<br>
+--&gt;&nbsp;inSuperClass:&nbsp;&nbsp;&nbsp;Super&nbsp;class&nbsp;instance<br>
+--&gt;&nbsp;inAlias:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alias&nbsp;name.&nbsp;If&nbsp;given&nbsp;the&nbsp;alias&nbsp;name&nbsp;will&nbsp;be&nbsp;used<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;prefix&nbsp;of&nbsp;the&nbsp;classes&nbsp;functions&nbsp;instead&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;class&nbsp;name<br>
+--&gt;&nbsp;inAbstract:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;"True"&nbsp;the&nbsp;class&nbsp;will&nbsp;be&nbsp;defined&nbsp;as&nbsp;abstract<br>
+&lt;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Class">Class</a></tt></dd></dl>
 
 <dl><dt><a name="Class-addAttribute"><strong>addAttribute</strong></a>(self, inAttr)</dt></dl>
 
@@ -421,7 +443,10 @@ Data descriptors defined here:<br>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="ErrorDomain-__init__"><strong>__init__</strong></a>(self, inName)</dt></dl>
+<dl><dt><a name="ErrorDomain-__init__"><strong>__init__</strong></a>(self, inName)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;error&nbsp;domain.<br>
+&nbsp;<br>
+--&gt;&nbsp;inName:&nbsp;Name&nbsp;of&nbsp;error&nbsp;domain<br>
+&lt;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Error&nbsp;domain</tt></dd></dl>
 
 <dl><dt><a name="ErrorDomain-addErrorCode"><strong>addErrorCode</strong></a>(self, inErrorCode)</dt></dl>
 
@@ -521,7 +546,13 @@ Data descriptors defined here:<br>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="Interface-__init__"><strong>__init__</strong></a>(self, inName, inAlias<font color="#909090">=''</font>)</dt></dl>
+<dl><dt><a name="Interface-__init__"><strong>__init__</strong></a>(self, inName, inAlias<font color="#909090">=''</font>)</dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;interface.<br>
+&nbsp;<br>
+--&gt;&nbsp;inName:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Interface">Interface</a>&nbsp;name<br>
+--&gt;&nbsp;inAlias:&nbsp;&nbsp;&nbsp;&nbsp;Alias&nbsp;name.&nbsp;If&nbsp;given&nbsp;the&nbsp;alias&nbsp;name&nbsp;will&nbsp;be&nbsp;used<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;prefix&nbsp;of&nbsp;the&nbsp;interface's&nbsp;functions&nbsp;instead&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;interface&nbsp;name<br>
+&lt;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Interface">Interface</a></tt></dd></dl>
 
 <dl><dt><a name="Interface-addInterface"><strong>addInterface</strong></a>(self, inIntf)</dt></dl>
 
@@ -703,7 +734,9 @@ Data descriptors defined here:<br>
 <font color="#000000" face="helvetica, arial"><a name="Package">class <strong>Package</strong></a>(<a href="meta_objects.html#_WithContext">_WithContext</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>A&nbsp;package&nbsp;contains&nbsp;classes,&nbsp;interfaces,&nbsp;error&nbsp;domains&nbsp;and&nbsp;enumeration&nbsp;types<br>&nbsp;</tt></td></tr>
+<td colspan=2><tt>A&nbsp;package&nbsp;contains&nbsp;classes,&nbsp;interfaces,&nbsp;error&nbsp;domains&nbsp;and&nbsp;enumeration&nbsp;types.<br>
+Objects&nbsp;in&nbsp;a&nbsp;package&nbsp;can&nbsp;be&nbsp;accessed&nbsp;by&nbsp;the&nbsp;"."&nbsp;notation.&nbsp;If&nbsp;e.g.&nbsp;class&nbsp;"Foo"<br>
+is&nbsp;part&nbsp;of&nbsp;package&nbsp;"FooPack"&nbsp;it&nbsp;can&nbsp;be&nbsp;referred&nbsp;to&nbsp;as&nbsp;"FooPack.Foo".<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="meta_objects.html#Package">Package</a></dd>
@@ -714,7 +747,12 @@ Data descriptors defined here:<br>
 Methods defined here:<br>
 <dl><dt><a name="Package-__getattr__"><strong>__getattr__</strong></a>(self, inName)</dt></dl>
 
-<dl><dt><a name="Package-__init__"><strong>__init__</strong></a>(self, inName)</dt></dl>
+<dl><dt><a name="Package-__init__"><strong>__init__</strong></a>(self, inName)</dt><dd><tt>Returns&nbsp;a&nbsp;(new)&nbsp;package&nbsp;instance.&nbsp;The&nbsp;package&nbsp;class&nbsp;implements&nbsp;the<br>
+multiton&nbsp;pattern:&nbsp;if&nbsp;a&nbsp;package&nbsp;has&nbsp;already&nbsp;been&nbsp;created&nbsp;for&nbsp;the&nbsp;given<br>
+name&nbsp;the&nbsp;old&nbsp;and&nbsp;the&nbsp;new&nbsp;instance&nbsp;will&nbsp;share&nbsp;their&nbsp;internal&nbsp;data.<br>
+&nbsp;<br>
+--&gt;&nbsp;inName:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Package">Package</a>&nbsp;name<br>
+&lt;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Package">Package</a></tt></dd></dl>
 
 <dl><dt><a name="Package-__setattr__"><strong>__setattr__</strong></a>(self, inName, inValue)</dt></dl>
 

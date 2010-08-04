@@ -60,12 +60,23 @@ class _PackageComponent(object):
 class Package(_WithContext):
     
     """
-    A package contains classes, interfaces, error domains and enumeration types
+    A package contains classes, interfaces, error domains and enumeration types.
+    Objects in a package can be accessed by the "." notation. If e.g. class "Foo"
+    is part of package "FooPack" it can be referred to as "FooPack.Foo".
     """
     
     __instances = {}
     
     def __init__(self, inName):
+        """
+        Returns a (new) package instance. The package class implements the
+        multiton pattern: if a package has already been created for the given
+        name the old and the new instance will share their internal data.
+        
+        --> inName:     Package name
+        <--             Package
+        
+        """
         
         _WithContext.__init__(self)
         
@@ -224,6 +235,16 @@ class _Clif(_WithContext, _PackageComponent):
 class Interface(_Clif):
     
     def __init__(self, inName, inAlias=""):
+        """
+        Creates a new interface.
+        
+        --> inName:     Interface name
+        --> inAlias:    Alias name. If given the alias name will be used
+                        in the prefix of the interface's functions instead of
+                        the interface name
+        <--             Interface
+        
+        """
         
         _Clif.__init__(self, inName, inAlias)
         
@@ -305,6 +326,18 @@ class Class(_Clif):
     
     def __init__(self, inName, inSuperClass = None, inAlias="",
                  inAbstract = False):
+        """
+        Creates a new class.
+        
+        --> inName:         Class name
+        --> inSuperClass:   Super class instance
+        --> inAlias:        Alias name. If given the alias name will be used
+                            in the prefix of the classes functions instead of
+                            the class name
+        --> inAbstract:     If "True" the class will be defined as abstract
+        <--                 Class
+        
+        """
         
         _Clif.__init__(self, inName, inAlias)
         
@@ -399,6 +432,13 @@ class Class(_Clif):
 class ErrorDomain(_WithContext, _PackageComponent):
     
     def __init__(self, inName):
+        """
+        Creates a new error domain.
+        
+        --> inName: Name of error domain
+        <--         Error domain
+        
+        """
         
         _WithContext.__init__(self)
         _PackageComponent.__init__(self, inName)

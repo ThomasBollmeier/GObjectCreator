@@ -1,4 +1,4 @@
-[Installation]
+1. Installation
 
 GObjectCreator is installed with the standard python distribution utilities. Open a terminal, navigate to the GObjectCreator directory and enter:
 
@@ -9,7 +9,7 @@ or
 
 For all available options run the setup.py script with the --help option.
 
-[Running GObjectCreator]
+2. Running GObjectCreator
 
 After GObjectCreator has been installed successfully you should find a script named "gobjects_create.py" in the "bin" subdirectory within your installation path. Make sure that <your_directory>/bin is in your PATH. To generate or update your GObject files enter:
 
@@ -17,9 +17,9 @@ After GObjectCreator has been installed successfully you should find a script na
 
 There are several options to control the code generation. See the --help option of gobjects_create.py for details.
 
-[Syntax of Meta Definition]
+3. Syntax of Meta Definition
 
-TODO...
+There is still a lack of proper documentation (tutorials, etc.). You might however find the doc/meta_objects.html file helpful. It contains the pydoc generated documentation of the meta objects.
 
 
 
