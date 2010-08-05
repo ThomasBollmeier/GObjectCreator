@@ -220,6 +220,21 @@ void $prefix$_class_init($Classname$Class* in_class) {
 		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
 				#! end
 		);
+			#! elif equal prop.type_ '6'
+	pspec_$lower($$prop.varname$$)$ = g_param_spec_enum(
+		"$prop.name$",
+		"$prop.descr$",
+		"$prop.descr$",
+		$prop.gobjectType$,
+		$defaultProp(prop)$,
+				#! if equal prop.access '0'
+		G_PARAM_READABLE|G_PARAM_STATIC_STRINGS
+				#! elif equal prop.access '1'
+		G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY|G_PARAM_STATIC_STRINGS
+				#! else
+		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
+				#! end
+		);
 			#! end
 		
 	g_object_class_install_property(

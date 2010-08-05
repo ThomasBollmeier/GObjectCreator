@@ -1,6 +1,6 @@
 """
 Sample meta definition.
-To (re)generate files enter: gobjects_create.py [-d <gendir>] audio.py
+To (re)generate files enter: ./generate_audio_example.sh
 """
 
 with Package("Audio"):
@@ -13,9 +13,16 @@ with Package("Audio"):
     with Enumeration("Format"):
     
         EnumCode("MP3")
-        EnumCode("OGG")
-
-    with Interface("Player"):
+        EnumCode("OGG_VORBIS")
+        
+    with Enumeration("PlayerStatus"):
+        
+        EnumCode("READY")
+        EnumCode("PLAYING")
+        EnumCode("PAUSED")
+        EnumCode("STOPPED")
+        
+    with Interface("IPlayer"):
     
         with IntfMethod("start"):
             Param("track_uri", "const gchar*")
@@ -28,9 +35,12 @@ with Package("Audio"):
         with IntfMethod("pause"):
             Result("gboolean")
             
-    with Class("MyPlayer"):
+    with Class("OggPlayer", inAlias="oggplay"):
         
-        Implements(Audio.Player)
+        Implements(Audio.IPlayer)
+        
+        Property("status", "player's status", inType=PROP_INT,
+                 inAccess=PROP_ACCESS_READ)
         
         with Signal("started"):
             Param("track_uri", "const gchar*")

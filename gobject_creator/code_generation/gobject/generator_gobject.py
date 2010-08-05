@@ -112,16 +112,38 @@ class Generator(object):
         
     def createEnumeration(self, inEnum, inOutput):
         
-        fileName = self._filename(None, inEnum) + ".h"
+        
         
         scope = Scope()
         self._initEnumerationScope(scope, inEnum)
         
-        codeLines = Parser(scope).parseFile(self._templatePath("enum.tmpl"))
+        if not inEnum.isFlagType:
+            
+            fileName = self._filename(None, inEnum) + ".h"
+                    
+            codeLines = Parser(scope).parseFile(self._templatePath("enum_class_header.tmpl"))
+            
+            inOutput.open(fileName)
+            inOutput.writeCode(codeLines)
+            inOutput.close()
+
+            fileName = self._filename(None, inEnum) + ".c"
+                    
+            codeLines = Parser(scope).parseFile(self._templatePath("enum_class_source.tmpl"))
+            
+            inOutput.open(fileName)
+            inOutput.writeCode(codeLines)
+            inOutput.close()
         
-        inOutput.open(fileName)
-        inOutput.writeCode(codeLines)
-        inOutput.close()
+        else:
+            
+            fileName = self._filename(None, inEnum) + ".h"
+                    
+            codeLines = Parser(scope).parseFile(self._templatePath("flags.tmpl"))
+            
+            inOutput.open(fileName)
+            inOutput.writeCode(codeLines)
+            inOutput.close()
         
     def _allInterfaces(self, inClass):
         
@@ -437,6 +459,11 @@ class Generator(object):
         inScope.addSymbol("ENUM_ABS_NAME", 
                           self._camelCaseToUnderScore(inEnum.absoluteName).upper()
                           )
+        inScope.addSymbol("NAMESPACE", self._packagePrefix(None, inEnum).upper())
+        inScope.addSymbol("withNamespace", bool(self._packagePrefix(None, inEnum).upper()))
+        inScope.addSymbol("BASENAME", inEnum.name.upper())
+        inScope.addSymbol("prefix", inEnum.prefix().lower())
+        inScope.addSymbol("numCodes", str(len(inEnum.codes)))
         
     def _initErrorDomainScope(self, inScope, inErrorDomain, inUserCode):
         
@@ -629,6 +656,8 @@ class Generator(object):
                 raise GeneratorError
             elif inType == PROP_OBJECT:
                 raise GeneratorError
+            elif inType == PROP_ENUM:
+                return str(inValue)
         else:
             return inDefaults[inType]
 

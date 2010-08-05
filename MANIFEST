@@ -26,7 +26,9 @@ gobject_creator/code_generation/gobject/gobject_marshaller_generator.py
 gobject_creator/code_generation/gobject/templates/class_header.tmpl
 gobject_creator/code_generation/gobject/templates/class_header_protected.tmpl
 gobject_creator/code_generation/gobject/templates/class_source.tmpl
-gobject_creator/code_generation/gobject/templates/enum.tmpl
+gobject_creator/code_generation/gobject/templates/enum_class_header.tmpl
+gobject_creator/code_generation/gobject/templates/enum_class_source.tmpl
+gobject_creator/code_generation/gobject/templates/flags.tmpl
 gobject_creator/code_generation/gobject/templates/error_domain_header.tmpl
 gobject_creator/code_generation/gobject/templates/error_domain_source.tmpl
 gobject_creator/code_generation/gobject/templates/intf_header.tmpl

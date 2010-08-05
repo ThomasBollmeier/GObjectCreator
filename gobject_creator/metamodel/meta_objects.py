@@ -34,9 +34,13 @@ class DefinitionError(Exception): pass
 
 class _PackageComponent(object):
     
-    def __init__(self, inName):
+    def __init__(self, inName, inAlias=""):
         
         self.name = inName
+        if inAlias:
+            self.alias = inAlias
+        else:
+            self.alias = self.name
         self._package = None
         
     def getPackage(self):
@@ -56,6 +60,30 @@ class _PackageComponent(object):
         return res
     
     absoluteName = property(getAbsoluteName)
+
+    def prefix(self):
+        
+        result = self.alias.lower()
+        package = self._package
+        while package:
+            if package.name:
+                result = package.name.lower() + "_" + result
+            package = package._package
+        return result
+    
+    def getGTypeName(self):
+        
+        res = "TYPE_" + self.name.upper()
+
+        package = self._package
+        while package:
+            if package.name:
+                res = package.name.upper() + "_" + res
+            package = package._package
+        
+        return res
+    
+    gtypeName = property(getGTypeName)
         
 class Package(_WithContext):
     
@@ -165,13 +193,8 @@ class _Clif(_WithContext, _PackageComponent):
     def __init__(self, inName, inAlias=""):
         
         _WithContext.__init__(self)
-        _PackageComponent.__init__(self, inName)
+        _PackageComponent.__init__(self, inName, inAlias)
         
-        if not inAlias:
-            self.alias = self.name
-        else:
-            self.alias = inAlias
-            
         self.methods = []
 
         package = _getLast(Package)
@@ -182,15 +205,6 @@ class _Clif(_WithContext, _PackageComponent):
 
         self.absName = self.getAbsoluteName # Alias aus Kompatibilitätsgründen
         
-    def prefix(self):
-        
-        result = self.alias.lower()
-        package = self._package
-        while package:
-            if package.name:
-                result = package.name.lower() + "_" + result
-            package = package._package
-        return result
     
     def typeName(self):
         
@@ -530,7 +544,9 @@ class EnumCode(object):
         res = self._camelCaseToUnderScore(self.enum.absoluteName).upper()
         res += "_" + self.name
         
-        return res        
+        return res
+    
+    codeConstant = property(codeName)
         
     def _camelCaseToUnderScore(self, inName):
         
@@ -643,7 +659,8 @@ PROP_INT, \
 PROP_DOUBLE, \
 PROP_STRING, \
 PROP_POINTER, \
-PROP_OBJECT = range(6)
+PROP_OBJECT, \
+PROP_ENUM = range(7)
 
 PROP_ACCESS_READ, \
 PROP_ACCESS_CONSTRUCTOR, \
@@ -670,6 +687,10 @@ class Property(object):
         self.max = inMax
         self.default = inDefault
         self.gobjectType = inGObjectType
+        
+        if self.type_ == PROP_OBJECT or self.type_ == PROP_ENUM:
+            if not self.gobjectType:
+                raise DefinitionError
         
         cls = _getLast()
         if not isinstance(cls, Class):

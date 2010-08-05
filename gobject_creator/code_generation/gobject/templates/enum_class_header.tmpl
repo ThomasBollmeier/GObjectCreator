@@ -10,8 +10,6 @@
 
 G_BEGIN_DECLS
 
-#! if not enum.isFlagType
-
 typedef enum _$EnumAbsName$ {
 #! for code in enum.codes
     #! if first
@@ -44,19 +42,15 @@ typedef enum _$EnumAbsName$ {
 #! end
 } $EnumAbsName$;
 
+GType $prefix$_get_type();
+
+#! if withNamespace
+
+#define $NAMESPACE$_TYPE_$BASENAME$ $prefix$_get_type()
+
 #! else
 
-typedef guint $EnumAbsName$Flags;
-
-enum {
-#! for code in enum.codes
-    #! if not last
-    $ENUM_ABS_NAME$_$upper($$code.name$$)$ = 1 << $code.value$,
-    #! else
-    $ENUM_ABS_NAME$_$upper($$code.name$$)$ = 1 << $code.value$
-    #! end
-#! end
-};
+#define TYPE_$BASENAME$ $prefix$_get_type()
 
 #! end
 
