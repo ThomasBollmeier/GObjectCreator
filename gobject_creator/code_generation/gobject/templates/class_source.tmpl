@@ -36,7 +36,7 @@ $meth.resultType$ $prefix$_$meth.name$($signature(meth)$);
 	#! end 
 #! end
 #! for intf in allInterfaces
-	#! for meth in intf.methods
+	#! for meth in intf.methods where not meth.isSignal
 $meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$);
 	#! end
 #! end
@@ -289,7 +289,9 @@ void $prefix$_class_init($Classname$Class* in_class) {
 void $prefix$_$_prefix(intf)$_init($intf.absoluteName$Iface* in_iface) {
 	
 	#! for info in getMethodInfo intf
+		#! if not info.method.isSignal
 	in_iface->$info.name$ = $prefix$_$info.name$_im;
+		#! end
 	#! end
 
 }
@@ -574,7 +576,7 @@ $meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
 #! end
 
 #! for intf in allInterfaces
-	#! for meth in intf.methods
+	#! for meth in intf.methods where not meth.isSignal
 $meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
 		#! user_code $meth.name$
 	

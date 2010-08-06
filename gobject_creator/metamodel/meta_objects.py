@@ -546,8 +546,6 @@ class EnumCode(object):
         
         return res
     
-    codeConstant = property(codeName)
-        
     def _camelCaseToUnderScore(self, inName):
         
         result = ""
@@ -685,8 +683,16 @@ class Property(object):
         self.access = inAccess
         self.min = inMin
         self.max = inMax
-        self.default = inDefault
-        self.gobjectType = inGObjectType
+
+        if isinstance(inDefault, EnumCode):
+            self.default = inDefault.codeName()
+        else:
+            self.default = inDefault
+
+        if isinstance(inGObjectType, _PackageComponent):
+            self.gobjectType = inGObjectType.gtypeName
+        else:
+            self.gobjectType = inGObjectType
         
         if self.type_ == PROP_OBJECT or self.type_ == PROP_ENUM:
             if not self.gobjectType:

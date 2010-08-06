@@ -32,16 +32,29 @@ typedef struct _$Intfname$Iface {
 
 	GTypeInterface base_interface;
 	
+#! for meth in allMethods where not meth.isSignal
+	#! if first
 	/* Methods: */
-#! for meth in allMethods	
+	
+	#! end
 	$meth.resultType$ (*$meth.name$)($signature(meth)$);
+	
 #! end
+	
+#! for meth in allMethods where meth.isSignal 	
+	#! if first
+	/* Signals: */
 
+	#! end
+	$meth.resultType$ (*$meth.name$)($signature(meth)$);
+
+#! end
+	
 } $Intfname$Iface;
 
 GType $prefix$_get_type();
 
-#! for meth in intf.methods
+#! for meth in intf.methods where not meth.isSignal
 $meth.resultType$
 $prefix$_$meth.name$($signature(meth)$);
 

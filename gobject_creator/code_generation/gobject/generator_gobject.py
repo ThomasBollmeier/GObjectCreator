@@ -98,6 +98,8 @@ class Generator(object):
         self._writeCode(fileName, inIntf, self._createIntfImplCode,
                         inInput, inOutput) 
         
+        self._createMarshallers(inIntf, inOutput)
+        
     def createErrorDomain(self, inErrorDomain, inInput, inOutput):
         
         fileName = self._filename(None, inErrorDomain) + ".h"
@@ -111,8 +113,6 @@ class Generator(object):
                         inInput, inOutput) 
         
     def createEnumeration(self, inEnum, inOutput):
-        
-        
         
         scope = Scope()
         self._initEnumerationScope(scope, inEnum)
@@ -251,19 +251,19 @@ class Generator(object):
         
         return Parser(scope).parseFile(self._templatePath("error_domain_source.tmpl"))
     
-    def _createMarshallers(self, inClass, inOutput):
+    def _createMarshallers(self, inClif, inOutput):
         
-        mg = MarshallerGenerator(inClass)
+        mg = MarshallerGenerator(inClif)
         
         lines = mg.getCode(inHeader=True)
         if lines:
-            inOutput.open(self._filename(None, inClass) + "_marshaller.h")
+            inOutput.open(self._filename(None, inClif) + "_marshaller.h")
             inOutput.writeCode(lines)
             inOutput.close()
 
         lines = mg.getCode(inHeader=False)
         if lines:
-            inOutput.open(self._filename(None, inClass) + "_marshaller.c")
+            inOutput.open(self._filename(None, inClif) + "_marshaller.c")
             inOutput.writeCode(lines)
             inOutput.close()
 
@@ -378,12 +378,6 @@ class Generator(object):
         inScope.addSymbol("allInterfaces", self._allInterfaces(inClass))
         inScope.addSymbol("getMethodInfo", self._getMethodInfo)
                 
-        inScope.addSymbol("marshallerArgs", self._marshallerArgs)
-        inScope.addSymbol("marshallerHasArgs", self._marshallerHasArgs)
-        inScope.addSymbol("marshallerName", self._marshallerName)
-        inScope.addSymbol("marshallerNumArgs", self._marshallerNumArgs)
-        inScope.addSymbol("marshallerResult", self._marshallerResult)
-        
         self._initClassTypeDependencies(inScope, inClass)
         
     def _initCommon(self, inScope, inUserCode):
@@ -401,6 +395,12 @@ class Generator(object):
         inScope.addSymbol("INSTANCE", INSTANCE)
         
         inScope.addSymbol("annotation", self._annotation)
+
+        inScope.addSymbol("marshallerArgs", self._marshallerArgs)
+        inScope.addSymbol("marshallerHasArgs", self._marshallerHasArgs)
+        inScope.addSymbol("marshallerName", self._marshallerName)
+        inScope.addSymbol("marshallerNumArgs", self._marshallerNumArgs)
+        inScope.addSymbol("marshallerResult", self._marshallerResult)
         
     def _initClassTypeDependencies(self, inScope, inClass):
         
@@ -505,6 +505,7 @@ class Generator(object):
         inScope.addSymbol("hasExtendedIntfs", bool(extendedIntfs))
         allMethods = [info.method for info in inIntf.getMethodInfo()]
         inScope.addSymbol("allMethods", allMethods)
+        inScope.addSymbol("hasSignals", bool([m for m in inIntf.methods if m.isSignal]))
         
         inScope.addSymbol("signature", self._signature)
         

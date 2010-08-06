@@ -5,33 +5,91 @@
 
 #include "$filename(intf)$.h"
 
-static guint $prefix$_base_init_count = 0;
+#! user_code source_top
+	#! if hasSignals
+/* Marshaller functions to be used by signals: */	
+#include "$filename(intf)$_marshaller.h"
+	#! end
+#! end
+
+#! if hasSignals
+/* Signals: */
+
+enum {
+	#! for meth in intf.methods where meth.isSignal
+	$upper($$meth.name$$)$,
+	#! end
+	LAST_SIGNAL
+};
+static guint $intfname$_signals[LAST_SIGNAL] = {0};
+
+#! end
 
 void $prefix$_base_init($Intfname$Iface* in_class) {
 
-	$prefix$_base_init_count++;
+	static gboolean initialized = FALSE;
 	
-	if ($prefix$_base_init_count == 1) {
+	if (initialized)
+		return;
+
+#! for meth in intf.methods where meth.isSignal
+
+	#! if first
+	/* Signal definition: */
+	
+	#! end
+	
+	#! user_code signal_$meth.name$
+
+	$intfname$_signals[$upper($$meth.name$$)$] = 
+		g_signal_new(
+			"$meth.signalName$",
+			$intf.gtypeName$,
+			G_SIGNAL_RUN_LAST|G_SIGNAL_DETAILED,
+			G_STRUCT_OFFSET($Intfname$Iface, $meth.name$),
+			NULL,
+			NULL,
+			$marshallerName(intf, meth)$,
+			$marshallerResult(intf, meth)$,
+		#! if marshallerHasArgs intf meth
+			$marshallerNumArgs(intf, meth)$,
+			#! for argGType in marshallerArgs intf meth
+				#! if not last
+			$argGType$,
+				#! else
+			$argGType$
+				#! end
+			#! end
+		#! else
+			0
+		#! end
+			);
+		
+	#! end
+
+#! end
+
 #! user_code interface_init
-		/* do some stuff... */
+	/* further initializations... */
 #! end	
-	}
+	
+	initialized = TRUE;
 
 }  
 
 void $prefix$_base_finalize($Intfname$Iface* in_class) {
 
-	if ($prefix$_base_init_count == 0)
+	static gboolean finalized = FALSE;
+	
+	if (finalized)
 		return;
 
-	$prefix$_base_init_count--;
-	
-	if ($prefix$_base_init_count == 0) {
 #! user_code interface_finalize
-		/* do some stuff... */
+	/* do some final stuff... */
 #! end	
-	}
 
+	finalized = TRUE;
+	
 }  
 
 GType $prefix$_get_type() {
@@ -61,7 +119,7 @@ GType $prefix$_get_type() {
 	return $prefix$_type;
 }
 
-#! for meth in intf.methods
+#! for meth in intf.methods where not meth.isSignal
 $meth.resultType$
 $prefix$_$meth.name$($signature(meth)$) {
 

@@ -7,6 +7,7 @@ with Package("Audio"):
     
     with ErrorDomain("Error"):
         
+        ErrorCode("INVALID_STATUS")
         ErrorCode("URI_NOT_FOUND")
         ErrorCode("UNKNOWN_FORMAT")
 
@@ -20,7 +21,6 @@ with Package("Audio"):
         EnumCode("READY")
         EnumCode("PLAYING")
         EnumCode("PAUSED")
-        EnumCode("STOPPED")
         
     with Interface("IPlayer"):
     
@@ -34,20 +34,29 @@ with Package("Audio"):
         
         with IntfMethod("pause"):
             Result("gboolean")
-            
-    with Class("OggPlayer", inAlias="oggplay"):
-        
-        Implements(Audio.IPlayer)
-        
-        Property("status", "player's status", inType=PROP_INT,
-                 inAccess=PROP_ACCESS_READ)
-        
+
         with Signal("started"):
             Param("track_uri", "const gchar*")
+            Param("resumed", "gboolean")
             
         with Signal("stopped"):
             Param("track_uri", "const gchar*")
             
         with Signal("paused"):
             Param("track_uri", "const gchar*")
+            
+    with Class("OggPlayer", inAlias="oggplay"):
+        
+        Implements(Audio.IPlayer)
+        
+        Property("status",
+                 "player's status", 
+                 inType = PROP_ENUM,
+                 inGObjectType = Audio.PlayerStatus,
+                 inDefault = Audio.PlayerStatus.READY,         
+                 inAccess=PROP_ACCESS_READ
+                 )
+            
+        Attr("status", Audio.PlayerStatus)
+        Attr("current", "gchar*")
         
