@@ -943,4 +943,4 @@ def _pop():
     except IndexError:
         return None
 
-from classmate.metamodel.object_catalog import ObjectCatalog
+from metamodel.object_catalog import ObjectCatalog
