@@ -1,10 +1,10 @@
 #coding=UTF-8
 
-from classmate.metamodel.meta_objects import *
-from classmate.code_generation.generation_inout import *
+from metamodel.meta_objects import *
+from code_generation.generation_inout import *
 
-from classmate.code_generation.scope import Scope
-from classmate.code_generation.parser import Parser
+from code_generation.scope import Scope
+from code_generation.parser import Parser
 
 import os.path
 
