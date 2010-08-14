@@ -19,6 +19,8 @@ void on_paused(
 	gpointer user_data
 	);
 
+void log_error(GError** error);
+
 int main() {
 
 	AudioIPlayer* player;
@@ -29,20 +31,39 @@ int main() {
 
 	player = AUDIO_IPLAYER(audio_oggplay_new());
 
-	g_signal_connect(player, "started", G_CALLBACK(on_started), stream_info);
-	g_signal_connect(player, "stopped", G_CALLBACK(on_stopped), stream_info);
-	g_signal_connect(player, "paused", G_CALLBACK(on_paused), stream_info);
+	g_signal_connect(player, 
+                "started",
+                G_CALLBACK(on_started),
+                stream_info
+                );
+	g_signal_connect(player, 
+                "stopped",
+                G_CALLBACK(on_stopped),
+                stream_info
+                );
+	g_signal_connect(player, 
+                "paused",
+                G_CALLBACK(on_paused),
+                stream_info
+                );
 
-	audio_iplayer_start(player, "bird_of_paradise.ogg", AUDIO_FORMAT_OGG_VORBIS, &error);
-	if (error)
-		goto cleanup;
+	audio_iplayer_start(player, 
+                "bird_of_paradise.ogg",
+                AUDIO_FORMAT_OGG_VORBIS,
+                &error
+                );
 
-	audio_iplayer_start(player, "relaxin_at_camarillo.ogg", AUDIO_FORMAT_OGG_VORBIS, &error);
-	if (error) {
-		g_printerr("%s\n", error->message);
-		g_error_free(error);
-		error = NULL;
-	}
+        if (error)
+		log_error(&error);
+
+	audio_iplayer_start(player, 
+                "relaxin_at_camarillo.ogg",
+                AUDIO_FORMAT_OGG_VORBIS,
+                &error
+                );
+
+        if (error)
+		log_error(&error);
 
 	audio_iplayer_pause(player);
 
@@ -50,20 +71,18 @@ int main() {
 
 	audio_iplayer_stop(player);	
 
-	audio_iplayer_start(player, "moondreams.mp3", AUDIO_FORMAT_MP3, &error);
-	if (error)
-		goto cleanup;
+	audio_iplayer_start(player, 
+                "moondreams.mp3",
+                AUDIO_FORMAT_MP3,
+                &error
+                );
 
-cleanup:
-	g_object_unref(player);
+        if (error)
+		log_error(&error);
 
-	if (!error)
-		return 0;
-	else { 
-		g_printerr("%s\n", error->message);
-		g_error_free(error);
-		return 1;
-	}
+        g_object_unref(player);
+
+        return 0;
 
 }
 
@@ -107,3 +126,10 @@ void on_paused(
 
 }
 
+void log_error(GError** error) {
+
+        g_printerr("%s\n", (*error)->message);
+        g_error_free(*error);
+        *error = NULL;
+
+}

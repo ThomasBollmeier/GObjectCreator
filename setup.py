@@ -1,9 +1,8 @@
 from distutils.core import setup
 import gobject_creator
 
-description = """
-Generation of source files in various languages from meta definition files
-"""
+description = "Generation of source files in various languages"
+description += " from meta definition files"
 
 setup(
     name = "GObjectCreator",
@@ -11,6 +10,8 @@ setup(
     description = description,
     author = "Thomas Bollmeier",
     author_email = "TBollmeier@web.de",
+    url = "http://www.bollmeier.de/GObjectCreator",
+    license = "GPLv3",
     packages = ["gobject_creator", 
                 "gobject_creator/code_generation",
                 "gobject_creator/code_generation/csharp",

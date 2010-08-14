@@ -1,3 +1,0 @@
-include bin/gobjects_create.py
-recursive-include gobject_creator *.py *.tmpl
-graft doc
