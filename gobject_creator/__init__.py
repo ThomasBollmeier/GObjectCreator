@@ -5,5 +5,5 @@ _root_dir = os.path.dirname(__file__)
 if _root_dir not in sys.path:
     sys.path = [_root_dir] + sys.path
 
-VERSION="0.9.27"
+VERSION="1.0.1"
 
