@@ -491,8 +491,11 @@ class Generator(object):
         inScope.addSymbol("errorDomain", inErrorDomain)
         
         namespace = self._packagePrefix(None, inErrorDomain)
-        error_domain_name = namespace + "_" + self._camelCaseToUnderScore(inErrorDomain.name)
-        
+        if namespace:
+            error_domain_name = namespace + "_" + self._camelCaseToUnderScore(inErrorDomain.name)
+        else:
+            error_domain_name = self._camelCaseToUnderScore(inErrorDomain.name)
+            
         errorDomainName = inErrorDomain.name
         package = inErrorDomain.package
         while package:
