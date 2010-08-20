@@ -98,6 +98,13 @@ def _create_option_parser():
                    dest = "verbose",
                    help = "write generation info to standard output"
                    )
+    
+    res.add_option("", "--header-comment",
+                   dest = "header_comment_file",
+                   default = "",
+                   metavar = "FILE",
+                   help = "add header comment from FILE to generated code"
+                   )
             
     return res
     
@@ -121,7 +128,7 @@ packages, classes, interfaces, error_domains, enums = \
     read_metadata_from_py_def_files(def_files, options.paths, options.obj_name)
     
 if options.language == Language.GOBJECT:
-    generator = gobject.Generator()
+    generator = gobject.Generator(options.header_comment_file)
 elif options.language == Language.VALA:
     generator = vala.Generator()
 elif options.language == Language.CSHARP:
