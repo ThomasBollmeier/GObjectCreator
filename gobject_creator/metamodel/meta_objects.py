@@ -18,6 +18,9 @@ along with GObjectCreator (see file COPYING). If not, see
 <http://www.gnu.org/licenses/>.
 """
 
+import inspect
+import os.path
+
 class _WithContext(object):
     
     def __enter__(self):
@@ -43,6 +46,11 @@ class _PackageComponent(object):
             self.alias = self.name
         self._package = None
         
+        try:
+            self.metadef_file = os.path.abspath(inspect.stack()[-1][1])
+        except:
+            self.metadef_file = None
+            
     def getPackage(self):
     
         return self._package

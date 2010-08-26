@@ -34,23 +34,34 @@ class PreProcessor(object):
         for path in in_paths:
             if path not in self._search_paths:
                 self._search_paths.append(path)
+                
+    @staticmethod
+    def get_include_names(in_def_file):
+     
+        result = []
+        
+        f = open(in_def_file, "r")
+        lines = f.readlines()
+        f.close()
+        
+        for line in lines:
+            line = line.strip()
+            match_obj = PreProcessor._INCLUDE_REGEX.match(line)
+            if match_obj:
+                result.append(match_obj.group(1))
+                
+        return result
 
     def scan_for_includes(self, in_def_file):
     
         result = []
         search_paths = self._search_paths
+        
         if os.path.dirname(in_def_file) not in search_paths:
             search_paths.insert(0, os.path.dirname(in_def_file))
     
-        f = open(in_def_file, "r")
-        lines = f.readlines()
-        f.close()
-    
-        for line in lines:
-            line = line.strip()
-            match_obj = PreProcessor._INCLUDE_REGEX.match(line)
-            if match_obj:
-                result.append(self.full_name(match_obj.group(1), search_paths))
+        for include_name in PreProcessor.get_include_names(in_def_file):
+            result.append(self.full_name(include_name, search_paths))
             
         return result
     

@@ -455,35 +455,48 @@ void $prefix$_set_property(
 	const GValue* in_value,
 	GParamSpec* in_param_spec
 	) {
-	
+
 #! if hasWriteProperties	
+	
 	#! if not withNamespace
 	$Classname$* self = $BASENAME$(in_object);
 	#! else
 	$Classname$* self = $NAMESPACE$_$BASENAME$(in_object);
 	#! end
-#!end
-#! user_code property_set_data_decls
+
+	#! user_code property_set_data_decls
 	/* data declarations... */
-#! end
+	#! end
 
 	switch(in_property_id) {
-#! for prop in class.props
-	#! if not equal prop.access '0'
+	#! for prop in class.props
+		#! if not equal prop.access '0'
 	case PROP_$upper($$prop.varname$$)$:
-		#! user_code property_set_$prop.varname$
+			#! user_code property_set_$prop.varname$
 		/* call setter...*/
 		g_object_notify(in_object, "$prop.name$");
-		#! end
+			#! end
 		break;
+		#! end
 	#! end
-#! end
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID(
-			in_object, in_property_id, in_param_spec );
+			in_object, 
+			in_property_id, 
+			in_param_spec 
+			);
 		break;
 	}
-	
+
+#! else
+
+	G_OBJECT_WARN_INVALID_PROPERTY_ID(
+		in_object, 
+		in_property_id,
+		in_param_spec
+		);
+		
+#! end
 }
 	 
 void $prefix$_get_property(
@@ -504,6 +517,8 @@ void $prefix$_get_property(
 	/* data declarations... */
 #! end
 
+#! if hasProperties
+
 	switch(in_property_id) {
 #! for prop in class.props
 	case PROP_$upper($$prop.varname$$)$:
@@ -514,10 +529,22 @@ void $prefix$_get_property(
 #! end
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID(
-			in_object, in_property_id, in_param_spec );
+			in_object, 
+			in_property_id, 
+			in_param_spec 
+			);
 		break;
 	}	
+
+#! else
 	
+	G_OBJECT_WARN_INVALID_PROPERTY_ID(
+		in_object, 
+		in_property_id, 
+		in_param_spec 
+		);
+
+#! end
 }
 
 /* ===== Methods ===== */
