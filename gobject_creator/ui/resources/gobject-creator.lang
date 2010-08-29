@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2010 Thomas Bollmeier (TBollmeier@web.de)
+
+This file is part of GObjectCreator.
+
+GObjectCreator is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+GObjectCreator is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with GObjectCreator (see file COPYING). If not, see
+<http://www.gnu.org/licenses/>
+-->
+
+<language 
+id="gobject-creator" 
+version="2.0" 
+_name="GObjectCreator" 
+_section="Others">
+
+<metadata>
+  <property name="globs">*.goc</property>
+  <property name="globs">*.py</property>
+  <property name="line-comment-start">#</property>  
+</metadata>
+
+<styles>
+  <style id="string" _name="String" map-to="def:string"/>
+  <style id="escaped-character" _name="Escaped Character" 
+	 map-to="def:special-char"/>
+  <style id="keyword" _name="Type" map-to="def:keyword" />
+</styles>
+
+<definitions>
+  <context id="gobject-creator">
+    <include>
+      <context id="keywords" style-ref="keyword">
+	<keyword>Package</keyword>
+	<keyword>Class</keyword>
+	<keyword>Implements</keyword>
+	<keyword>Overwrite</keyword>
+	<keyword>Override</keyword>
+	<keyword>Constructor</keyword>
+	<keyword>ConstructorParam</keyword>
+	<keyword>InitProperty</keyword>
+	<keyword>Method</keyword>
+	<keyword>StaticMethod</keyword>
+	<keyword>IntfMethod</keyword>
+	<keyword>Result</keyword>
+	<keyword>Param</keyword>
+	<keyword>Signal</keyword>
+	<keyword>Attr</keyword>
+	<keyword>StaticAttr</keyword>
+	<keyword>Property</keyword>
+	<keyword>Interface</keyword>
+	<keyword>Extends</keyword>
+	<keyword>Enumeration</keyword>
+	<keyword>EnumCode</keyword>
+	<keyword>ErrorDomain</keyword>
+	<keyword>ErrorCode</keyword>
+      </context>
+      <context id="string" 
+	       style-ref="string"
+	       end-at-line-end="true"
+	       >
+	<start>"</start>
+	<end>"</end>
+	<include>
+	  <context id="escaped-character"
+		   style-ref="escaped-character"
+		   >
+	    <match>\\.</match>
+	  </context>
+	</include>
+      </context>
+    </include>
+  </context>  
+</definitions>
+
+</language>

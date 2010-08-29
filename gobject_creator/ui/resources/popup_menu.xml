@@ -1,0 +1,19 @@
+<ui>
+  <popup name="popup">
+    <menuitem name="package" action="package-new"/>
+    <menu name="class" action="class">
+      <menuitem name="new" action="class-new"/>
+      <menuitem name="implements" action="class-implements"/>
+      <menu name="constructor" action="class-constructor">
+	<menuitem name="new" action="class-constructor-new"/>
+	<menuitem name="param" action="class-constructor-param"/>
+	<menuitem name="initprop" action="class-constructor-initprop"/>
+      </menu>
+      <menuitem name="attr" action="class-attr"/>
+      <menuitem name="prop" action="class-prop"/>
+    </menu>
+    <menu name="interface" action="interface">
+      <menuitem name="new" action="interface-new"/>
+    </menu>
+  </popup>
+</ui>

@@ -15,7 +15,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with GObjectCreator (see file COPYING). If not, see
-<http://www.gnu.
+<http://www.gnu.org/licenses/>.
 """
 
 import os
@@ -23,7 +23,7 @@ import os
 def codesnippet_package(line_begin):
     
     block = Textblock(line_begin)
-    block.append('with Package("<your_package_name>"):')
+    block.append('with Package("<package_name>"):')
     block.indent()
     block.append()
     block.append("pass # Add objects...")
@@ -33,7 +33,7 @@ def codesnippet_package(line_begin):
 def codesnippet_class(line_begin):
     
     block = Textblock(line_begin)
-    block.append('with Class("<your_class_name>"):')
+    block.append('with Class("<class_name>"):')
     block.indent()
     block.append()
     block.append("pass # Add members...")
@@ -43,10 +43,63 @@ def codesnippet_class(line_begin):
 def codesnippet_interface(line_begin):
     
     block = Textblock(line_begin)
-    block.append('with Interface("<your_interface_name>"):')
+    block.append('with Interface("<interface_name>"):')
     block.indent()
     block.append()
-    block.append("pass # Add methods...")
+    block.append("pass # Add members...")
+    
+    return str(block)
+
+def codesnippet_implements(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append("Implements(<interface>)")
+    
+    return str(block)
+
+def codesnippet_constructor(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append("with Constructor():")
+    block.indent()
+    block.append('ConstructorParam("<name>", "<type>")')
+    
+    return str(block)
+
+def codesnippet_constructor_param(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('ConstructorParam("<name>", "<type>")')
+    
+    return str(block)
+
+def codesnippet_init_property(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('InitProperty("<name>", "<value>")')
+    
+    return str(block)
+
+def codesnippet_attr(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append(
+        'Attr("<name>", "<type>")'
+    )
+        
+    return str(block)
+
+def codesnippet_property(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('Property(')
+    block.indent()
+    block.append('"<name>",')
+    block.append('"<description>",')
+    block.append('inType = PROP_STRING,')
+    block.append('inAccess = PROP_ACCESS_READ, \
+    #PROP_ACCESS_CONSTRUCTOR, PROP_READ_WRITE')
+    block.append(')')
     
     return str(block)
 

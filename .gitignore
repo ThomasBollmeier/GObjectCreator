@@ -1,6 +1,7 @@
 *.wpr
 *.pyc
 *.o
+*~
 build/
 dist/
 
