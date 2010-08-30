@@ -588,7 +588,7 @@ class Extends(object):
         
         intf.addInterface(inIntf)
           
-class Overwrite(object):
+class Override(object):
     
     def __init__(self, inMethodName):
 
@@ -598,7 +598,7 @@ class Overwrite(object):
         
         cls.overwrite(inMethodName)
         
-Override = Overwrite # Alias
+Overwrite = Override # Alias (leider falsches Englisch...)
         
 PUBLIC, PROTECTED, PRIVATE = range(1, 4)
     

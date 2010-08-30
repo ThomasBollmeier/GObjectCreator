@@ -28,6 +28,7 @@ import gtk
 
 from documents_view import DocumentsView
 from resources.util import get_resource_path
+import gobject_creator
 
 class GOCEditor(object):
     """
@@ -74,7 +75,49 @@ class GOCEditor(object):
         
         if file_name:
             self._documents.add_document(file_name)
+            
+    def on_file_save(self, *args):
         
+        old_path = self._documents.get_current_file_path()
+        
+        if not old_path:
+            return
+        
+        if os.path.exists(old_path):
+
+            new_path = old_path
+
+        else:
+        
+            dialog = gtk.FileChooserDialog(
+                action = gtk.FILE_CHOOSER_ACTION_SAVE,
+                buttons = (_("Cancel"), gtk.RESPONSE_CANCEL,
+                           _("Save"), gtk.RESPONSE_OK)
+            )
+            
+            dialog.set_current_name(old_path)
+            dialog.set_do_overwrite_confirmation(True)
+        
+            if dialog.run() == gtk.RESPONSE_OK:
+                new_path = dialog.get_filename()
+            else:
+                new_path = None
+                
+            dialog.destroy()
+                
+        if new_path:
+            
+            content = self._documents.get_content(old_path)
+
+            f = open(new_path, "w")
+            f.write(content)
+            f.close()
+                
+            self._documents.set_file_path_after_save(
+                old_path, 
+                new_path
+            )
+                
     def on_file_quit(self, *args):
         
         gtk.main_quit()
@@ -89,6 +132,8 @@ class GOCEditor(object):
         path = get_resource_path("hand_mit_stift_296x300.png")
         logo = gtk.gdk.pixbuf_new_from_file(path)
         dialog.set_logo(logo)
+        
+        dialog.set_version(gobject_creator.VERSION)
         
         dialog.run()
         dialog.destroy()

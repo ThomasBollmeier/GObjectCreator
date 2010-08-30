@@ -50,6 +50,7 @@ class DocumentsView(object):
         self._create_popup_menu()
         
         self._documents = []
+        self._doc_handlers = {}
         self._num_new_docs = 0
         
     def add_document(self, file_name=""):
@@ -122,17 +123,89 @@ class DocumentsView(object):
                          self._on_button_pressed
                          )
             
-            close_button.connect("clicked", 
-                                 self._on_document_closed, 
-                                 file_name
-                                 )
+            handler_info = _DocumentHandlerInfo()
+            
+            handler_info.close_handler_id = close_button.connect(
+                "clicked", 
+                self._on_document_closed, 
+                file_name
+            )
       
             buf = view.get_buffer()
-            buf.connect("changed",
-                        self._on_document_changed,
-                        file_name
-                        )
+            handler_info.change_handler_id = buf.connect(
+                "changed",
+                self._on_document_changed,
+                file_name
+            )
             
+            self._doc_handlers[file_name] = handler_info
+            
+    def get_current_file_path(self):
+        
+        idx = self._notebook.get_current_page()
+        if idx >= 0:
+            return self._documents[idx]
+        else:
+            return None
+        
+    def get_content(self, path):
+        
+        idx = self._documents.index(path)
+        view = self._notebook.get_nth_page(idx).get_child()
+        buf = view.get_buffer()
+        
+        return buf.get_text(buf.get_start_iter(),
+                            buf.get_end_iter()
+                            )
+        
+    def set_file_path_after_save(self, old_path, new_path):
+        
+        try:
+            if old_path != new_path:
+                idx = self._documents.index(old_path)
+                self._reconnect_handlers(
+                    idx, 
+                    old_path, 
+                    new_path
+                    )
+                self._documents[idx] = new_path
+            self._set_document_title(new_path, False)
+        except:
+            pass
+        
+    def _reconnect_handlers(self, 
+                            doc_idx, 
+                            old_path, 
+                            new_path
+                            ):
+         
+        page = self._notebook.get_nth_page(doc_idx)
+
+        buf = page.get_child().get_buffer()
+        
+        hbox = self._notebook.get_tab_label(page)
+        close_button = hbox.get_children()[1]
+        
+        handler_info = self._doc_handlers[old_path]
+        buf.disconnect(handler_info.change_handler_id)
+        close_button.disconnect(handler_info.close_handler_id)
+        
+        del self._doc_handlers[old_path]
+        
+        handler_info.close_handler_id = close_button.connect(
+            "clicked", 
+            self._on_document_closed, 
+            new_path
+        )
+  
+        handler_info.change_handler_id = buf.connect(
+            "changed",
+            self._on_document_changed,
+            new_path
+        )
+        
+        self._doc_handlers[new_path] = handler_info
+                
     def _create_popup_menu(self):
         
         if not self._popup:
@@ -146,11 +219,27 @@ class DocumentsView(object):
             self._add_action("class-constructor-new", _("New"))
             self._add_action("class-constructor-param", _("New Parameter"))
             self._add_action("class-constructor-initprop", _("New Property Init."))
+            self._add_action("class-method", _("Method"))
+            self._add_action("class-method-new", _("New"))
+            self._add_action("class-method-result", _("New Result"))
+            self._add_action("class-method-param", _("New Parameter"))
+            self._add_action("class-override", _("Override..."))
             self._add_action("class-attr", _("New Attribute"))
             self._add_action("class-prop", _("New Property"))
+            self._add_action("class-signal", _("Signal"))
+            self._add_action("class-signal-new", _("New"))
+            self._add_action("class-signal-param", _("New Parameter"))
             self._add_action("interface", _("Interface"))
             self._add_action("interface-new", _("New"))
-            
+            self._add_action("interface-extends", _("Extends..."))
+            self._add_action("interface-method", _("Method"))
+            self._add_action("interface-method-new", _("New"))
+            self._add_action("interface-method-result", _("New Result"))
+            self._add_action("interface-method-param", _("New Parameter"))
+            self._add_action("interface-signal", _("Signal"))
+            self._add_action("interface-signal-new", _("New"))
+            self._add_action("interface-signal-param", _("New Parameter"))
+             
             mngr = gtk.UIManager()
             mngr.insert_action_group(self._actions)
             mngr.add_ui_from_file(
@@ -171,12 +260,34 @@ class DocumentsView(object):
                 code_creation.codesnippet_constructor_param
             self._codesnippet["class-constructor-initprop"] = \
                 code_creation.codesnippet_init_property
+            self._codesnippet["class-method-new"] = \
+                code_creation.codesnippet_method
+            self._codesnippet["class-method-result"] = \
+                code_creation.codesnippet_result
+            self._codesnippet["class-method-param"] = \
+                code_creation.codesnippet_param
+            self._codesnippet["class-override"] = \
+                code_creation.codesnippet_override
             self._codesnippet["class-attr"] = \
                 code_creation.codesnippet_attr
             self._codesnippet["class-prop"] = \
                 code_creation.codesnippet_property
+            self._codesnippet["class-signal-new"] = \
+                code_creation.codesnippet_signal
+            self._codesnippet["class-signal-param"] = \
+                code_creation.codesnippet_param
             self._codesnippet["interface-new"] = \
                 code_creation.codesnippet_interface
+            self._codesnippet["interface-method-new"] = \
+                code_creation.codesnippet_intf_method
+            self._codesnippet["interface-method-result"] = \
+                code_creation.codesnippet_result
+            self._codesnippet["interface-method-param"] = \
+                code_creation.codesnippet_param
+            self._codesnippet["interface-signal-new"] = \
+                code_creation.codesnippet_signal
+            self._codesnippet["interface-signal-param"] = \
+                code_creation.codesnippet_param
             
         return self._popup
 
@@ -272,12 +383,13 @@ class DocumentsView(object):
             
             line_begin = self._get_line_begin_at_cursor_pos()
             code = self._codesnippet[name](line_begin)
-
-            page_idx = self._notebook.get_current_page()
-            doc_container = self._notebook.get_nth_page(page_idx)
-            doc_view = doc_container.get_child()
-            buf = doc_view.get_buffer()
-            buf.insert_at_cursor(u"%s" % code)
+            
+            if code:
+                page_idx = self._notebook.get_current_page()
+                doc_container = self._notebook.get_nth_page(page_idx)
+                doc_view = doc_container.get_child()
+                buf = doc_view.get_buffer()
+                buf.insert_at_cursor(u"%s" % code)
 
         else:
             pass
@@ -288,3 +400,11 @@ class DocumentsView(object):
         if page_idx >= 0:
             self._notebook.remove_page(page_idx)
             self._documents.remove(file_name)
+            del self._doc_handlers[file_name]
+            
+class _DocumentHandlerInfo(object):
+    
+    def __init__(self):
+        
+        self.close_handler_id = None
+        self.change_handler_id = None

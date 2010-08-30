@@ -9,11 +9,31 @@
 	<menuitem name="param" action="class-constructor-param"/>
 	<menuitem name="initprop" action="class-constructor-initprop"/>
       </menu>
+      <menu name="method" action="class-method">
+	<menuitem name="new" action="class-method-new"/>
+	<menuitem name="result" action="class-method-result"/>
+	<menuitem name="param" action="class-method-param"/>
+      </menu>
+      <menuitem name="override" action="class-override"/>
       <menuitem name="attr" action="class-attr"/>
       <menuitem name="prop" action="class-prop"/>
+      <menu name="signal" action="class-signal">
+	<menuitem name="new" action="class-signal-new"/>
+	<menuitem name="param" action="class-signal-param"/>
+      </menu>
     </menu>
     <menu name="interface" action="interface">
       <menuitem name="new" action="interface-new"/>
+      <menuitem name="extends" action="interface-extends"/>
+      <menu name="method" action="interface-method">
+	<menuitem name="new" action="interface-method-new"/>
+	<menuitem name="result" action="interface-method-result"/>
+	<menuitem name="param" action="interface-method-param"/>
+      </menu>
+      <menu name="signal" action="interface-signal">
+	<menuitem name="new" action="interface-signal-new"/>
+	<menuitem name="param" action="interface-signal-param"/>
+      </menu>
     </menu>
   </popup>
 </ui>

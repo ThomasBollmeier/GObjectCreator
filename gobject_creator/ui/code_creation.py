@@ -80,12 +80,40 @@ def codesnippet_init_property(line_begin):
     
     return str(block)
 
+def codesnippet_method(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('with Method("<method_name>", inVisi=PUBLIC):')
+    block.indent()
+    block.append('Param("<name>", "<type>")')
+        
+    return str(block)
+
+def codesnippet_result(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('Result("<type>")')
+        
+    return str(block)
+
+def codesnippet_param(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('Param("<name>", "<type>")')
+        
+    return str(block)
+
+def codesnippet_override(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('Override("<method_name>")')
+        
+    return str(block)
+
 def codesnippet_attr(line_begin):
     
     block = Textblock(line_begin)
-    block.append(
-        'Attr("<name>", "<type>")'
-    )
+    block.append('Attr("<name>", "<type>")')
         
     return str(block)
 
@@ -97,10 +125,35 @@ def codesnippet_property(line_begin):
     block.append('"<name>",')
     block.append('"<description>",')
     block.append('inType = PROP_STRING,')
-    block.append('inAccess = PROP_ACCESS_READ, \
+    block.append('inAccess = PROP_ACCESS_READ \
     #PROP_ACCESS_CONSTRUCTOR, PROP_READ_WRITE')
     block.append(')')
     
+    return str(block)
+
+def codesnippet_signal(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('with Signal("<signal-name>"):')
+    block.indent()
+    block.append('Param("<name>", "<type>")')
+        
+    return str(block)
+
+def codesnippet_extends(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('Extends(<interface>)')
+    
+    return str(block)
+    
+def codesnippet_intf_method(line_begin):
+    
+    block = Textblock(line_begin)
+    block.append('with IntfMethod("<method_name>"):')
+    block.indent()
+    block.append('Param("<name>", "<type>")')
+        
     return str(block)
 
 class Textblock(object):
