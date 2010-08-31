@@ -31,10 +31,26 @@ from gtksourceview2 import \
 import code_creation
 from resources.util import get_resource_path
 
+from documents_model import DocumentsModel, DocState
+
 class DocumentsView(object):
     
-    def __init__(self):
+    def __init__(self, model):
         
+        self._model = model
+        self._model.connect(
+            "document-added",
+            self._on_document_added
+            )
+        self._model.connect(
+            "document-refreshed",
+            self._on_document_refreshed
+            )
+        self._model.connect(
+            "document-changed",
+            self._on_document_changed
+            )
+
         self._language_manager = LanguageManager()
         language_path = os.path.dirname(__file__)
         language_path = os.path.abspath(language_path)
@@ -49,162 +65,20 @@ class DocumentsView(object):
         self._popup = None
         self._create_popup_menu()
         
-        self._documents = []
-        self._doc_handlers = {}
         self._num_new_docs = 0
         
-    def add_document(self, file_name=""):
+    def get_current_index(self):
         
-        if file_name:
-            view = self._get_document_view(file_name)
-        else:
-            view = None
-
-        new_doc = view is None
+        return self._notebook.get_current_page()
+            
+    def get_content(self, idx):
         
-        text = ""
-        if file_name:
-            try:
-                f = open(file_name, "r")
-                text = f.read()
-                f.close()
-            except IOError:
-                pass #todo: Fehlermeldung
-        else:
-            file_name = self._new_file_name()
-        
-        if new_doc:
-            
-            view = View()
-            view.show()
-    
-            lang = self._language_manager.get_language("gobject-creator")
-            buf = Buffer(language=lang)
-            buf.set_highlight_syntax(True)
-            view.set_buffer(buf)
-        
-            doc_container = gtk.ScrolledWindow()
-            doc_container.show()
-            doc_container.add(view)
-            
-            hbox = gtk.HBox()
-            hbox.show()
-            
-            label = gtk.Label(os.path.basename(file_name))
-            label.show()
-            hbox.pack_start(label)
-            
-            close_button = gtk.Button()
-            image = gtk.Image()
-            image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
-            close_button.set_image(image)
-            close_button.set_relief(gtk.RELIEF_NONE)
-            close_button.show()
-            hbox.pack_start(close_button)
-    
-            self._notebook.prepend_page(doc_container,
-                                        hbox
-                                        )
-            self._notebook.set_current_page(0)
-            
-            self._documents.insert(0, file_name)
-            
-        else:
-            # existierendes Dokument
-            idx = self._documents.index(file_name)
-            self._notebook.set_current_page(idx)
-
-        if text:
-            view.get_buffer().set_text(text)
-
-        if new_doc:
-            # Event handling:
-            view.connect("button_press_event",
-                         self._on_button_pressed
-                         )
-            
-            handler_info = _DocumentHandlerInfo()
-            
-            handler_info.close_handler_id = close_button.connect(
-                "clicked", 
-                self._on_document_closed, 
-                file_name
-            )
-      
-            buf = view.get_buffer()
-            handler_info.change_handler_id = buf.connect(
-                "changed",
-                self._on_document_changed,
-                file_name
-            )
-            
-            self._doc_handlers[file_name] = handler_info
-            
-    def get_current_file_path(self):
-        
-        idx = self._notebook.get_current_page()
-        if idx >= 0:
-            return self._documents[idx]
-        else:
-            return None
-        
-    def get_content(self, path):
-        
-        idx = self._documents.index(path)
         view = self._notebook.get_nth_page(idx).get_child()
         buf = view.get_buffer()
         
         return buf.get_text(buf.get_start_iter(),
                             buf.get_end_iter()
                             )
-        
-    def set_file_path_after_save(self, old_path, new_path):
-        
-        try:
-            if old_path != new_path:
-                idx = self._documents.index(old_path)
-                self._reconnect_handlers(
-                    idx, 
-                    old_path, 
-                    new_path
-                    )
-                self._documents[idx] = new_path
-            self._set_document_title(new_path, False)
-        except:
-            pass
-        
-    def _reconnect_handlers(self, 
-                            doc_idx, 
-                            old_path, 
-                            new_path
-                            ):
-         
-        page = self._notebook.get_nth_page(doc_idx)
-
-        buf = page.get_child().get_buffer()
-        
-        hbox = self._notebook.get_tab_label(page)
-        close_button = hbox.get_children()[1]
-        
-        handler_info = self._doc_handlers[old_path]
-        buf.disconnect(handler_info.change_handler_id)
-        close_button.disconnect(handler_info.close_handler_id)
-        
-        del self._doc_handlers[old_path]
-        
-        handler_info.close_handler_id = close_button.connect(
-            "clicked", 
-            self._on_document_closed, 
-            new_path
-        )
-  
-        handler_info.change_handler_id = buf.connect(
-            "changed",
-            self._on_document_changed,
-            new_path
-        )
-        
-        self._doc_handlers[new_path] = handler_info
                 
     def _create_popup_menu(self):
         
@@ -297,14 +171,6 @@ class DocumentsView(object):
         action.connect("activate", self._on_popup_action_activated)
         self._actions.add_action(action)
     
-    def _get_document_view(self, file_name):
-        
-        try:
-            idx = self._documents.index(file_name)
-            return self._notebook.get_nth_page(idx).get_child()
-        except ValueError:
-            return None
-
     def _get_line_begin_at_cursor_pos(self):
         
         page_idx = self._notebook.get_current_page()
@@ -325,9 +191,9 @@ class DocumentsView(object):
         
         return line_begin
 
-    def _get_resource_path(self, file_name):
+    def _get_resource_path(self, resource_file):
                
-        return get_resource_path(file_name)
+        return get_resource_path(resource_file)
     
     def _get_widget(self):
         
@@ -346,15 +212,21 @@ class DocumentsView(object):
         
         return file_name
     
-    def _set_document_title(self, file_name, doc_changed=True):
+    def _set_document_title(self, idx):
         
-        idx = self._documents.index(file_name)
         page = self._notebook.get_nth_page(idx)
         hbox = self._notebook.get_tab_label(page)
         label = hbox.get_children()[0]
-        text = os.path.basename(file_name)
-        if doc_changed:
-            text += "*"
+        
+        state = self._model.get_state(idx)
+        if state == DocState.NEW:
+            text = self._new_file_name()
+        else:
+            file_path = self._model.get_file_path(idx)
+            text = os.path.basename(file_path)
+            if state == DocState.CHANGED:
+                text += "*"
+        
         label.set_text(text)
             
     def _on_button_pressed(self, view, event):
@@ -371,9 +243,10 @@ class DocumentsView(object):
         
         return True # stop further handling
     
-    def _on_document_changed(self, buffer, file_name):
-
-        self._set_document_title(file_name)
+    def _on_buffer_changed(self, buffer):
+        
+        page_idx = self._notebook.get_current_page()
+        self._model.touch_document(page_idx)
         
     def _on_popup_action_activated(self, action, *args):
         
@@ -394,17 +267,75 @@ class DocumentsView(object):
         else:
             pass
     
-    def _on_document_closed(self, button, file_name):
+    def _on_close_button_clicked(self, button):
         
-        page_idx = self._documents.index(file_name)
+        page_idx = self._notebook.get_current_page()
         if page_idx >= 0:
             self._notebook.remove_page(page_idx)
-            self._documents.remove(file_name)
-            del self._doc_handlers[file_name]
+            self._model.close_document(page_idx)
             
-class _DocumentHandlerInfo(object):
-    
-    def __init__(self):
+    def _on_document_added(self, model, idx, content):
         
-        self.close_handler_id = None
-        self.change_handler_id = None
+        view = View()
+        view.show()
+    
+        lang = self._language_manager.get_language("gobject-creator")
+        buf = Buffer(language=lang)
+        buf.set_highlight_syntax(True)
+        view.set_buffer(buf)
+        
+        doc_container = gtk.ScrolledWindow()
+        doc_container.show()
+        doc_container.add(view)
+            
+        hbox = gtk.HBox()
+        hbox.show()
+            
+        label = gtk.Label("")
+        label.show()
+        hbox.pack_start(label)
+            
+        close_button = gtk.Button()
+        image = gtk.Image()
+        image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
+        close_button.set_image(image)
+        close_button.set_relief(gtk.RELIEF_NONE)
+        close_button.show()
+        hbox.pack_start(close_button)
+        
+        self._notebook.insert_page(doc_container,
+                                   hbox,
+                                   idx
+                                   )
+        self._notebook.set_current_page(idx)
+        
+        view.connect("button_press_event",
+                     self._on_button_pressed
+                     )
+            
+        close_button.connect(
+            "clicked", 
+            self._on_close_button_clicked
+        )
+      
+        buf = view.get_buffer()
+        buf.connect(
+            "changed",
+            self._on_buffer_changed
+            )
+        
+        self._set_document_title(idx)
+        
+        buf.set_text(content)
+        
+    def _on_document_refreshed(self, model, idx, content):
+        
+        self._set_document_title(idx)
+        
+        buf = self._notebook.get_nth_page(idx).get_child().get_buffer()
+        buf.set_text(content)
+    
+    def _on_document_changed(self, model, idx):
+        
+        self._set_document_title(idx)
+        

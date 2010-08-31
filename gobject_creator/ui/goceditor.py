@@ -27,6 +27,7 @@ pygtk.require("2.0")
 import gtk
 
 from documents_view import DocumentsView
+from documents_model import DocumentsModel
 from resources.util import get_resource_path
 import gobject_creator
 
@@ -56,7 +57,7 @@ class GOCEditor(object):
            
     def on_file_new(self, *args):
 
-        self._documents.add_document()
+        self._docs_model.new_document()
         
     def on_file_open(self, *args):
         
@@ -74,14 +75,15 @@ class GOCEditor(object):
         dialog.destroy()
         
         if file_name:
-            self._documents.add_document(file_name)
+            self._docs_model.load_document(file_name)
             
     def on_file_save(self, *args):
         
-        old_path = self._documents.get_current_file_path()
-        
-        if not old_path:
+        idx = self._documents.get_current_index()
+        if idx < 0:
             return
+        
+        old_path = self._docs_model.get_file_path(idx)
         
         if os.path.exists(old_path):
 
@@ -95,7 +97,7 @@ class GOCEditor(object):
                            _("Save"), gtk.RESPONSE_OK)
             )
             
-            dialog.set_current_name(old_path)
+            dialog.set_current_name("new_file.goc")
             dialog.set_do_overwrite_confirmation(True)
         
             if dialog.run() == gtk.RESPONSE_OK:
@@ -106,18 +108,9 @@ class GOCEditor(object):
             dialog.destroy()
                 
         if new_path:
+            content = self._documents.get_content(idx)
+            self._docs_model.save_document(idx, new_path, content)
             
-            content = self._documents.get_content(old_path)
-
-            f = open(new_path, "w")
-            f.write(content)
-            f.close()
-                
-            self._documents.set_file_path_after_save(
-                old_path, 
-                new_path
-            )
-                
     def on_file_quit(self, *args):
         
         gtk.main_quit()
@@ -140,7 +133,8 @@ class GOCEditor(object):
                 
     def _create_widgets(self):
         
-        self._documents = DocumentsView()
+        self._docs_model = DocumentsModel()
+        self._documents = DocumentsView(self._docs_model)
         self._documents.widget.show()
         
         vbox = self._builder.get_object("top_vbox")
