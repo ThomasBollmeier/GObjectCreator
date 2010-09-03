@@ -35,5 +35,9 @@
 	<menuitem name="param" action="interface-signal-param"/>
       </menu>
     </menu>
+    <separator />
+    <menuitem name="cut" action="cut"/>
+    <menuitem name="copy" action="copy"/>
+    <menuitem name="paste" action="paste"/>
   </popup>
 </ui>

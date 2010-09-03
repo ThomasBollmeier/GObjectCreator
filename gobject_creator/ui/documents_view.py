@@ -50,7 +50,7 @@ class DocumentsView(object):
             "document-changed",
             self._on_document_changed
             )
-
+        
         self._language_manager = LanguageManager()
         language_path = os.path.dirname(__file__)
         language_path = os.path.abspath(language_path)
@@ -61,6 +61,8 @@ class DocumentsView(object):
         
         self._notebook = gtk.Notebook()
         self._notebook.set_property("scrollable", True)
+        
+        self._clipboard = gtk.Clipboard()
         
         self._popup = None
         self._create_popup_menu()
@@ -80,6 +82,40 @@ class DocumentsView(object):
                             buf.get_end_iter()
                             )
                 
+    def exec_action(self, action_name):
+
+        page_idx = self._notebook.get_current_page()
+        if page_idx < 0:
+            return
+        doc_container = self._notebook.get_nth_page(page_idx)
+        doc_view = doc_container.get_child()
+        buf = doc_view.get_buffer()
+        
+        if action_name in self._codesnippet:
+            
+            line_begin = self._get_line_begin_at_cursor_pos()
+            code = self._codesnippet[action_name](line_begin)
+            
+            if code:
+                buf.insert_at_cursor(u"%s" % code)
+
+        elif action_name == "cut":
+
+            buf.cut_clipboard(self._clipboard, 
+                              doc_view.get_editable()
+                              )
+
+        elif action_name == "copy":
+
+            buf.copy_clipboard(self._clipboard)
+            
+        elif action_name == "paste":
+
+            buf.paste_clipboard(self._clipboard, 
+                                None,
+                                doc_view.get_editable()
+                                )
+    
     def _create_popup_menu(self):
         
         if not self._popup:
@@ -113,6 +149,9 @@ class DocumentsView(object):
             self._add_action("interface-signal", _("Signal"))
             self._add_action("interface-signal-new", _("New"))
             self._add_action("interface-signal-param", _("New Parameter"))
+            self._add_action("cut", _("Cut"))
+            self._add_action("copy", _("Copy"))
+            self._add_action("paste", _("Paste"))
              
             mngr = gtk.UIManager()
             mngr.insert_action_group(self._actions)
@@ -152,6 +191,8 @@ class DocumentsView(object):
                 code_creation.codesnippet_param
             self._codesnippet["interface-new"] = \
                 code_creation.codesnippet_interface
+            self._codesnippet["interface-extends"] = \
+                code_creation.codesnippet_extends
             self._codesnippet["interface-method-new"] = \
                 code_creation.codesnippet_intf_method
             self._codesnippet["interface-method-result"] = \
@@ -169,8 +210,9 @@ class DocumentsView(object):
         
         action = gtk.Action(name, label, name, None)
         action.connect("activate", self._on_popup_action_activated)
+        
         self._actions.add_action(action)
-    
+                    
     def _get_line_begin_at_cursor_pos(self):
         
         page_idx = self._notebook.get_current_page()
@@ -251,21 +293,7 @@ class DocumentsView(object):
     def _on_popup_action_activated(self, action, *args):
         
         name = action.get_name()
-        
-        if name in self._codesnippet:
-            
-            line_begin = self._get_line_begin_at_cursor_pos()
-            code = self._codesnippet[name](line_begin)
-            
-            if code:
-                page_idx = self._notebook.get_current_page()
-                doc_container = self._notebook.get_nth_page(page_idx)
-                doc_view = doc_container.get_child()
-                buf = doc_view.get_buffer()
-                buf.insert_at_cursor(u"%s" % code)
-
-        else:
-            pass
+        self.exec_action(name)
     
     def _on_close_button_clicked(self, button):
         
@@ -283,6 +311,8 @@ class DocumentsView(object):
         buf = Buffer(language=lang)
         buf.set_highlight_syntax(True)
         view.set_buffer(buf)
+        
+        view.set_auto_indent(True)
         
         doc_container = gtk.ScrolledWindow()
         doc_container.show()
@@ -338,4 +368,3 @@ class DocumentsView(object):
     def _on_document_changed(self, model, idx):
         
         self._set_document_title(idx)
-        

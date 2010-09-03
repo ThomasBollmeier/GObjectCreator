@@ -54,7 +54,7 @@ class GOCEditor(object):
         window.show_all()
         
         gtk.main()
-           
+            
     def on_file_new(self, *args):
 
         self._docs_model.new_document()
@@ -97,7 +97,7 @@ class GOCEditor(object):
                            _("Save"), gtk.RESPONSE_OK)
             )
             
-            dialog.set_current_name("new_file.goc")
+            dialog.set_current_name("untitled.goc")
             dialog.set_do_overwrite_confirmation(True)
         
             if dialog.run() == gtk.RESPONSE_OK:
@@ -111,9 +111,51 @@ class GOCEditor(object):
             content = self._documents.get_content(idx)
             self._docs_model.save_document(idx, new_path, content)
             
+    def on_file_save_as(self, *args):
+        
+        idx = self._documents.get_current_index()
+        if idx < 0:
+            return
+        
+        current_path = self._docs_model.get_file_path(idx)
+        if not current_path:
+            current_path = "untitled.goc"
+        
+        dialog = gtk.FileChooserDialog(
+            action = gtk.FILE_CHOOSER_ACTION_SAVE,
+            buttons = (_("Cancel"), gtk.RESPONSE_CANCEL,
+                       _("Save"), gtk.RESPONSE_OK)
+        )
+            
+        dialog.set_current_name(os.path.basename(current_path))
+        dialog.set_do_overwrite_confirmation(True)
+        
+        if dialog.run() == gtk.RESPONSE_OK:
+            new_path = dialog.get_filename()
+        else:
+            new_path = None
+                
+        dialog.destroy()
+                
+        if new_path:
+            content = self._documents.get_content(idx)
+            self._docs_model.save_document(idx, new_path, content)
+       
     def on_file_quit(self, *args):
         
         gtk.main_quit()
+        
+    def on_edit_cut(self, *args):
+        
+        self._documents.exec_action("cut")
+    
+    def on_edit_copy(self, *args):
+        
+        self._documents.exec_action("copy")
+    
+    def on_edit_paste(self, *args):
+        
+        self._documents.exec_action("paste")
         
     def on_help_info(self, *args):
         
@@ -127,7 +169,7 @@ class GOCEditor(object):
         dialog.set_logo(logo)
         
         dialog.set_version(gobject_creator.VERSION)
-        
+                
         dialog.run()
         dialog.destroy()
                 
