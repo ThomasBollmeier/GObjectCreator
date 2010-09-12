@@ -20,139 +20,247 @@ along with GObjectCreator (see file COPYING). If not, see
 
 import os
 
+from class_dialog import run_class_dialog
+from interface_dialog import InterfaceDialog
+from method_dialog import run_method_dialog
+from property_dialog import PropertyDialog
+from metamodel.meta_objects import *
+
 def codesnippet_package(line_begin):
     
     block = Textblock(line_begin)
-    block.append('with Package("<package_name>"):')
+    block.writeln('with Package("<package_name>"):')
     block.indent()
-    block.append()
-    block.append("pass # Add objects...")
+    block.writeln()
+    block.writeln("pass # Add objects...")
     
     return str(block)
 
 def codesnippet_class(line_begin):
     
+    result = run_class_dialog()
+    if not result:
+        return
+    
+    name, super_class, abstract, prefix = result
+            
     block = Textblock(line_begin)
-    block.append('with Class("<class_name>"):')
-    block.indent()
-    block.append()
-    block.append("pass # Add members...")
+    indented = False
+    
+    if not super_class and not abstract and not prefix:
+        block.writeln('with Class("%s"):' % name)
+    else:
+        block.write('with Class("%s"' % name)
+        if super_class:
+            block.writeln(",")
+            block.indent()
+            indented = True
+            block.write("inSuperClass = %s" % super_class)
+        if prefix:
+            block.writeln(",")
+            if not indented:
+                block.indent()
+                indented = True
+            block.write('inAlias = "%s"' % prefix)
+        if abstract:
+            block.writeln(",")
+            if not indented:
+                block.indent()
+                indented = True
+            block.write('inAbstract = %s' % abstract)
+        block.writeln()
+        block.writeln("):")
+    
+    if not indented:
+        block.indent()
+    block.writeln()
+    block.writeln("pass # Add members...")
     
     return str(block)
 
 def codesnippet_interface(line_begin):
     
+    data = InterfaceDialog().run()
+    if not data:
+        return
+    
+    name, prefix = data
+
     block = Textblock(line_begin)
-    block.append('with Interface("<interface_name>"):')
-    block.indent()
-    block.append()
-    block.append("pass # Add members...")
+    if not prefix:
+        block.writeln('with Interface("%s"):' % name)
+        block.indent()
+    else:
+        block.writeln('with Interface("%s",' % name)
+        block.indent()
+        block.writeln('inAlias = "%s"' % prefix)
+        block.writeln("):")
+    
+    block.writeln()
+    block.writeln("pass # Add members...")
     
     return str(block)
 
 def codesnippet_implements(line_begin):
     
     block = Textblock(line_begin)
-    block.append("Implements(<interface>)")
+    block.writeln("Implements(<interface>)")
     
     return str(block)
 
 def codesnippet_constructor(line_begin):
     
     block = Textblock(line_begin)
-    block.append("with Constructor():")
+    block.writeln("with Constructor():")
     block.indent()
-    block.append('ConstructorParam("<name>", "<type>")')
+    block.writeln('ConstructorParam("<name>", "<type>")')
     
     return str(block)
 
 def codesnippet_constructor_param(line_begin):
     
     block = Textblock(line_begin)
-    block.append('ConstructorParam("<name>", "<type>")')
+    block.writeln('ConstructorParam("<name>", "<type>")')
     
     return str(block)
 
 def codesnippet_init_property(line_begin):
     
     block = Textblock(line_begin)
-    block.append('InitProperty("<name>", "<value>")')
+    block.writeln('InitProperty("<name>", "<value>")')
     
     return str(block)
 
 def codesnippet_method(line_begin):
     
+    res = run_method_dialog(is_intf_method = False)
+    if not res:
+        return
+    
+    name, visibility, scope, virtual, abstract = res
+    
     block = Textblock(line_begin)
-    block.append('with Method("<method_name>", inVisi=PUBLIC):')
+    block.writeln('with Method("%s",' % name)
     block.indent()
-    block.append('Param("<name>", "<type>")')
+    visi_names = { PUBLIC: "PUBLIC", 
+                   PROTECTED: "PROTECTED",
+                   PRIVATE: "PRIVATE"
+                   }
+    block.write("inVisi = %s" % visi_names[visibility])
+    if scope == STATIC:
+        block.writeln(",")
+        block.write("inScope = STATIC")
+    if abstract:
+        block.writeln(",")
+        block.write("inAbstract = True")
+    elif virtual:
+        block.writeln(",")
+        block.write("inVirtual = True")
+    block.writeln()
+    block.writeln("):")
+    block.writeln()
+    block.writeln('Param("<name>", "<type>")')
         
     return str(block)
 
 def codesnippet_result(line_begin):
     
     block = Textblock(line_begin)
-    block.append('Result("<type>")')
+    block.writeln('Result("<type>")')
         
     return str(block)
 
 def codesnippet_param(line_begin):
     
     block = Textblock(line_begin)
-    block.append('Param("<name>", "<type>")')
+    block.writeln('Param("<name>", "<type>")')
         
     return str(block)
 
 def codesnippet_override(line_begin):
     
     block = Textblock(line_begin)
-    block.append('Override("<method_name>")')
+    block.writeln('Override("<method_name>")')
         
     return str(block)
 
 def codesnippet_attr(line_begin):
     
     block = Textblock(line_begin)
-    block.append('Attr("<name>", "<type>")')
+    block.writeln('Attr("<name>", "<type>")')
         
     return str(block)
 
 def codesnippet_property(line_begin):
     
+    prop_attrs = PropertyDialog().run()
+    if not prop_attrs:
+        return
+    
+    name, description, property_type, \
+        gobject_type, access_type = prop_attrs
+    
+    if not description:
+        description = name
+        
+    prop_type = {}
+    prop_type[PROP_BOOLEAN] = "PROP_BOOLEAN"
+    prop_type[PROP_INT] = "PROP_INT"
+    prop_type[PROP_DOUBLE] = "PROP_DOUBLE"
+    prop_type[PROP_STRING] = "PROP_STRING"
+    prop_type[PROP_POINTER] = "PROP_POINTER"
+    prop_type[PROP_OBJECT] = "PROP_OBJECT"
+    prop_type[PROP_ENUM] = "PROP_ENUM"
+    
+    access = {}
+    access[PROP_ACCESS_READ] = "PROP_ACCESS_READ"
+    access[PROP_ACCESS_CONSTRUCTOR] = "PROP_ACCESS_CONSTRUCTOR"
+    access[PROP_ACCESS_READ_WRITE] = "PROP_ACCESS_READ_WRITE"
+    
     block = Textblock(line_begin)
-    block.append('Property(')
+    block.writeln('Property(')
     block.indent()
-    block.append('"<name>",')
-    block.append('"<description>",')
-    block.append('inType = PROP_STRING,')
-    block.append('inAccess = PROP_ACCESS_READ \
-    #PROP_ACCESS_CONSTRUCTOR, PROP_READ_WRITE')
-    block.append(')')
+    block.writeln('"%s",' % name)
+    block.writeln('"%s",' % description)
+    block.writeln('inType = %s,' % prop_type[property_type])
+    if gobject_type:
+        block.writeln('inGObjectType = "%s",' % gobject_type)
+    block.writeln('inAccess = %s,' % access[access_type])
+    block.writeln("inMin = None,")
+    block.writeln("inMax = None,")
+    block.writeln("inDefault = None")
+    block.writeln(')')
     
     return str(block)
 
 def codesnippet_signal(line_begin):
     
     block = Textblock(line_begin)
-    block.append('with Signal("<signal-name>"):')
+    block.writeln('with Signal("<signal-name>"):')
     block.indent()
-    block.append('Param("<name>", "<type>")')
+    block.writeln('Param("<name>", "<type>")')
         
     return str(block)
 
 def codesnippet_extends(line_begin):
     
     block = Textblock(line_begin)
-    block.append('Extends(<interface>)')
+    block.writeln('Extends(<interface>)')
     
     return str(block)
     
 def codesnippet_intf_method(line_begin):
     
+    res = run_method_dialog(is_intf_method = True)
+    if not res:
+        return
+    
+    name, visibility, scope, virtual, abstract = res
+    
     block = Textblock(line_begin)
-    block.append('with IntfMethod("<method_name>"):')
+    block.writeln('with IntfMethod("%s"):' % name)
     block.indent()
-    block.append('Param("<name>", "<type>")')
+    block.writeln('Param("<name>", "<type>")')
         
     return str(block)
 
@@ -163,6 +271,7 @@ class Textblock(object):
         self._line_begin = line_begin
         self._num_tabs = 0
         self._lines = []
+        self._current_line = ""
         
     def __str__(self):
         
@@ -182,7 +291,15 @@ class Textblock(object):
         
         self._num_tabs -= num_tabs
         
-    def append(self, line=""):
+    def write(self, text):
+        
+        self._current_line += text
+        
+    def writeln(self, line=""):
+        
+        if self._current_line:
+            line = self._current_line + line
+            self._current_line = ""
         
         if self._lines:
             line = self._line_begin + "\t" * self._num_tabs + line

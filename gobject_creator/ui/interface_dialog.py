@@ -19,11 +19,32 @@ along with GObjectCreator (see file COPYING). If not, see
 """
 
 import os
+import gettext
+_ = gettext.gettext 
 
-def get_resource_path(file_name):
+import pygtk
+pygtk.require("2.0")
+import gtk
+
+from resources.user_interface import UserInterface
+
+class InterfaceDialog(object):
+   
+    def __init__(self):
+        
+        self._ui = UserInterface("interface_dialog.ui")
     
-    path = os.path.dirname(__file__)
-    path = os.path.abspath(path)
-    
-    return path + os.sep + file_name
-    
+    def run(self):
+        
+        dialog = self._ui.interface_dialog
+        
+        if dialog.run() == gtk.RESPONSE_OK:
+            name = str(self._ui.name.get_text())
+            prefix = str(self._ui.prefix.get_text())
+            res = (name, prefix)
+        else:
+            res = ()
+            
+        dialog.destroy()
+        
+        return res

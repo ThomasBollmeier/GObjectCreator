@@ -20,7 +20,8 @@ along with GObjectCreator (see file COPYING). If not, see
 
 import os
 import gettext
-_ = gettext.gettext 
+_ = gettext.gettext
+import locale
 
 import pygtk
 pygtk.require("2.0")
@@ -37,10 +38,23 @@ class GOCEditor(object):
     files for GObjectCreator
     """
     
+    TRANSL_DOMAIN = "goceditor"
+    
     def __init__(self):
+
+        locale_dir = os.path.dirname(__file__)
+        locale_dir = os.path.abspath(locale_dir)
+        locale_dir += os.sep + "locale"
+
+        locale.setlocale(locale.LC_ALL, "")
+        locale.bindtextdomain(self.TRANSL_DOMAIN, locale_dir)
+
+        gettext.bindtextdomain(self.TRANSL_DOMAIN, locale_dir)
+        gettext.textdomain(self.TRANSL_DOMAIN)
         
         self._builder = gtk.Builder()
-        
+        self._builder.set_translation_domain(self.TRANSL_DOMAIN)
+                
         path = get_resource_path("goceditor.ui")
         self._builder.add_from_file(path)
         
@@ -160,6 +174,7 @@ class GOCEditor(object):
     def on_help_info(self, *args):
         
         builder = gtk.Builder()
+        builder.set_translation_domain(self.TRANSL_DOMAIN)
         builder.add_from_file(get_resource_path("gocedit_info.ui"))
         
         dialog = builder.get_object("info_dialog")
@@ -184,7 +199,7 @@ class GOCEditor(object):
         vbox.pack_start(self._documents.widget)
                 
 if __name__ == "__main__":
-    
+
     editor = GOCEditor()
     editor.run()
         

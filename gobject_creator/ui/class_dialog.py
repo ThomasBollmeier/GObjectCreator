@@ -18,12 +18,30 @@ along with GObjectCreator (see file COPYING). If not, see
 <http://www.gnu.org/licenses/>.
 """
 
-import os
+import os.path
+import gettext
+_ = gettext.gettext 
 
-def get_resource_path(file_name):
+import pygtk
+pygtk.require("2.0")
+import gtk
+
+from resources.user_interface import UserInterface
+
+def run_class_dialog():
     
-    path = os.path.dirname(__file__)
-    path = os.path.abspath(path)
+    ui = UserInterface("class_dialog.ui")
     
-    return path + os.sep + file_name
+    if ui.class_dialog.run() == gtk.RESPONSE_OK:
+        name = ui.name.get_text()
+        super_class = ui.super_class.get_text()
+        abstract = ui.abstract.get_active()
+        prefix = ui.prefix.get_text()
+        result = (name, super_class, abstract, prefix)
+    else:
+        result = ()
+        
+    ui.class_dialog.destroy()
+    
+    return result
     
