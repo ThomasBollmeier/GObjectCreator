@@ -28,7 +28,7 @@ import gtk
 import gobject
 
 import gobject_creator
-from resources.user_interface import UserInterface
+from ui.resources.user_interface import UserInterface
 from metamodel.meta_objects import *
 
 class PropertyDialog(UserInterface):

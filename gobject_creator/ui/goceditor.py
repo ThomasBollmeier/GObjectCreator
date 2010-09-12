@@ -197,9 +197,4 @@ class GOCEditor(object):
         vbox = self._builder.get_object("top_vbox")
         vbox.show()
         vbox.pack_start(self._documents.widget)
-                
-if __name__ == "__main__":
-
-    editor = GOCEditor()
-    editor.run()
-        
+ 

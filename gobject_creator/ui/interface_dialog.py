@@ -26,7 +26,7 @@ import pygtk
 pygtk.require("2.0")
 import gtk
 
-from resources.user_interface import UserInterface
+from ui.resources.user_interface import UserInterface
 
 class InterfaceDialog(object):
    

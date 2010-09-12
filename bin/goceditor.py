@@ -1,4 +1,5 @@
-#coding=UTF-8
+#!/usr/bin/python
+# coding=UTF-8
 
 """
 This file is part of GObjectCreator.
@@ -18,31 +19,6 @@ along with GObjectCreator (see file COPYING). If not, see
 <http://www.gnu.org/licenses/>.
 """
 
-import os.path
-import gettext
-_ = gettext.gettext 
+from gobject_creator.ui.goceditor import GOCEditor
 
-import pygtk
-pygtk.require("2.0")
-import gtk
-
-import gobject_creator
-from ui.resources.user_interface import UserInterface
-
-def run_class_dialog():
-    
-    ui = UserInterface("class_dialog.ui")
-    
-    if ui.class_dialog.run() == gtk.RESPONSE_OK:
-        name = ui.name.get_text()
-        super_class = ui.super_class.get_text()
-        abstract = ui.abstract.get_active()
-        prefix = ui.prefix.get_text()
-        result = (name, super_class, abstract, prefix)
-    else:
-        result = ()
-        
-    ui.class_dialog.destroy()
-    
-    return result
-    
+GOCEditor().run()

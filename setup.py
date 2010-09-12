@@ -18,13 +18,22 @@ setup(
                 "gobject_creator/code_generation/gobject",
                 "gobject_creator/code_generation/vala",
                 "gobject_creator/io",
-                "gobject_creator/metamodel"
+                "gobject_creator/metamodel",
+                "gobject_creator/ui",
+                "gobject_creator/ui/resources",
                 ],
     package_data = {"gobject_creator" : 
                     ["code_generation/gobject/templates/*.tmpl",
                      "code_generation/vala/templates/*.tmpl",
                      "code_generation/csharp/templates/*.tmpl",
+                     "ui/locale/de/LC_MESSAGES/*",
+                     "ui/resources/*.ui",
+                     "ui/resources/*.png",
+                     "ui/resources/*.xml",
+                     "ui/resources/*.lang",
                     ]
                     },
-    scripts = ["bin/gobjects_create.py"]
+    scripts = ["bin/gobjects_create.py",
+               "bin/goceditor.py"
+               ]
     )

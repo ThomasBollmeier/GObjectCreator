@@ -26,7 +26,7 @@ import pygtk
 pygtk.require("2.0")
 import gtk
 
-from resources.util import get_resource_path
+from gobject_creator.ui.resources.util import get_resource_path
 
 class UserInterface(object):
     
