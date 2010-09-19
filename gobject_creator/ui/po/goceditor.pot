@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-12 14:45+0200\n"
+"POT-Creation-Date: 2010-09-19 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,6 +61,7 @@ msgstr ""
 #: gobject_creator/ui/documents_view.py:141
 #: gobject_creator/ui/documents_view.py:148
 #: gobject_creator/ui/documents_view.py:151
+#: gobject_creator/ui/resources/parameter_dialog.ui:7
 msgid "New Parameter"
 msgstr ""
 
@@ -120,6 +121,53 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
+#: gobject_creator/ui/parameter_dialog.py:58
+msgid "Input"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:59
+msgid "Output"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:60
+msgid "Input/Output"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:61
+msgid "UserData"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:62
+msgid "Result"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:66
+msgid "No Transfer"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:67
+msgid "Transfer Container"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:69
+msgid "Transfer Full"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:72
+#: gobject_creator/ui/resources/parameter_dialog.ui:251
+msgid "Elementary"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:73
+#: gobject_creator/ui/resources/parameter_dialog.ui:267
+msgid "List"
+msgstr ""
+
+#: gobject_creator/ui/parameter_dialog.py:74
+#: gobject_creator/ui/resources/parameter_dialog.ui:348
+msgid "Dictionary"
+msgstr ""
+
 #: gobject_creator/ui/property_dialog.py:110
 msgid "Read only"
 msgstr ""
@@ -160,15 +208,15 @@ msgstr ""
 msgid "Enumeration"
 msgstr ""
 
-#: gobject_creator/ui/method_dialog.py:114
+#: gobject_creator/ui/method_dialog.py:116
 msgid "Public"
 msgstr ""
 
-#: gobject_creator/ui/method_dialog.py:117
+#: gobject_creator/ui/method_dialog.py:119
 msgid "Protected"
 msgstr ""
 
-#: gobject_creator/ui/method_dialog.py:118
+#: gobject_creator/ui/method_dialog.py:120
 msgid "Private"
 msgstr ""
 
@@ -178,6 +226,7 @@ msgstr ""
 
 #: gobject_creator/ui/resources/interface_dialog.ui:26
 #: gobject_creator/ui/resources/method_dialog.ui:27
+#: gobject_creator/ui/resources/parameter_dialog.ui:31
 #: gobject_creator/ui/resources/property_dialog.ui:27
 #: gobject_creator/ui/resources/class_dialog.ui:26
 msgid "Name"
@@ -248,12 +297,66 @@ msgstr ""
 msgid "Abstract"
 msgstr ""
 
+#: gobject_creator/ui/resources/parameter_dialog.ui:53
+#: gobject_creator/ui/resources/property_dialog.ui:69
+msgid "Type"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:77
+msgid "const"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:98
+msgid "Base Data"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:113
+msgid "Parameter Category"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:125
+msgid "Transfer Mode"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:178
+msgid "Data Category"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:206
 #: gobject_creator/ui/resources/property_dialog.ui:34
 msgid "Description"
 msgstr ""
 
-#: gobject_creator/ui/resources/property_dialog.ui:69
-msgid "Type"
+#: gobject_creator/ui/resources/parameter_dialog.ui:237
+msgid "Data Type"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:284
+msgid "Element Type"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:393
+msgid "Key Type"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:410
+msgid "Value Type"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:424
+msgid "Fixed Length"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:443
+msgid "Length From Param."
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:505
+msgid "Zero Terminated"
+msgstr ""
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:530
+msgid "Introspection"
 msgstr ""
 
 #: gobject_creator/ui/resources/property_dialog.ui:91

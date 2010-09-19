@@ -81,6 +81,7 @@ gobject_creator/ui/documents_view.py
 gobject_creator/ui/goceditor.py
 gobject_creator/ui/interface_dialog.py
 gobject_creator/ui/method_dialog.py
+gobject_creator/ui/parameter_dialog.py
 gobject_creator/ui/property_dialog.py
 gobject_creator/ui/locale/de/LC_MESSAGES/goceditor.mo
 gobject_creator/ui/po/de.po
@@ -93,6 +94,7 @@ gobject_creator/ui/resources/goceditor.ui
 gobject_creator/ui/resources/hand_mit_stift_296x300.png
 gobject_creator/ui/resources/interface_dialog.ui
 gobject_creator/ui/resources/method_dialog.ui
+gobject_creator/ui/resources/parameter_dialog.ui
 gobject_creator/ui/resources/popup_menu.xml
 gobject_creator/ui/resources/property_dialog.ui
 gobject_creator/ui/resources/user_interface.py

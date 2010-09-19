@@ -20,11 +20,15 @@ along with GObjectCreator (see file COPYING). If not, see
 
 import os
 
+import gobject_creator
 from class_dialog import run_class_dialog
 from interface_dialog import InterfaceDialog
 from method_dialog import run_method_dialog
 from property_dialog import PropertyDialog
+from parameter_dialog import ParameterDialog, DataCatg
 from metamodel.meta_objects import *
+from metamodel.introspection_info import ParamCategory
+from metamodel.introspection_decorators import *
 
 def codesnippet_package(line_begin):
     
@@ -165,15 +169,85 @@ def codesnippet_method(line_begin):
 
 def codesnippet_result(line_begin):
     
-    block = Textblock(line_begin)
-    block.writeln('Result("<type>")')
-        
-    return str(block)
+    return codesnippet_param(line_begin, 
+                             is_result_param = True
+                             )
 
-def codesnippet_param(line_begin):
+def codesnippet_param(line_begin, is_result_param=False):
+    
+    param_data = ParameterDialog(is_result_param).run()
+    if param_data is None:
+        return
     
     block = Textblock(line_begin)
-    block.writeln('Param("<name>", "<type>")')
+    
+    # Set introspection info:
+    num_info = 0
+
+    if ( param_data.intro.param_catg ) and \
+       ( param_data.intro.param_catg != ParamCategory.RESULT ):
+        num_info += 1
+        if param_data.intro.param_catg == ParamCategory.IN:
+            block.writeln("Input(")
+        elif param_data.intro.param_catg == ParamCategory.OUT:
+            block.writeln("Output(")
+        elif param_data.intro.param_catg == ParamCategory.INOUT:
+            block.writeln("InOutput(")
+        elif param_data.intro.param_catg == ParamCategory.USER_DATA:
+            block.writeln("UserData(")
+
+    if param_data.intro.transfer_mode != "UNSPECIFIED":
+        num_info += 1
+        block.writeln("Transfer(TransferMode.%s)(" % \
+                      param_data.intro.transfer_mode)
+
+    if param_data.intro.description:
+        num_info += 1
+        block.writeln('Description("%s")(' % \
+                      param_data.intro.description)
+
+    if ( param_data.intro.data_catg == DataCatg.ELEMENTARY ) and \
+       ( param_data.intro.data_type != "UNSPECIFIED"):
+        num_info += 1
+        block.writeln('IntroSpectionType(DataType.%s)(' % \
+                      param_data.intro.data_type)
+
+    if param_data.intro.data_catg == DataCatg.LIST:
+        num_info += 1
+        block.writeln('Array(')
+        block.indent()
+        block.writeln("inFixedLength = %d," % \
+                      param_data.intro.fixed_length)
+        block.writeln('inLengthFromParam = "%s",' % \
+                      param_data.intro.length_from_param)
+        block.writeln("inNullTerminated = %s," % \
+                      param_data.intro.zero_terminated)
+        block.writeln("inElementType = DataType.%s" % \
+                      param_data.intro.elem_type)
+        block.unindent()
+        block.writeln(")(")
+        
+    if param_data.intro.data_catg == DataCatg.DICTIONARY:
+        num_info += 1
+        block.writeln('HashTable(')
+        block.indent()
+        block.writeln('inKeyType = DataType.%s,' % \
+                      param_data.intro.key_type)
+        block.writeln('inValueType = DataType.%s' % \
+                      param_data.intro.value_type)
+        block.unindent()
+        block.writeln(")(")
+    
+    # Set name and type:
+    if not is_result_param:
+        block.writeln('Param("%s", "%s")' %
+                      (param_data.name, param_data.type_name)
+                      )
+    else:
+        block.writeln('Result("%s")' % param_data.type_name)
+    
+    if num_info:
+        block.writeln(")" * num_info)
         
     return str(block)
 
