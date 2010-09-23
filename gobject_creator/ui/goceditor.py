@@ -40,7 +40,7 @@ class GOCEditor(object):
     
     TRANSL_DOMAIN = "goceditor"
     
-    def __init__(self):
+    def __init__(self, start_files=[]):
 
         locale_dir = os.path.dirname(__file__)
         locale_dir = os.path.abspath(locale_dir)
@@ -61,6 +61,9 @@ class GOCEditor(object):
         self._create_widgets()
         
         self._builder.connect_signals(self)
+        
+        for start_file in start_files:
+            self._docs_model.load_document(start_file)
         
     def run(self):
         

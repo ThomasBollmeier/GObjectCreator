@@ -19,6 +19,7 @@ along with GObjectCreator (see file COPYING). If not, see
 <http://www.gnu.org/licenses/>.
 """
 
+import sys
 from gobject_creator.ui.goceditor import GOCEditor
 
-GOCEditor().run()
+GOCEditor(sys.argv[1:]).run()
