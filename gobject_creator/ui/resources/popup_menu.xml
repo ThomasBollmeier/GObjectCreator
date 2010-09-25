@@ -35,6 +35,8 @@
 	<menuitem name="param" action="interface-signal-param"/>
       </menu>
     </menu>
+    <menuitem name="enumeration" action="enumeration-new" />
+    <menuitem name="error_domain" action="error_domain-new" />
     <separator />
     <menuitem name="cut" action="cut"/>
     <menuitem name="copy" action="copy"/>

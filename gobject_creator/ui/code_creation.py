@@ -338,6 +338,33 @@ def codesnippet_intf_method(line_begin):
         
     return str(block)
 
+def codesnippet_enumeration(line_begin):
+    
+    block = Textblock(line_begin)
+    block.writeln('with Enumeration("<name>", inIsFlagType = False):')
+    block.indent()
+    block.writeln('EnumCode("<CODE>")')
+    
+    return str(block)
+
+def codesnippet_enumeration(line_begin):
+    
+    block = Textblock(line_begin)
+    block.writeln('with Enumeration("<MyEnumeration>", inIsFlagType = False):')
+    block.indent()
+    block.writeln('EnumCode("<MY_FIRST_VALUE>")')
+    
+    return str(block)
+
+def codesnippet_error_domain(line_begin):
+    
+    block = Textblock(line_begin)
+    block.writeln('with ErrorDomain("<MyError>"):')
+    block.indent()
+    block.writeln('ErrorCode("<MY_FAILURE>")')
+    
+    return str(block)
+
 class Textblock(object):
     
     def __init__(self, line_begin):

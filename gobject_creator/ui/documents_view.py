@@ -149,6 +149,8 @@ class DocumentsView(object):
             self._add_action("interface-signal", _("Signal"))
             self._add_action("interface-signal-new", _("New"))
             self._add_action("interface-signal-param", _("New Parameter"))
+            self._add_action("enumeration-new", _("New Enumeration"))
+            self._add_action("error_domain-new", _("New Error Domain"))
             self._add_action("cut", _("Cut"))
             self._add_action("copy", _("Copy"))
             self._add_action("paste", _("Paste"))
@@ -203,6 +205,12 @@ class DocumentsView(object):
                 code_creation.codesnippet_signal
             self._codesnippet["interface-signal-param"] = \
                 code_creation.codesnippet_param
+            self._codesnippet["enumeration-new"] = \
+                code_creation.codesnippet_enumeration
+            self._codesnippet["enumeration-new"] = \
+                code_creation.codesnippet_enumeration
+            self._codesnippet["error_domain-new"] = \
+                code_creation.codesnippet_error_domain
             
         return self._popup
 
