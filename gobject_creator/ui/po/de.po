@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-25 09:21+0200\n"
+"POT-Creation-Date: 2010-10-27 22:01+0200\n"
 "PO-Revision-Date: 2010-09-12 14:49+0200\n"
 "Last-Translator: Thomas Bollmeier <TBollmeier@web.de>\n"
 "Language-Team: German\n"
@@ -17,6 +17,105 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gobject_creator/ui/method_dialog.py:116
+msgid "Public"
+msgstr "Öffentlich"
+
+#: gobject_creator/ui/method_dialog.py:119
+msgid "Protected"
+msgstr "Geschützt"
+
+#: gobject_creator/ui/method_dialog.py:120
+msgid "Private"
+msgstr "Privat"
+
+#: gobject_creator/ui/property_dialog.py:110
+msgid "Read only"
+msgstr "Nur Lesen"
+
+#: gobject_creator/ui/property_dialog.py:112
+msgid "Read/Initial Write"
+msgstr "Lesen/Initial Schreiben"
+
+#: gobject_creator/ui/property_dialog.py:115
+msgid "Read/Write"
+msgstr "Lesen/Schreiben"
+
+#: gobject_creator/ui/property_dialog.py:131
+msgid "Boolean"
+msgstr "Boolscher Wert"
+
+#: gobject_creator/ui/property_dialog.py:132
+msgid "Integer"
+msgstr "Ganzzahl"
+
+#: gobject_creator/ui/property_dialog.py:133
+msgid "Double"
+msgstr "Fließkommazahl"
+
+#: gobject_creator/ui/property_dialog.py:134
+msgid "String"
+msgstr "Zeichenkette"
+
+#: gobject_creator/ui/property_dialog.py:135
+msgid "Pointer"
+msgstr "Zeiger"
+
+#: gobject_creator/ui/property_dialog.py:136
+msgid "Object"
+msgstr "Objekt"
+
+#: gobject_creator/ui/property_dialog.py:137
+msgid "Enumeration"
+msgstr "Aufzählung"
+
+#: gobject_creator/ui/parameter_dialog.py:69
+msgid "Input"
+msgstr "Eingabe"
+
+#: gobject_creator/ui/parameter_dialog.py:70
+msgid "Output"
+msgstr "Ausgabe"
+
+#: gobject_creator/ui/parameter_dialog.py:71
+msgid "Input/Output"
+msgstr "Ein-/Ausgabe"
+
+#: gobject_creator/ui/parameter_dialog.py:72
+msgid "UserData"
+msgstr "Benutzerdaten"
+
+#: gobject_creator/ui/parameter_dialog.py:74
+msgid "Result"
+msgstr "Ergebnis"
+
+#: gobject_creator/ui/parameter_dialog.py:79
+msgid "No Transfer"
+msgstr "Keine Übergabe"
+
+#: gobject_creator/ui/parameter_dialog.py:80
+msgid "Transfer Container"
+msgstr "Übergabe Container"
+
+#: gobject_creator/ui/parameter_dialog.py:82
+msgid "Transfer Full"
+msgstr "Vollst. Wertübergabe"
+
+#: gobject_creator/ui/parameter_dialog.py:85
+#: gobject_creator/ui/resources/parameter_dialog.ui:278
+msgid "Elementary"
+msgstr "Elementar"
+
+#: gobject_creator/ui/parameter_dialog.py:86
+#: gobject_creator/ui/resources/parameter_dialog.ui:294
+msgid "List"
+msgstr "Liste"
+
+#: gobject_creator/ui/parameter_dialog.py:87
+#: gobject_creator/ui/resources/parameter_dialog.ui:375
+msgid "Dictionary"
+msgstr "Hashtabelle"
 
 #: gobject_creator/ui/documents_view.py:124
 msgid "New Package"
@@ -117,18 +216,6 @@ msgstr "Einfügen"
 msgid "Untitled"
 msgstr "Unbenannt"
 
-#: gobject_creator/ui/method_dialog.py:116
-msgid "Public"
-msgstr "Öffentlich"
-
-#: gobject_creator/ui/method_dialog.py:119
-msgid "Protected"
-msgstr "Geschützt"
-
-#: gobject_creator/ui/method_dialog.py:120
-msgid "Private"
-msgstr "Privat"
-
 #: gobject_creator/ui/goceditor.py:83 gobject_creator/ui/goceditor.py:113
 #: gobject_creator/ui/goceditor.py:143
 msgid "Cancel"
@@ -142,92 +229,136 @@ msgstr "Öffnen"
 msgid "Save"
 msgstr "Sichern"
 
-#: gobject_creator/ui/parameter_dialog.py:69
-msgid "Input"
-msgstr "Eingabe"
+#: gobject_creator/ui/resources/interface_dialog.ui:7
+msgid "New Interface"
+msgstr "Neue Schnittstelle"
 
-#: gobject_creator/ui/parameter_dialog.py:70
-msgid "Output"
-msgstr "Ausgabe"
+#: gobject_creator/ui/resources/interface_dialog.ui:26
+#: gobject_creator/ui/resources/property_dialog.ui:27
+#: gobject_creator/ui/resources/parameter_dialog.ui:31
+#: gobject_creator/ui/resources/method_dialog.ui:27
+#: gobject_creator/ui/resources/class_dialog.ui:26
+msgid "Name"
+msgstr "Name"
 
-#: gobject_creator/ui/parameter_dialog.py:71
-msgid "Input/Output"
-msgstr "Ein-/Ausgabe"
+#: gobject_creator/ui/resources/interface_dialog.ui:44
+#: gobject_creator/ui/resources/class_dialog.ui:82
+msgid "Prefix"
+msgstr "Präfix"
 
-#: gobject_creator/ui/parameter_dialog.py:72
-msgid "UserData"
-msgstr "Benutzerdaten"
+#: gobject_creator/ui/resources/property_dialog.ui:34
+#: gobject_creator/ui/resources/parameter_dialog.ui:233
+msgid "Description"
+msgstr "Beschreibung"
 
-#: gobject_creator/ui/parameter_dialog.py:74
-msgid "Result"
-msgstr "Ergebnis"
+#: gobject_creator/ui/resources/property_dialog.ui:69
+#: gobject_creator/ui/resources/parameter_dialog.ui:53
+msgid "Type"
+msgstr "Typ"
 
-#: gobject_creator/ui/parameter_dialog.py:79
-msgid "No Transfer"
-msgstr "Keine Übergabe"
+#: gobject_creator/ui/resources/property_dialog.ui:91
+msgid "GObject Type"
+msgstr "GObject Typ"
 
-#: gobject_creator/ui/parameter_dialog.py:80
-msgid "Transfer Container"
-msgstr "Übergabe Container"
+#: gobject_creator/ui/resources/property_dialog.ui:115
+msgid "Access"
+msgstr "Zugriff"
 
-#: gobject_creator/ui/parameter_dialog.py:82
-msgid "Transfer Full"
-msgstr "Vollst. Wertübergabe"
+#: gobject_creator/ui/resources/gocedit_info.ui:10
+msgid "Copyright (c) 2010 Thomas Bollmeier"
+msgstr "Copyright (c) 2010 Thomas Bollmeier"
 
-#: gobject_creator/ui/parameter_dialog.py:85
-#: gobject_creator/ui/resources/parameter_dialog.ui:251
-msgid "Elementary"
-msgstr "Elementar"
+#: gobject_creator/ui/resources/gocedit_info.ui:11
+msgid "Editor for GObjectCreator input files"
+msgstr "Editor für GObjectCreator-Eingabedateien"
 
-#: gobject_creator/ui/parameter_dialog.py:86
-#: gobject_creator/ui/resources/parameter_dialog.ui:267
-msgid "List"
-msgstr "Liste"
+#: gobject_creator/ui/resources/gocedit_info.ui:13
+msgid "GPLv3"
+msgstr "GPLv3"
 
-#: gobject_creator/ui/parameter_dialog.py:87
-#: gobject_creator/ui/resources/parameter_dialog.ui:348
-msgid "Dictionary"
-msgstr "Hashtabelle"
+#: gobject_creator/ui/resources/parameter_dialog.ui:77
+msgid "const"
+msgstr "nicht änderbar"
 
-#: gobject_creator/ui/property_dialog.py:110
-msgid "Read only"
-msgstr "Nur Lesen"
+#: gobject_creator/ui/resources/parameter_dialog.ui:94
+msgid "Bind to Property"
+msgstr "Gebunden an Eigenschaft"
 
-#: gobject_creator/ui/property_dialog.py:112
-msgid "Read/Initial Write"
-msgstr "Lesen/Initial Schreiben"
+#: gobject_creator/ui/resources/parameter_dialog.ui:125
+msgid "Base Data"
+msgstr "Grunddaten"
 
-#: gobject_creator/ui/property_dialog.py:115
-msgid "Read/Write"
-msgstr "Lesen/Schreiben"
+#: gobject_creator/ui/resources/parameter_dialog.ui:140
+msgid "Parameter Category"
+msgstr "Parameterkategorie"
 
-#: gobject_creator/ui/property_dialog.py:131
-msgid "Boolean"
-msgstr "Boolscher Wert"
+#: gobject_creator/ui/resources/parameter_dialog.ui:152
+msgid "Transfer Mode"
+msgstr "Übergabemodus"
 
-#: gobject_creator/ui/property_dialog.py:132
-msgid "Integer"
-msgstr "Ganzzahl"
+#: gobject_creator/ui/resources/parameter_dialog.ui:205
+msgid "Data Category"
+msgstr "Datenkategorie"
 
-#: gobject_creator/ui/property_dialog.py:133
-msgid "Double"
-msgstr "Fließkommazahl"
+#: gobject_creator/ui/resources/parameter_dialog.ui:264
+msgid "Data Type"
+msgstr "Datentyp"
 
-#: gobject_creator/ui/property_dialog.py:134
-msgid "String"
-msgstr "Zeichenkette"
+#: gobject_creator/ui/resources/parameter_dialog.ui:311
+msgid "Element Type"
+msgstr "Elementtyp"
 
-#: gobject_creator/ui/property_dialog.py:135
-msgid "Pointer"
-msgstr "Zeiger"
+#: gobject_creator/ui/resources/parameter_dialog.ui:420
+msgid "Key Type"
+msgstr "Schlüsseltyp"
 
-#: gobject_creator/ui/property_dialog.py:136
-msgid "Object"
-msgstr "Objekt"
+#: gobject_creator/ui/resources/parameter_dialog.ui:437
+msgid "Value Type"
+msgstr "Werttyp"
 
-#: gobject_creator/ui/property_dialog.py:137
-msgid "Enumeration"
-msgstr "Aufzählung"
+#: gobject_creator/ui/resources/parameter_dialog.ui:451
+msgid "Fixed Length"
+msgstr "Feste Länge"
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:470
+msgid "Length From Param."
+msgstr "Länge aus Param."
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:490
+msgid "Zero Terminated"
+msgstr "Nullterminiert"
+
+#: gobject_creator/ui/resources/parameter_dialog.ui:557
+msgid "Introspection"
+msgstr "Introspection"
+
+#: gobject_creator/ui/resources/method_dialog.ui:7
+msgid "New Method"
+msgstr "Neue Methode"
+
+#: gobject_creator/ui/resources/method_dialog.ui:34
+msgid "Visibility"
+msgstr "Sichtbarkeit"
+
+#: gobject_creator/ui/resources/method_dialog.ui:45
+msgid "Scope"
+msgstr "Bereich"
+
+#: gobject_creator/ui/resources/method_dialog.ui:76
+msgid "Instance"
+msgstr "Instanz"
+
+#: gobject_creator/ui/resources/method_dialog.ui:92
+msgid "Static"
+msgstr "Statisch"
+
+#: gobject_creator/ui/resources/method_dialog.ui:109
+msgid "Virtual"
+msgstr "Virtuell"
+
+#: gobject_creator/ui/resources/method_dialog.ui:123
+msgid "Abstract"
+msgstr "Abstrakt"
 
 #: gobject_creator/ui/resources/goceditor.ui:8
 msgid "GOCEditor"
@@ -261,60 +392,6 @@ msgstr ""
 msgid "toolbutton4"
 msgstr ""
 
-#: gobject_creator/ui/resources/method_dialog.ui:7
-msgid "New Method"
-msgstr "Neue Methode"
-
-#: gobject_creator/ui/resources/method_dialog.ui:27
-#: gobject_creator/ui/resources/property_dialog.ui:27
-#: gobject_creator/ui/resources/class_dialog.ui:26
-#: gobject_creator/ui/resources/parameter_dialog.ui:31
-#: gobject_creator/ui/resources/interface_dialog.ui:26
-msgid "Name"
-msgstr "Name"
-
-#: gobject_creator/ui/resources/method_dialog.ui:34
-msgid "Visibility"
-msgstr "Sichtbarkeit"
-
-#: gobject_creator/ui/resources/method_dialog.ui:45
-msgid "Scope"
-msgstr "Bereich"
-
-#: gobject_creator/ui/resources/method_dialog.ui:76
-msgid "Instance"
-msgstr "Instanz"
-
-#: gobject_creator/ui/resources/method_dialog.ui:92
-msgid "Static"
-msgstr "Statisch"
-
-#: gobject_creator/ui/resources/method_dialog.ui:109
-msgid "Virtual"
-msgstr "Virtuell"
-
-#: gobject_creator/ui/resources/method_dialog.ui:123
-msgid "Abstract"
-msgstr "Abstrakt"
-
-#: gobject_creator/ui/resources/property_dialog.ui:34
-#: gobject_creator/ui/resources/parameter_dialog.ui:206
-msgid "Description"
-msgstr "Beschreibung"
-
-#: gobject_creator/ui/resources/property_dialog.ui:69
-#: gobject_creator/ui/resources/parameter_dialog.ui:53
-msgid "Type"
-msgstr "Typ"
-
-#: gobject_creator/ui/resources/property_dialog.ui:91
-msgid "GObject Type"
-msgstr "GObject Typ"
-
-#: gobject_creator/ui/resources/property_dialog.ui:115
-msgid "Access"
-msgstr "Zugriff"
-
 #: gobject_creator/ui/resources/class_dialog.ui:7
 msgid "New Class"
 msgstr "Neue Klasse"
@@ -326,76 +403,3 @@ msgstr "Oberklasse"
 #: gobject_creator/ui/resources/class_dialog.ui:66
 msgid "abstract"
 msgstr "abstrakt"
-
-#: gobject_creator/ui/resources/class_dialog.ui:82
-#: gobject_creator/ui/resources/interface_dialog.ui:44
-msgid "Prefix"
-msgstr "Präfix"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:77
-msgid "const"
-msgstr "nicht änderbar"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:98
-msgid "Base Data"
-msgstr "Grunddaten"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:113
-msgid "Parameter Category"
-msgstr "Parameterkategorie"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:125
-msgid "Transfer Mode"
-msgstr "Übergabemodus"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:178
-msgid "Data Category"
-msgstr "Datenkategorie"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:237
-msgid "Data Type"
-msgstr "Datentyp"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:284
-msgid "Element Type"
-msgstr "Elementtyp"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:393
-msgid "Key Type"
-msgstr "Schlüsseltyp"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:410
-msgid "Value Type"
-msgstr "Werttyp"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:424
-msgid "Fixed Length"
-msgstr "Feste Länge"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:443
-msgid "Length From Param."
-msgstr "Länge aus Param."
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:505
-msgid "Zero Terminated"
-msgstr "Nullterminiert"
-
-#: gobject_creator/ui/resources/parameter_dialog.ui:530
-msgid "Introspection"
-msgstr "Introspection"
-
-#: gobject_creator/ui/resources/gocedit_info.ui:10
-msgid "Copyright (c) 2010 Thomas Bollmeier"
-msgstr "Copyright (c) 2010 Thomas Bollmeier"
-
-#: gobject_creator/ui/resources/gocedit_info.ui:11
-msgid "Editor for GObjectCreator input files"
-msgstr "Editor für GObjectCreator-Eingabedateien"
-
-#: gobject_creator/ui/resources/gocedit_info.ui:13
-msgid "GPLv3"
-msgstr "GPLv3"
-
-#: gobject_creator/ui/resources/interface_dialog.ui:7
-msgid "New Interface"
-msgstr "Neue Schnittstelle"

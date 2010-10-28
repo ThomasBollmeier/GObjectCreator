@@ -50,6 +50,7 @@ _section="Others">
 	<keyword>Constructor</keyword>
 	<keyword>ConstructorParam</keyword>
 	<keyword>InitProperty</keyword>
+	<keyword>BindProperty</keyword>
 	<keyword>Method</keyword>
 	<keyword>StaticMethod</keyword>
 	<keyword>IntfMethod</keyword>

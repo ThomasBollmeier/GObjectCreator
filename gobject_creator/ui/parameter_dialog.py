@@ -38,20 +38,23 @@ class ParameterData(object):
     def __init__(self,
                  name,
                  type_name,
-                 is_constant
+                 is_constant,
+                 assigned_property
                  ):
         
         self.name = name
         self.type_name = type_name
         if is_constant:
             self.type_name = "const " + self.type_name
+        self.assigned_property = assigned_property
             
         self.intro = _IntrospectionData()
 
 class ParameterDialog(UserInterface):
     
     def __init__(self, 
-                 result_dialog = False
+                 result_dialog = False,
+                 constructor_param = False
                  ):
         
         UserInterface.__init__(self, "parameter_dialog.ui")
@@ -62,6 +65,14 @@ class ParameterDialog(UserInterface):
         else:
             self.label_name.hide()
             self.name.hide()
+            
+        if not constructor_param:
+            self.label_property.hide()
+            self.bind_to_property.hide()
+        else:
+            self.label_property.show()
+            self.bind_to_property.show()
+        self.constr_param = constructor_param
         
         self._param_catg = CodeView(self.param_catg)
         if not result_dialog:
@@ -80,6 +91,7 @@ class ParameterDialog(UserInterface):
         self._transfer_mode.add_value(_("Transfer Container"), 
                                       "CONTAINER_ONLY")
         self._transfer_mode.add_value(_("Transfer Full"), "FULL")
+        self._transfer_mode.set_value("UNSPECIFIED")
         
         self._data_catg = CodeView(self.data_catg)
         self._data_catg.add_value(_("Elementary"), _DataCatg.ELEMENTARY)
@@ -115,9 +127,14 @@ class ParameterDialog(UserInterface):
             name = str(self.name.get_text())
             type_name = str(self.param_type.get_text())
             is_constant = self.const.get_active()
+            if self.constr_param:
+                assigned_property = str(self.bind_to_property.get_text())
+            else:
+                assigned_property = ""
             res = ParameterData(name, 
                                 type_name, 
-                                is_constant
+                                is_constant,
+                                assigned_property
                                 )
             res.intro = self._get_introspection_data()
         else:

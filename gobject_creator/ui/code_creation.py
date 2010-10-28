@@ -123,8 +123,17 @@ def codesnippet_constructor(line_begin):
 
 def codesnippet_constructor_param(line_begin):
     
-    block = Textblock(line_begin)
-    block.writeln('ConstructorParam("<name>", "<type>")')
+    param_data = ParameterDialog(result_dialog = False, 
+                                 constructor_param = True).run()
+    if param_data is None:
+        return
+    
+    block = _create_param_block(
+                                line_begin, 
+                                False,
+                                True,
+                                param_data
+                                )
     
     return str(block)
 
@@ -178,6 +187,20 @@ def codesnippet_param(line_begin, is_result_param=False):
     param_data = ParameterDialog(is_result_param).run()
     if param_data is None:
         return
+    
+    block = _create_param_block(
+                                line_begin, 
+                                is_result_param,
+                                False,
+                                param_data
+                                )
+    return str(block)
+    
+def _create_param_block(line_begin,
+                        is_result_param, 
+                        is_constr_param, 
+                        param_data
+                        ):
     
     block = Textblock(line_begin)
     
@@ -239,9 +262,18 @@ def codesnippet_param(line_begin, is_result_param=False):
         block.writeln(")(")
     
     # Set name and type:
-    if not is_result_param:
+    if not is_result_param and not is_constr_param:
         block.writeln('Param("%s", "%s")' %
                       (param_data.name, param_data.type_name)
+                      )
+    elif is_constr_param:
+        if not param_data.assigned_property:
+            block.writeln('ConstructorParam("%s", "%s")' %
+                      (param_data.name, param_data.type_name)
+                      )
+        else:
+            block.writeln('ConstructorParam("%s", "%s").BindProperty("%s")' %
+                      (param_data.name, param_data.type_name, param_data.assigned_property)
                       )
     else:
         block.writeln('Result("%s")' % param_data.type_name)
@@ -249,7 +281,7 @@ def codesnippet_param(line_begin, is_result_param=False):
     if num_info:
         block.writeln(")" * num_info)
         
-    return str(block)
+    return block
 
 def codesnippet_override(line_begin):
     
