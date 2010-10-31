@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 22:01+0200\n"
+"POT-Creation-Date: 2010-10-31 14:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,10 @@ msgstr ""
 
 #: gobject_creator/ui/method_dialog.py:120
 msgid "Private"
+msgstr ""
+
+#: gobject_creator/ui/include_dialog.py:52
+msgid "Choose Model File"
 msgstr ""
 
 #: gobject_creator/ui/property_dialog.py:110
@@ -68,49 +72,49 @@ msgstr ""
 msgid "Enumeration"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:69
+#: gobject_creator/ui/parameter_dialog.py:80
 msgid "Input"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:70
+#: gobject_creator/ui/parameter_dialog.py:81
 msgid "Output"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:71
+#: gobject_creator/ui/parameter_dialog.py:82
 msgid "Input/Output"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:72
+#: gobject_creator/ui/parameter_dialog.py:83
 msgid "UserData"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:74
+#: gobject_creator/ui/parameter_dialog.py:85
 msgid "Result"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:79
+#: gobject_creator/ui/parameter_dialog.py:90
 msgid "No Transfer"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:80
+#: gobject_creator/ui/parameter_dialog.py:91
 msgid "Transfer Container"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:82
+#: gobject_creator/ui/parameter_dialog.py:93
 msgid "Transfer Full"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:85
+#: gobject_creator/ui/parameter_dialog.py:97
 #: gobject_creator/ui/resources/parameter_dialog.ui:278
 msgid "Elementary"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:86
+#: gobject_creator/ui/parameter_dialog.py:98
 #: gobject_creator/ui/resources/parameter_dialog.ui:294
 msgid "List"
 msgstr ""
 
-#: gobject_creator/ui/parameter_dialog.py:87
+#: gobject_creator/ui/parameter_dialog.py:99
 #: gobject_creator/ui/resources/parameter_dialog.ui:375
 msgid "Dictionary"
 msgstr ""
@@ -199,18 +203,23 @@ msgid "New Error Domain"
 msgstr ""
 
 #: gobject_creator/ui/documents_view.py:154
-msgid "Cut"
+#: gobject_creator/ui/resources/include_dialog.ui:7
+msgid "Include Model File"
 msgstr ""
 
 #: gobject_creator/ui/documents_view.py:155
-msgid "Copy"
+msgid "Cut"
 msgstr ""
 
 #: gobject_creator/ui/documents_view.py:156
+msgid "Copy"
+msgstr ""
+
+#: gobject_creator/ui/documents_view.py:157
 msgid "Paste"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:256
+#: gobject_creator/ui/documents_view.py:259
 msgid "Untitled"
 msgstr ""
 
@@ -400,4 +409,8 @@ msgstr ""
 
 #: gobject_creator/ui/resources/class_dialog.ui:66
 msgid "abstract"
+msgstr ""
+
+#: gobject_creator/ui/resources/include_dialog.ui:25
+msgid "Model File"
 msgstr ""

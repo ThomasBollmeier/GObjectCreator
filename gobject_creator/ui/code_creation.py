@@ -26,6 +26,7 @@ from interface_dialog import InterfaceDialog
 from method_dialog import run_method_dialog
 from property_dialog import PropertyDialog
 from parameter_dialog import ParameterDialog, DataCatg
+from include_dialog import IncludeDialog
 from metamodel.meta_objects import *
 from metamodel.introspection_info import ParamCategory
 from metamodel.introspection_decorators import *
@@ -373,15 +374,6 @@ def codesnippet_intf_method(line_begin):
 def codesnippet_enumeration(line_begin):
     
     block = Textblock(line_begin)
-    block.writeln('with Enumeration("<name>", inIsFlagType = False):')
-    block.indent()
-    block.writeln('EnumCode("<CODE>")')
-    
-    return str(block)
-
-def codesnippet_enumeration(line_begin):
-    
-    block = Textblock(line_begin)
     block.writeln('with Enumeration("<MyEnumeration>", inIsFlagType = False):')
     block.indent()
     block.writeln('EnumCode("<MY_FIRST_VALUE>")')
@@ -394,6 +386,18 @@ def codesnippet_error_domain(line_begin):
     block.writeln('with ErrorDomain("<MyError>"):')
     block.indent()
     block.writeln('ErrorCode("<MY_FAILURE>")')
+    
+    return str(block)
+
+def codesnippet_include_model(line_begin):
+    
+    block = Textblock(line_begin)
+    
+    model_file = IncludeDialog().run()
+    if not model_file:
+        return
+    
+    block.writeln("#include_def <%s>" % model_file)
     
     return str(block)
 
