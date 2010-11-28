@@ -63,6 +63,9 @@ class GOCEditor(object):
         self._builder.connect_signals(self)
         
         for start_file in start_files:
+            if not os.path.exists(start_file):
+                fd = open(start_file, "w")
+                fd.close()
             self._docs_model.load_document(start_file)
         
     def run(self):
