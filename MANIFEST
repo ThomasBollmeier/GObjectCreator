@@ -91,6 +91,7 @@ gobject_creator/ui/resources/class_dialog.ui
 gobject_creator/ui/resources/gobject-creator.lang
 gobject_creator/ui/resources/gocedit_info.ui
 gobject_creator/ui/resources/goceditor.ui
+gobject_creator/ui/resources/goceditor_logo.png
 gobject_creator/ui/resources/hand_mit_stift_296x300.png
 gobject_creator/ui/resources/interface_dialog.ui
 gobject_creator/ui/resources/method_dialog.ui
