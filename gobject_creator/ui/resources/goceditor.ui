@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
@@ -6,10 +6,11 @@
     <property name="width_request">600</property>
     <property name="height_request">400</property>
     <property name="title" translatable="yes">GOCEditor</property>
-    <signal name="delete-event" handler="on_file_quit" swapped="no"/>
+    <signal name="delete_event" handler="on_file_quit"/>
     <child>
       <object class="GtkVBox" id="top_vbox">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkMenuBar" id="menubar1">
             <property name="visible">True</property>
@@ -29,7 +30,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="n" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_file_new" swapped="no"/>
+                        <signal name="activate" handler="on_file_new"/>
                       </object>
                     </child>
                     <child>
@@ -39,7 +40,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="o" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_file_open" swapped="no"/>
+                        <signal name="activate" handler="on_file_open"/>
                       </object>
                     </child>
                     <child>
@@ -49,7 +50,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="s" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_file_save" swapped="no"/>
+                        <signal name="activate" handler="on_file_save"/>
                       </object>
                     </child>
                     <child>
@@ -58,7 +59,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_file_save_as" swapped="no"/>
+                        <signal name="activate" handler="on_file_save_as"/>
                       </object>
                     </child>
                     <child>
@@ -74,7 +75,7 @@
                         <property name="use_stock">True</property>
                         <property name="accel_group">accelgroup1</property>
                         <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_file_quit" swapped="no"/>
+                        <signal name="activate" handler="on_file_quit"/>
                       </object>
                     </child>
                   </object>
@@ -97,7 +98,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="x" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_edit_cut" swapped="no"/>
+                        <signal name="activate" handler="on_edit_cut"/>
                       </object>
                     </child>
                     <child>
@@ -107,7 +108,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_edit_copy" swapped="no"/>
+                        <signal name="activate" handler="on_edit_copy"/>
                       </object>
                     </child>
                     <child>
@@ -117,7 +118,23 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="v" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_edit_paste" swapped="no"/>
+                        <signal name="activate" handler="on_edit_paste"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="menuitem3">
+                        <property name="visible">True</property>
+                        <property name="use_action_appearance">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="mitem_settings">
+                        <property name="label">gtk-preferences</property>
+                        <property name="visible">True</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_edit_settings"/>
                       </object>
                     </child>
                   </object>
@@ -139,7 +156,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_help_info" swapped="no"/>
+                        <signal name="activate" handler="on_help_info"/>
                       </object>
                     </child>
                   </object>
@@ -161,7 +178,7 @@
                 <property name="label" translatable="yes">toolbutton1</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-new</property>
-                <signal name="clicked" handler="on_file_new" swapped="no"/>
+                <signal name="clicked" handler="on_file_new"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -174,7 +191,7 @@
                 <property name="label" translatable="yes">toolbutton2</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-open</property>
-                <signal name="clicked" handler="on_file_open" swapped="no"/>
+                <signal name="clicked" handler="on_file_open"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -187,7 +204,7 @@
                 <property name="label" translatable="yes">toolbutton3</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
-                <signal name="clicked" handler="on_file_save" swapped="no"/>
+                <signal name="clicked" handler="on_file_save"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -201,7 +218,7 @@
                 <property name="label" translatable="yes">toolbutton4</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save-as</property>
-                <signal name="clicked" handler="on_file_save_as" swapped="no"/>
+                <signal name="clicked" handler="on_file_save_as"/>
               </object>
               <packing>
                 <property name="expand">False</property>

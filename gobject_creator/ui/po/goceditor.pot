@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-31 14:33+0100\n"
+"POT-Creation-Date: 2010-11-29 20:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,120 +119,120 @@ msgstr ""
 msgid "Dictionary"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:124
+#: gobject_creator/ui/documents_view.py:129
 msgid "New Package"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:125
+#: gobject_creator/ui/documents_view.py:130
 msgid "Class"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:126
-#: gobject_creator/ui/documents_view.py:129
-#: gobject_creator/ui/documents_view.py:133
-#: gobject_creator/ui/documents_view.py:140
-#: gobject_creator/ui/documents_view.py:143
-#: gobject_creator/ui/documents_view.py:146
-#: gobject_creator/ui/documents_view.py:150
+#: gobject_creator/ui/documents_view.py:131
+#: gobject_creator/ui/documents_view.py:134
+#: gobject_creator/ui/documents_view.py:138
+#: gobject_creator/ui/documents_view.py:145
+#: gobject_creator/ui/documents_view.py:148
+#: gobject_creator/ui/documents_view.py:151
+#: gobject_creator/ui/documents_view.py:155
 msgid "New"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:127
+#: gobject_creator/ui/documents_view.py:132
 msgid "Implements..."
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:128
+#: gobject_creator/ui/documents_view.py:133
 msgid "Constructor"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:130
 #: gobject_creator/ui/documents_view.py:135
-#: gobject_creator/ui/documents_view.py:141
-#: gobject_creator/ui/documents_view.py:148
-#: gobject_creator/ui/documents_view.py:151
+#: gobject_creator/ui/documents_view.py:140
+#: gobject_creator/ui/documents_view.py:146
+#: gobject_creator/ui/documents_view.py:153
+#: gobject_creator/ui/documents_view.py:156
 #: gobject_creator/ui/resources/parameter_dialog.ui:7
 msgid "New Parameter"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:131
+#: gobject_creator/ui/documents_view.py:136
 msgid "New Property Init."
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:132
-#: gobject_creator/ui/documents_view.py:145
+#: gobject_creator/ui/documents_view.py:137
+#: gobject_creator/ui/documents_view.py:150
 msgid "Method"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:134
-#: gobject_creator/ui/documents_view.py:147
+#: gobject_creator/ui/documents_view.py:139
+#: gobject_creator/ui/documents_view.py:152
 msgid "New Result"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:136
+#: gobject_creator/ui/documents_view.py:141
 msgid "Override..."
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:137
+#: gobject_creator/ui/documents_view.py:142
 msgid "New Attribute"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:138
+#: gobject_creator/ui/documents_view.py:143
 #: gobject_creator/ui/resources/property_dialog.ui:7
 msgid "New Property"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:139
-#: gobject_creator/ui/documents_view.py:149
+#: gobject_creator/ui/documents_view.py:144
+#: gobject_creator/ui/documents_view.py:154
 msgid "Signal"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:142
+#: gobject_creator/ui/documents_view.py:147
 msgid "Interface"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:144
+#: gobject_creator/ui/documents_view.py:149
 msgid "Extends..."
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:152
+#: gobject_creator/ui/documents_view.py:157
 msgid "New Enumeration"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:153
+#: gobject_creator/ui/documents_view.py:158
 msgid "New Error Domain"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:154
+#: gobject_creator/ui/documents_view.py:159
 #: gobject_creator/ui/resources/include_dialog.ui:7
 msgid "Include Model File"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:155
+#: gobject_creator/ui/documents_view.py:160
 msgid "Cut"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:156
+#: gobject_creator/ui/documents_view.py:161
 msgid "Copy"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:157
+#: gobject_creator/ui/documents_view.py:162
 msgid "Paste"
 msgstr ""
 
-#: gobject_creator/ui/documents_view.py:259
+#: gobject_creator/ui/documents_view.py:264
 msgid "Untitled"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:83 gobject_creator/ui/goceditor.py:113
-#: gobject_creator/ui/goceditor.py:143
+#: gobject_creator/ui/goceditor.py:87 gobject_creator/ui/goceditor.py:117
+#: gobject_creator/ui/goceditor.py:147
 msgid "Cancel"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:84
+#: gobject_creator/ui/goceditor.py:88
 msgid "Open"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:114 gobject_creator/ui/goceditor.py:144
+#: gobject_creator/ui/goceditor.py:118 gobject_creator/ui/goceditor.py:148
 msgid "Save"
 msgstr ""
 
@@ -251,6 +251,14 @@ msgstr ""
 #: gobject_creator/ui/resources/interface_dialog.ui:44
 #: gobject_creator/ui/resources/class_dialog.ui:82
 msgid "Prefix"
+msgstr ""
+
+#: gobject_creator/ui/resources/settings_dialog.ui:7
+msgid "Settings"
+msgstr ""
+
+#: gobject_creator/ui/resources/settings_dialog.ui:22
+msgid "show line numbers"
 msgstr ""
 
 #: gobject_creator/ui/resources/property_dialog.ui:34
@@ -371,31 +379,31 @@ msgstr ""
 msgid "GOCEditor"
 msgstr ""
 
-#: gobject_creator/ui/resources/goceditor.ui:20
+#: gobject_creator/ui/resources/goceditor.ui:21
 msgid "_File"
 msgstr ""
 
-#: gobject_creator/ui/resources/goceditor.ui:88
+#: gobject_creator/ui/resources/goceditor.ui:89
 msgid "_Edit"
 msgstr ""
 
-#: gobject_creator/ui/resources/goceditor.ui:131
+#: gobject_creator/ui/resources/goceditor.ui:148
 msgid "_Help"
 msgstr ""
 
-#: gobject_creator/ui/resources/goceditor.ui:161
+#: gobject_creator/ui/resources/goceditor.ui:178
 msgid "toolbutton1"
 msgstr ""
 
-#: gobject_creator/ui/resources/goceditor.ui:174
+#: gobject_creator/ui/resources/goceditor.ui:191
 msgid "toolbutton2"
 msgstr ""
 
-#: gobject_creator/ui/resources/goceditor.ui:187
+#: gobject_creator/ui/resources/goceditor.ui:204
 msgid "toolbutton3"
 msgstr ""
 
-#: gobject_creator/ui/resources/goceditor.ui:201
+#: gobject_creator/ui/resources/goceditor.ui:218
 msgid "toolbutton4"
 msgstr ""
 

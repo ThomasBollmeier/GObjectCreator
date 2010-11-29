@@ -32,6 +32,7 @@ import code_creation
 from resources.util import get_resource_path
 
 from documents_model import DocumentsModel, DocState
+from settings_dialog import Settings
 
 class DocumentsView(object):
     
@@ -51,6 +52,10 @@ class DocumentsView(object):
             self._on_document_changed
             )
         
+        Settings.get().connect("settings-changed",
+                               self._on_settings_changed
+                               )
+                
         self._language_manager = LanguageManager()
         language_path = os.path.dirname(__file__)
         language_path = os.path.abspath(language_path)
@@ -281,6 +286,19 @@ class DocumentsView(object):
                 text += "*"
         
         label.set_text(text)
+        
+    def _show_line_numbers(self, show):
+        
+        if not self._notebook.get_n_pages():
+            return
+        
+        idx = 0
+        page = self._notebook.get_nth_page(idx)
+        while page:
+            view = page.get_child()
+            view.set_show_line_numbers(show)
+            idx += 1
+            page = self._notebook.get_nth_page(idx)
             
     def _on_button_pressed(self, view, event):
         
@@ -324,6 +342,7 @@ class DocumentsView(object):
         view.set_buffer(buf)
         
         view.set_auto_indent(True)
+        view.set_show_line_numbers(Settings.get().show_line_numbers)
         
         doc_container = gtk.ScrolledWindow()
         doc_container.show()
@@ -379,3 +398,10 @@ class DocumentsView(object):
     def _on_document_changed(self, model, idx):
         
         self._set_document_title(idx)
+        
+    def _on_settings_changed(self, settings, name):
+        
+        if name == "show_line_numbers":
+            
+            self._show_line_numbers(settings.show_line_numbers)
+            

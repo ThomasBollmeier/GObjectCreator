@@ -30,6 +30,7 @@ import gtk
 from documents_view import DocumentsView
 from documents_model import DocumentsModel
 from resources.util import get_resource_path
+from settings_dialog import SettingsDialog
 import gobject_creator
 
 class GOCEditor(object):
@@ -177,6 +178,10 @@ class GOCEditor(object):
         
         self._documents.exec_action("paste")
         
+    def on_edit_settings(self, *args):
+        
+        SettingsDialog().run()
+                
     def on_help_info(self, *args):
         
         builder = gtk.Builder()
