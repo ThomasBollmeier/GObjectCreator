@@ -101,7 +101,7 @@ class Settings(gobject.GObject):
             else:
                 raise SettingsError
         else:
-            if value.type == gconf.VALUE_BOOL:
+            if value_type == gconf.VALUE_BOOL:
                 return False
             else:
                 raise SettingsError
