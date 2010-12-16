@@ -27,6 +27,7 @@ def get_files(dirpath="", recursive=True):
                 
 all_files = get_files(recursive=False)
 all_files += get_files(dirpath="bin")
+all_files += get_files(dirpath="doc")
 all_files += get_files(dirpath="examples")
 all_files += get_files(dirpath="gobject_creator")
 

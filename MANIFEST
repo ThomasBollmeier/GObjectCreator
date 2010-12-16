@@ -8,6 +8,7 @@ create_pot_file.sh
 setup.py
 bin/gobjects_create.py
 bin/goceditor.py
+doc/meta_objects.html
 examples/audio.py
 examples/audio_example_edited/Makefile
 examples/audio_example_edited/audio_error.c
