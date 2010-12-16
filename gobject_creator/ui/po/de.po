@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 20:01+0100\n"
+"POT-Creation-Date: 2010-12-16 22:27+0100\n"
 "PO-Revision-Date: 2010-09-12 14:49+0200\n"
 "Last-Translator: Thomas Bollmeier <TBollmeier@web.de>\n"
 "Language-Team: German\n"
@@ -18,61 +18,122 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gobject_creator/ui/method_dialog.py:116
-msgid "Public"
-msgstr "Öffentlich"
+#: gobject_creator/ui/documents_view.py:130
+msgid "New Package"
+msgstr "Neues Paket"
 
-#: gobject_creator/ui/method_dialog.py:119
-msgid "Protected"
-msgstr "Geschützt"
+#: gobject_creator/ui/documents_view.py:131
+msgid "Class"
+msgstr "Klasse"
 
-#: gobject_creator/ui/method_dialog.py:120
-msgid "Private"
-msgstr "Privat"
+#: gobject_creator/ui/documents_view.py:132
+#: gobject_creator/ui/documents_view.py:135
+#: gobject_creator/ui/documents_view.py:139
+#: gobject_creator/ui/documents_view.py:146
+#: gobject_creator/ui/documents_view.py:149
+#: gobject_creator/ui/documents_view.py:152
+#: gobject_creator/ui/documents_view.py:156
+msgid "New"
+msgstr "Neu"
 
-#: gobject_creator/ui/include_dialog.py:52
-msgid "Choose Model File"
-msgstr "Modelldatei auswählen"
+#: gobject_creator/ui/documents_view.py:133
+msgid "Implements..."
+msgstr "Implementiert..."
 
-#: gobject_creator/ui/property_dialog.py:110
-msgid "Read only"
-msgstr "Nur Lesen"
+#: gobject_creator/ui/documents_view.py:134
+msgid "Constructor"
+msgstr "Konstruktor"
 
-#: gobject_creator/ui/property_dialog.py:112
-msgid "Read/Initial Write"
-msgstr "Lesen/Initial Schreiben"
+#: gobject_creator/ui/documents_view.py:136
+#: gobject_creator/ui/documents_view.py:141
+#: gobject_creator/ui/documents_view.py:147
+#: gobject_creator/ui/documents_view.py:154
+#: gobject_creator/ui/documents_view.py:157
+#: gobject_creator/ui/resources/parameter_dialog.ui:7
+msgid "New Parameter"
+msgstr "Neuer Parameter"
 
-#: gobject_creator/ui/property_dialog.py:115
-msgid "Read/Write"
-msgstr "Lesen/Schreiben"
+#: gobject_creator/ui/documents_view.py:137
+msgid "New Property Init."
+msgstr "Neue Eigenschaft Init."
 
-#: gobject_creator/ui/property_dialog.py:131
-msgid "Boolean"
-msgstr "Boolscher Wert"
+#: gobject_creator/ui/documents_view.py:138
+#: gobject_creator/ui/documents_view.py:151
+msgid "Method"
+msgstr "Methode"
 
-#: gobject_creator/ui/property_dialog.py:132
-msgid "Integer"
-msgstr "Ganzzahl"
+#: gobject_creator/ui/documents_view.py:140
+#: gobject_creator/ui/documents_view.py:153
+msgid "New Result"
+msgstr "Neues Ergebnis"
 
-#: gobject_creator/ui/property_dialog.py:133
-msgid "Double"
-msgstr "Fließkommazahl"
+#: gobject_creator/ui/documents_view.py:142
+msgid "Override..."
+msgstr "Überschreiben..."
 
-#: gobject_creator/ui/property_dialog.py:134
-msgid "String"
-msgstr "Zeichenkette"
+#: gobject_creator/ui/documents_view.py:143
+msgid "New Attribute"
+msgstr "Neues Attribut"
 
-#: gobject_creator/ui/property_dialog.py:135
-msgid "Pointer"
-msgstr "Zeiger"
+#: gobject_creator/ui/documents_view.py:144
+#: gobject_creator/ui/resources/property_dialog.ui:7
+msgid "New Property"
+msgstr "Neue Eigenschaft"
 
-#: gobject_creator/ui/property_dialog.py:136
-msgid "Object"
-msgstr "Objekt"
+#: gobject_creator/ui/documents_view.py:145
+#: gobject_creator/ui/documents_view.py:155
+msgid "Signal"
+msgstr "Signal"
 
-#: gobject_creator/ui/property_dialog.py:137
-msgid "Enumeration"
-msgstr "Aufzählung"
+#: gobject_creator/ui/documents_view.py:148
+msgid "Interface"
+msgstr "Schnittstelle"
+
+#: gobject_creator/ui/documents_view.py:150
+msgid "Extends..."
+msgstr "Erweitert..."
+
+#: gobject_creator/ui/documents_view.py:158
+msgid "New Enumeration"
+msgstr "Neue Aufzählung"
+
+#: gobject_creator/ui/documents_view.py:159
+msgid "New Error Domain"
+msgstr "Neue Fehlerdomäne"
+
+#: gobject_creator/ui/documents_view.py:160
+#: gobject_creator/ui/resources/include_dialog.ui:7
+msgid "Include Model File"
+msgstr "Modelldatei einbeziehen"
+
+#: gobject_creator/ui/documents_view.py:161
+msgid "Cut"
+msgstr "Ausschneiden"
+
+#: gobject_creator/ui/documents_view.py:162
+msgid "Copy"
+msgstr "Kopieren"
+
+#: gobject_creator/ui/documents_view.py:163
+msgid "Paste"
+msgstr "Einfügen"
+
+#: gobject_creator/ui/documents_view.py:265
+msgid "Untitled"
+msgstr "Unbenannt"
+
+#: gobject_creator/ui/goceditor.py:87 gobject_creator/ui/goceditor.py:117
+#: gobject_creator/ui/goceditor.py:147
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: gobject_creator/ui/goceditor.py:88
+msgid "Open"
+msgstr "Öffnen"
+
+#: gobject_creator/ui/goceditor.py:118 gobject_creator/ui/goceditor.py:148
+msgid "Save"
+msgstr "Sichern"
 
 #: gobject_creator/ui/parameter_dialog.py:80
 msgid "Input"
@@ -121,147 +182,81 @@ msgstr "Liste"
 msgid "Dictionary"
 msgstr "Hashtabelle"
 
-#: gobject_creator/ui/documents_view.py:129
-msgid "New Package"
-msgstr "Neues Paket"
+#: gobject_creator/ui/property_dialog.py:110
+msgid "Read only"
+msgstr "Nur Lesen"
 
-#: gobject_creator/ui/documents_view.py:130
-msgid "Class"
-msgstr "Klasse"
+#: gobject_creator/ui/property_dialog.py:112
+msgid "Read/Initial Write"
+msgstr "Lesen/Initial Schreiben"
 
-#: gobject_creator/ui/documents_view.py:131
-#: gobject_creator/ui/documents_view.py:134
-#: gobject_creator/ui/documents_view.py:138
-#: gobject_creator/ui/documents_view.py:145
-#: gobject_creator/ui/documents_view.py:148
-#: gobject_creator/ui/documents_view.py:151
-#: gobject_creator/ui/documents_view.py:155
-msgid "New"
-msgstr "Neu"
+#: gobject_creator/ui/property_dialog.py:115
+msgid "Read/Write"
+msgstr "Lesen/Schreiben"
 
-#: gobject_creator/ui/documents_view.py:132
-msgid "Implements..."
-msgstr "Implementiert..."
+#: gobject_creator/ui/property_dialog.py:131
+msgid "Boolean"
+msgstr "Boolscher Wert"
 
-#: gobject_creator/ui/documents_view.py:133
-msgid "Constructor"
-msgstr "Konstruktor"
+#: gobject_creator/ui/property_dialog.py:132
+msgid "Integer"
+msgstr "Ganzzahl"
 
-#: gobject_creator/ui/documents_view.py:135
-#: gobject_creator/ui/documents_view.py:140
-#: gobject_creator/ui/documents_view.py:146
-#: gobject_creator/ui/documents_view.py:153
-#: gobject_creator/ui/documents_view.py:156
-#: gobject_creator/ui/resources/parameter_dialog.ui:7
-msgid "New Parameter"
-msgstr "Neuer Parameter"
+#: gobject_creator/ui/property_dialog.py:133
+msgid "Double"
+msgstr "Fließkommazahl"
 
-#: gobject_creator/ui/documents_view.py:136
-msgid "New Property Init."
-msgstr "Neue Eigenschaft Init."
+#: gobject_creator/ui/property_dialog.py:134
+msgid "String"
+msgstr "Zeichenkette"
 
-#: gobject_creator/ui/documents_view.py:137
-#: gobject_creator/ui/documents_view.py:150
-msgid "Method"
-msgstr "Methode"
+#: gobject_creator/ui/property_dialog.py:135
+msgid "Pointer"
+msgstr "Zeiger"
 
-#: gobject_creator/ui/documents_view.py:139
-#: gobject_creator/ui/documents_view.py:152
-msgid "New Result"
-msgstr "Neues Ergebnis"
+#: gobject_creator/ui/property_dialog.py:136
+msgid "Object"
+msgstr "Objekt"
 
-#: gobject_creator/ui/documents_view.py:141
-msgid "Override..."
-msgstr "Überschreiben..."
+#: gobject_creator/ui/property_dialog.py:137
+msgid "Enumeration"
+msgstr "Aufzählung"
 
-#: gobject_creator/ui/documents_view.py:142
-msgid "New Attribute"
-msgstr "Neues Attribut"
+#: gobject_creator/ui/include_dialog.py:52
+msgid "Choose Model File"
+msgstr "Modelldatei auswählen"
 
-#: gobject_creator/ui/documents_view.py:143
-#: gobject_creator/ui/resources/property_dialog.ui:7
-msgid "New Property"
-msgstr "Neue Eigenschaft"
+#: gobject_creator/ui/method_dialog.py:116
+msgid "Public"
+msgstr "Öffentlich"
 
-#: gobject_creator/ui/documents_view.py:144
-#: gobject_creator/ui/documents_view.py:154
-msgid "Signal"
-msgstr "Signal"
+#: gobject_creator/ui/method_dialog.py:119
+msgid "Protected"
+msgstr "Geschützt"
 
-#: gobject_creator/ui/documents_view.py:147
-msgid "Interface"
-msgstr "Schnittstelle"
+#: gobject_creator/ui/method_dialog.py:120
+msgid "Private"
+msgstr "Privat"
 
-#: gobject_creator/ui/documents_view.py:149
-msgid "Extends..."
-msgstr "Erweitert..."
+#: gobject_creator/ui/resources/gocedit_info.ui:10
+msgid "Copyright (c) 2010 Thomas Bollmeier"
+msgstr "Copyright (c) 2010 Thomas Bollmeier"
 
-#: gobject_creator/ui/documents_view.py:157
-msgid "New Enumeration"
-msgstr "Neue Aufzählung"
+#: gobject_creator/ui/resources/gocedit_info.ui:11
+msgid "Editor for GObjectCreator input files"
+msgstr "Editor für GObjectCreator-Eingabedateien"
 
-#: gobject_creator/ui/documents_view.py:158
-msgid "New Error Domain"
-msgstr "Neue Fehlerdomäne"
+#: gobject_creator/ui/resources/gocedit_info.ui:13
+msgid "GPLv3"
+msgstr "GPLv3"
 
-#: gobject_creator/ui/documents_view.py:159
-#: gobject_creator/ui/resources/include_dialog.ui:7
-msgid "Include Model File"
-msgstr "Modelldatei einbeziehen"
-
-#: gobject_creator/ui/documents_view.py:160
-msgid "Cut"
-msgstr "Ausschneiden"
-
-#: gobject_creator/ui/documents_view.py:161
-msgid "Copy"
-msgstr "Kopieren"
-
-#: gobject_creator/ui/documents_view.py:162
-msgid "Paste"
-msgstr "Einfügen"
-
-#: gobject_creator/ui/documents_view.py:264
-msgid "Untitled"
-msgstr "Unbenannt"
-
-#: gobject_creator/ui/goceditor.py:87 gobject_creator/ui/goceditor.py:117
-#: gobject_creator/ui/goceditor.py:147
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: gobject_creator/ui/goceditor.py:88
-msgid "Open"
-msgstr "Öffnen"
-
-#: gobject_creator/ui/goceditor.py:118 gobject_creator/ui/goceditor.py:148
-msgid "Save"
-msgstr "Sichern"
-
-#: gobject_creator/ui/resources/interface_dialog.ui:7
-msgid "New Interface"
-msgstr "Neue Schnittstelle"
-
-#: gobject_creator/ui/resources/interface_dialog.ui:26
 #: gobject_creator/ui/resources/property_dialog.ui:27
-#: gobject_creator/ui/resources/parameter_dialog.ui:31
-#: gobject_creator/ui/resources/method_dialog.ui:27
 #: gobject_creator/ui/resources/class_dialog.ui:26
+#: gobject_creator/ui/resources/method_dialog.ui:27
+#: gobject_creator/ui/resources/interface_dialog.ui:26
+#: gobject_creator/ui/resources/parameter_dialog.ui:31
 msgid "Name"
 msgstr "Name"
-
-#: gobject_creator/ui/resources/interface_dialog.ui:44
-#: gobject_creator/ui/resources/class_dialog.ui:82
-msgid "Prefix"
-msgstr "Präfix"
-
-#: gobject_creator/ui/resources/settings_dialog.ui:7
-msgid "Settings"
-msgstr "Einstellungen"
-
-#: gobject_creator/ui/resources/settings_dialog.ui:22
-msgid "show line numbers"
-msgstr "Zeilennummern anzeigen"
 
 #: gobject_creator/ui/resources/property_dialog.ui:34
 #: gobject_creator/ui/resources/parameter_dialog.ui:233
@@ -281,17 +276,70 @@ msgstr "GObject Typ"
 msgid "Access"
 msgstr "Zugriff"
 
-#: gobject_creator/ui/resources/gocedit_info.ui:10
-msgid "Copyright (c) 2010 Thomas Bollmeier"
-msgstr "Copyright (c) 2010 Thomas Bollmeier"
+#: gobject_creator/ui/resources/include_dialog.ui:25
+msgid "Model File"
+msgstr "Modelldatei"
 
-#: gobject_creator/ui/resources/gocedit_info.ui:11
-msgid "Editor for GObjectCreator input files"
-msgstr "Editor für GObjectCreator-Eingabedateien"
+#: gobject_creator/ui/resources/class_dialog.ui:7
+msgid "New Class"
+msgstr "Neue Klasse"
 
-#: gobject_creator/ui/resources/gocedit_info.ui:13
-msgid "GPLv3"
-msgstr "GPLv3"
+#: gobject_creator/ui/resources/class_dialog.ui:44
+msgid "Superclass"
+msgstr "Oberklasse"
+
+#: gobject_creator/ui/resources/class_dialog.ui:66
+msgid "abstract"
+msgstr "abstrakt"
+
+#: gobject_creator/ui/resources/class_dialog.ui:82
+#: gobject_creator/ui/resources/interface_dialog.ui:44
+msgid "Prefix"
+msgstr "Präfix"
+
+#: gobject_creator/ui/resources/settings_dialog.ui:7
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: gobject_creator/ui/resources/settings_dialog.ui:21
+msgid "Show line numbers"
+msgstr "Zeilennummern anzeigen"
+
+#: gobject_creator/ui/resources/settings_dialog.ui:45
+msgid "<b>Font</b>"
+msgstr "<b>Font</b>"
+
+#: gobject_creator/ui/resources/method_dialog.ui:7
+msgid "New Method"
+msgstr "Neue Methode"
+
+#: gobject_creator/ui/resources/method_dialog.ui:34
+msgid "Visibility"
+msgstr "Sichtbarkeit"
+
+#: gobject_creator/ui/resources/method_dialog.ui:45
+msgid "Scope"
+msgstr "Bereich"
+
+#: gobject_creator/ui/resources/method_dialog.ui:76
+msgid "Instance"
+msgstr "Instanz"
+
+#: gobject_creator/ui/resources/method_dialog.ui:92
+msgid "Static"
+msgstr "Statisch"
+
+#: gobject_creator/ui/resources/method_dialog.ui:109
+msgid "Virtual"
+msgstr "Virtuell"
+
+#: gobject_creator/ui/resources/method_dialog.ui:123
+msgid "Abstract"
+msgstr "Abstrakt"
+
+#: gobject_creator/ui/resources/interface_dialog.ui:7
+msgid "New Interface"
+msgstr "Neue Schnittstelle"
 
 #: gobject_creator/ui/resources/parameter_dialog.ui:77
 msgid "const"
@@ -349,34 +397,6 @@ msgstr "Nullterminiert"
 msgid "Introspection"
 msgstr "Introspection"
 
-#: gobject_creator/ui/resources/method_dialog.ui:7
-msgid "New Method"
-msgstr "Neue Methode"
-
-#: gobject_creator/ui/resources/method_dialog.ui:34
-msgid "Visibility"
-msgstr "Sichtbarkeit"
-
-#: gobject_creator/ui/resources/method_dialog.ui:45
-msgid "Scope"
-msgstr "Bereich"
-
-#: gobject_creator/ui/resources/method_dialog.ui:76
-msgid "Instance"
-msgstr "Instanz"
-
-#: gobject_creator/ui/resources/method_dialog.ui:92
-msgid "Static"
-msgstr "Statisch"
-
-#: gobject_creator/ui/resources/method_dialog.ui:109
-msgid "Virtual"
-msgstr "Virtuell"
-
-#: gobject_creator/ui/resources/method_dialog.ui:123
-msgid "Abstract"
-msgstr "Abstrakt"
-
 #: gobject_creator/ui/resources/goceditor.ui:8
 msgid "GOCEditor"
 msgstr "GOCEditor"
@@ -408,19 +428,3 @@ msgstr ""
 #: gobject_creator/ui/resources/goceditor.ui:218
 msgid "toolbutton4"
 msgstr ""
-
-#: gobject_creator/ui/resources/class_dialog.ui:7
-msgid "New Class"
-msgstr "Neue Klasse"
-
-#: gobject_creator/ui/resources/class_dialog.ui:44
-msgid "Superclass"
-msgstr "Oberklasse"
-
-#: gobject_creator/ui/resources/class_dialog.ui:66
-msgid "abstract"
-msgstr "abstrakt"
-
-#: gobject_creator/ui/resources/include_dialog.ui:25
-msgid "Model File"
-msgstr "Modelldatei"

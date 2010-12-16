@@ -59,7 +59,8 @@ class Settings(gobject.GObject):
                                 )
                 
         self._options = {
-                         "show_line_numbers" : gconf.VALUE_BOOL
+                         "show_line_numbers" : gconf.VALUE_BOOL,
+                         "font_name" : gconf.VALUE_STRING
                          }
         
         self._update_config = False
@@ -80,6 +81,8 @@ class Settings(gobject.GObject):
         
         if self._options[opt_name] == gconf.VALUE_BOOL:
             opt_value = entry.value.get_bool()
+        elif self._options[opt_name] == gconf.VALUE_STRING:
+            opt_value = entry.value.get_string()
         else:
             opt_value = None
             
@@ -96,13 +99,17 @@ class Settings(gobject.GObject):
         value = self._config.get(conf_key)
         
         if value:
-            if value.type == value_type:
+            if value_type == gconf.VALUE_BOOL:
                 return value.get_bool()
+            elif value_type == gconf.VALUE_STRING:
+                return value.get_string()
             else:
                 raise SettingsError
         else:
             if value_type == gconf.VALUE_BOOL:
                 return False
+            elif value_type == gconf.VALUE_STRING:
+                return ""
             else:
                 raise SettingsError
                     
@@ -111,6 +118,8 @@ class Settings(gobject.GObject):
         conf_key = self._config_dir + "/" + name
         if type(value) == bool:
             self._config.set_bool(conf_key, value)
+        elif type(value) == str:
+            self._config.set_string(conf_key, value)
         
     def __setattr__(self, name, value):
         
@@ -158,9 +167,11 @@ class SettingsDialog(UserInterface):
         settings = Settings.get()
         
         self.show_line_numbers.set_active(settings.show_line_numbers)
+        self.font.set_font_name(settings.font_name)
         
         if dlg.run() == gtk.RESPONSE_OK:
             settings.show_line_numbers = self.show_line_numbers.get_active()
+            settings.font_name = self.font.get_font_name()
              
         dlg.hide()
  

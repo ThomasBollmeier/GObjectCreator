@@ -27,6 +27,7 @@ pygtk.require("2.0")
 import gtk
 from gtksourceview2 import \
      View, Buffer, Language, LanguageManager
+import pango
 
 import code_creation
 from resources.util import get_resource_path
@@ -300,6 +301,20 @@ class DocumentsView(object):
             idx += 1
             page = self._notebook.get_nth_page(idx)
             
+    def _set_font(self, font_name):
+        
+        if not self._notebook.get_n_pages():
+            return
+        
+        idx = 0
+        page = self._notebook.get_nth_page(idx)
+        font_desc = pango.FontDescription(font_name)
+        while page:
+            view = page.get_child()
+            view.modify_font(font_desc)
+            idx += 1
+            page = self._notebook.get_nth_page(idx)
+                
     def _on_button_pressed(self, view, event):
         
         if event.type != gtk.gdk.BUTTON_PRESS:
@@ -343,6 +358,9 @@ class DocumentsView(object):
         
         view.set_auto_indent(True)
         view.set_show_line_numbers(Settings.get().show_line_numbers)
+        
+        font_desc = pango.FontDescription(Settings.get().font_name)
+        view.modify_font(font_desc)
         
         doc_container = gtk.ScrolledWindow()
         doc_container.show()
@@ -405,3 +423,7 @@ class DocumentsView(object):
             
             self._show_line_numbers(settings.show_line_numbers)
             
+        elif name == "font_name":
+            
+            self._set_font(settings.font_name)
+     
