@@ -341,11 +341,20 @@ class DocumentsView(object):
     
     def _on_close_button_clicked(self, button):
         
-        page_idx = self._notebook.get_current_page()
-        if page_idx >= 0:
-            self._notebook.remove_page(page_idx)
-            self._model.close_document(page_idx)
-            
+        if not self._notebook.get_n_pages():
+            return
+        
+        idx = 0
+        page = self._notebook.get_nth_page(idx)
+        while page:
+            close_button = self._notebook.get_tab_label(page).get_children()[1]
+            if close_button is button:
+                self._notebook.remove_page(idx)
+                self._model.close_document(idx)
+                break
+            idx += 1
+            page = self._notebook.get_nth_page(idx)        
+               
     def _on_document_added(self, model, idx, content):
         
         view = View()
