@@ -21,6 +21,7 @@ along with GObjectCreator (see file COPYING). If not, see
 import re
 import os
 import subprocess
+from metamodel.meta_objects import Enumeration
 
 class MarshallerGenerator(object):
     
@@ -72,11 +73,11 @@ class MarshallerGenerator(object):
         
         result = self._prefix
         
-        result += "_" + self._getType(inSignalMethod.resultType) + "_"
+        result += "_" + self._getType(inSignalMethod.result) + "_"
         
         if inSignalMethod.params:
             for param in inSignalMethod.params:
-                result += "_" + self._getType(param.type_)
+                result += "_" + self._getType(param)
         else:
             result = "VOID"
         
@@ -87,26 +88,26 @@ class MarshallerGenerator(object):
         result = []
         
         for param in inSignalMethod.params:
-            result.append(self._getGType(param.type_))
+            result.append(self._getGType(param))
                 
         return result
     
     def getResultGType(self, inSignalMethod):
         
-        return self._getGType(inSignalMethod.resultType)
+        return self._getGType(inSignalMethod.result)
             
     def _getListCode(self):
         
         result = []
         
         for signal in self._signals:
-            line = self._getType(signal.resultType) + ": "
+            line = self._getType(signal.result) + ": "
             if signal.params:
                 paramStr = ""
                 for param in signal.params:
                     if paramStr:
                         paramStr += ", "
-                    paramStr += self._getType(param.type_)
+                    paramStr += self._getType(param)
             else:
                 paramStr = "VOID"
             line += paramStr
@@ -114,26 +115,46 @@ class MarshallerGenerator(object):
             
         return result
                 
-    def _getType(self, inParameterType):
+    def _getType(self, inParameter):
         
-        paramType = inParameterType.strip()
-        
-        for regex, typeStr, gTypeStr in self._regexs:
-            if regex.match(paramType):
-                return typeStr
+        if inParameter.typeObj is None:
             
-        return "OBJECT"
-    
-    def _getGType(self, inParameterType):
+            paramType = inParameter.type_.strip()
         
-        paramType = inParameterType.strip()
-        
-        for regex, typeStr, gTypeStr in self._regexs:
-            if regex.match(paramType):
-                return gTypeStr
+            for regex, typeStr, gTypeStr in self._regexs:
+                if regex.match(paramType):
+                    return typeStr
             
-        return "G_TYPE_OBJECT"
+            return "OBJECT"
+        
+        elif isinstance(inParameter.typeObj, Enumeration):
+            
+            return "INT"
+        
+        else:
+            
+            return "OBJECT"
     
+    def _getGType(self, inParameter):
+        
+        if inParameter.typeObj is None:
+            
+            paramType = inParameter.type_.strip()
+        
+            for regex, typeStr, gTypeStr in self._regexs:
+                if regex.match(paramType):
+                    return gTypeStr
+            
+            return "G_TYPE_OBJECT"  
+        
+        elif isinstance(inParameter.typeObj, Enumeration):
+            
+            return "G_TYPE_INT"
+        
+        else:
+            
+            return "G_TYPE_OBJECT"        
+        
     def _initTypeRegexs(self):
         
         self._regexs = []
