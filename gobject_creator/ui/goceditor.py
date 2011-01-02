@@ -28,7 +28,7 @@ pygtk.require("2.0")
 import gtk
 
 from documents_view import DocumentsView
-from documents_model import DocumentsModel
+from documents_model import DocumentsModel, DocState
 from resources.util import get_resource_path
 from settings_dialog import SettingsDialog
 import gobject_creator
@@ -62,6 +62,10 @@ class GOCEditor(object):
         self._create_widgets()
         
         self._builder.connect_signals(self)
+        
+        self._documents.connect("focus-changed", 
+                                self._on_documents_focus_changed
+                                )
         
         for start_file in start_files:
             if not os.path.exists(start_file):
@@ -208,4 +212,14 @@ class GOCEditor(object):
         vbox = self._builder.get_object("top_vbox")
         vbox.show()
         vbox.pack_start(self._documents.widget)
- 
+        
+    def _on_documents_focus_changed(self, documents, doc_path, doc_state):
+        
+        title = "GOCEditor"
+        if doc_path:
+            if doc_state == DocState.CHANGED:
+                doc_path += "*" 
+            title = doc_path + " - " + title
+        
+        main_window = self._builder.get_object("main_window")
+        main_window.set_title(title)

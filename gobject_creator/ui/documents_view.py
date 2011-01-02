@@ -28,6 +28,7 @@ import gtk
 from gtksourceview2 import \
      View, Buffer, Language, LanguageManager
 import pango
+import gobject
 
 import code_creation
 from resources.util import get_resource_path
@@ -35,9 +36,11 @@ from resources.util import get_resource_path
 from documents_model import DocumentsModel, DocState
 from settings_dialog import Settings
 
-class DocumentsView(object):
+class DocumentsView(gobject.GObject):
     
     def __init__(self, model):
+        
+        gobject.GObject.__init__(self)
         
         self._model = model
         self._model.connect(
@@ -67,6 +70,10 @@ class DocumentsView(object):
         
         self._notebook = gtk.Notebook()
         self._notebook.set_property("scrollable", True)
+        
+        self._notebook.connect("switch-page", 
+                               self._on_switch_page
+                               )
         
         self._clipboard = gtk.Clipboard()
         
@@ -271,6 +278,17 @@ class DocumentsView(object):
         
         return file_name
     
+    def _get_document_path(self, idx):
+        
+        doc_path = self._model.get_file_path(idx)
+        if not doc_path:
+            page = self._notebook.get_nth_page(idx)
+            hbox = self._notebook.get_tab_label(page)
+            label = hbox.get_children()[0]
+            doc_path = label.get_text()
+        
+        return doc_path
+        
     def _set_document_title(self, idx):
         
         page = self._notebook.get_nth_page(idx)
@@ -281,8 +299,7 @@ class DocumentsView(object):
         if state == DocState.NEW:
             text = self._new_file_name()
         else:
-            file_path = self._model.get_file_path(idx)
-            text = os.path.basename(file_path)
+            text = os.path.basename(self._model.get_file_path(idx))
             if state == DocState.CHANGED:
                 text += "*"
         
@@ -338,6 +355,14 @@ class DocumentsView(object):
         
         name = action.get_name()
         self.exec_action(name)
+        
+    def _on_switch_page(self, notebook, page, page_num, *args):
+        
+        doc_state = self._model.get_state(page_num)
+        doc_path = self._get_document_path(page_num)
+        
+        if doc_path:
+            self.emit("focus-changed", doc_path, doc_state)
     
     def _on_close_button_clicked(self, button):
         
@@ -349,8 +374,10 @@ class DocumentsView(object):
         while page:
             close_button = self._notebook.get_tab_label(page).get_children()[1]
             if close_button is button:
-                self._notebook.remove_page(idx)
                 self._model.close_document(idx)
+                self._notebook.remove_page(idx)
+                if self._model.is_empty():
+                    self.emit("focus-changed", "", DocState.NEW)
                 break
             idx += 1
             page = self._notebook.get_nth_page(idx)        
@@ -396,6 +423,8 @@ class DocumentsView(object):
                                    )
         self._notebook.set_current_page(idx)
         
+        is_new_doc = not self._get_document_path(idx) 
+        
         view.connect("button_press_event",
                      self._on_button_pressed
                      )
@@ -415,16 +444,25 @@ class DocumentsView(object):
         
         buf.set_text(content)
         
+        if is_new_doc:
+            doc_path = self._get_document_path(idx)
+            doc_state = self._model.get_state(idx)
+            self.emit("focus-changed", doc_path, doc_state)
+        
     def _on_document_refreshed(self, model, idx, content):
         
-        self._set_document_title(idx)
+        self._on_document_changed(model, idx)
         
         buf = self._notebook.get_nth_page(idx).get_child().get_buffer()
         buf.set_text(content)
-    
+   
     def _on_document_changed(self, model, idx):
         
         self._set_document_title(idx)
+
+        doc_path = self._get_document_path(idx)
+        doc_state = self._model.get_state(idx)
+        self.emit("focus-changed", doc_path, doc_state)
         
     def _on_settings_changed(self, settings, name):
         
@@ -435,4 +473,15 @@ class DocumentsView(object):
         elif name == "font_name":
             
             self._set_font(settings.font_name)
+            
+gobject.type_register(DocumentsView)
+
+gobject.signal_new(
+    "focus-changed",
+    DocumentsView,
+    gobject.SIGNAL_RUN_LAST,
+    None,
+    (gobject.TYPE_STRING,
+     gobject.TYPE_INT)
+    )
      

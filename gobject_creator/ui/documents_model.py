@@ -105,7 +105,11 @@ class DocumentsModel(gobject.GObject):
     def get_file_path(self, idx):
         
         return self._documents[idx].file_path
+    
+    def is_empty(self):
         
+        return not self._documents
+         
 gobject.type_register(DocumentsModel)
 
 gobject.signal_new(
