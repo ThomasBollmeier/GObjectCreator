@@ -35,6 +35,7 @@ from resources.util import get_resource_path
 
 from documents_model import DocumentsModel, DocState
 from settings_dialog import Settings
+from close_confirmation_dialog import CloseConfirmationDialog
 
 class DocumentsView(gobject.GObject):
     
@@ -278,6 +279,10 @@ class DocumentsView(gobject.GObject):
         
         return file_name
     
+    def get_document_path(self, idx):
+        
+        return self._get_document_path(idx)
+        
     def _get_document_path(self, idx):
         
         doc_path = self._model.get_file_path(idx)
@@ -374,10 +379,23 @@ class DocumentsView(gobject.GObject):
         while page:
             close_button = self._notebook.get_tab_label(page).get_children()[1]
             if close_button is button:
-                self._model.close_document(idx)
-                self._notebook.remove_page(idx)
-                if self._model.is_empty():
-                    self.emit("focus-changed", "", DocState.NEW)
+                if self._model.get_state(idx) != DocState.SAVED:
+                    dialog = CloseConfirmationDialog()
+                    result = dialog.run()
+                    if result == CloseConfirmationDialog.SAVE:
+                        self.emit("save-requested", idx)
+                        close_confirmed = True
+                    elif result == CloseConfirmationDialog.NO_SAVE:
+                        close_confirmed = True
+                    else:
+                        close_confirmed = False
+                else:
+                    close_confirmed = True
+                if close_confirmed:
+                   self._model.close_document(idx)
+                   self._notebook.remove_page(idx)
+                   if self._model.is_empty():
+                       self.emit("focus-changed", "", DocState.NEW)
                 break
             idx += 1
             page = self._notebook.get_nth_page(idx)        
@@ -483,5 +501,13 @@ gobject.signal_new(
     None,
     (gobject.TYPE_STRING,
      gobject.TYPE_INT)
+    )
+
+gobject.signal_new(
+    "save-requested",
+    DocumentsView,
+    gobject.SIGNAL_RUN_LAST,
+    None,
+    (gobject.TYPE_INT,)
     )
      

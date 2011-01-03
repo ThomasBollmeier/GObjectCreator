@@ -66,6 +66,9 @@ class GOCEditor(object):
         self._documents.connect("focus-changed", 
                                 self._on_documents_focus_changed
                                 )
+        self._documents.connect("save-requested",
+                                self._on_docview_save_requested
+                                )
         
         for start_file in start_files:
             if not os.path.exists(start_file):
@@ -91,6 +94,7 @@ class GOCEditor(object):
             buttons = (_("Cancel"), gtk.RESPONSE_CANCEL,
                        _("Open"), gtk.RESPONSE_OK)
         )
+        dialog.set_title(_("Open document"))
         
         if dialog.run() == gtk.RESPONSE_OK:
             file_name = dialog.get_filename()
@@ -108,6 +112,14 @@ class GOCEditor(object):
         if idx < 0:
             return
         
+        self._save_file(idx)
+        
+    def _on_docview_save_requested(self, docview, idx):
+        
+        self._save_file(idx)
+        
+    def _save_file(self, idx):
+        
         old_path = self._docs_model.get_file_path(idx)
         
         if os.path.exists(old_path):
@@ -121,8 +133,11 @@ class GOCEditor(object):
                 buttons = (_("Cancel"), gtk.RESPONSE_CANCEL,
                            _("Save"), gtk.RESPONSE_OK)
             )
+            dialog.set_title(_("Save document"))
             
-            dialog.set_current_name("untitled.goc")
+            doc_name = self._documents.get_document_path(idx) + ".goc"
+            
+            dialog.set_current_name(doc_name)
             dialog.set_do_overwrite_confirmation(True)
         
             if dialog.run() == gtk.RESPONSE_OK:
@@ -144,13 +159,14 @@ class GOCEditor(object):
         
         current_path = self._docs_model.get_file_path(idx)
         if not current_path:
-            current_path = "untitled.goc"
+            current_path = self._documents.get_document_path(idx) + ".goc"
         
         dialog = gtk.FileChooserDialog(
             action = gtk.FILE_CHOOSER_ACTION_SAVE,
             buttons = (_("Cancel"), gtk.RESPONSE_CANCEL,
                        _("Save"), gtk.RESPONSE_OK)
         )
+        dialog.set_title(_("Save document as"))
             
         dialog.set_current_name(os.path.basename(current_path))
         dialog.set_do_overwrite_confirmation(True)

@@ -79,6 +79,7 @@ gobject_creator/metamodel/object_catalog.py
 gobject_creator/metamodel/visitor.py
 gobject_creator/ui/__init__.py
 gobject_creator/ui/class_dialog.py
+gobject_creator/ui/close_confirmation_dialog.py
 gobject_creator/ui/code_creation.py
 gobject_creator/ui/code_view.py
 gobject_creator/ui/documents_model.py
@@ -94,6 +95,7 @@ gobject_creator/ui/po/goceditor.pot
 gobject_creator/ui/property_dialog.py
 gobject_creator/ui/resources/__init__.py
 gobject_creator/ui/resources/class_dialog.ui
+gobject_creator/ui/resources/close_confirmation_dialog.ui
 gobject_creator/ui/resources/gobject-creator.lang
 gobject_creator/ui/resources/gocedit_info.ui
 gobject_creator/ui/resources/goceditor.ui
