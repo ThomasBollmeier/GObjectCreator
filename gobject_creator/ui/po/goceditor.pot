@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-03 11:16+0100\n"
+"POT-Creation-Date: 2011-01-04 10:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,60 +120,29 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
-#: gobject_creator/ui/property_dialog.py:110
-msgid "Read only"
+#: gobject_creator/ui/goceditor.py:94 gobject_creator/ui/goceditor.py:133
+#: gobject_creator/ui/goceditor.py:166
+msgid "Cancel"
 msgstr ""
 
-#: gobject_creator/ui/property_dialog.py:112
-msgid "Read/Initial Write"
+#: gobject_creator/ui/goceditor.py:95
+msgid "Open"
 msgstr ""
 
-#: gobject_creator/ui/property_dialog.py:115
-msgid "Read/Write"
+#: gobject_creator/ui/goceditor.py:97
+msgid "Open document"
 msgstr ""
 
-#: gobject_creator/ui/property_dialog.py:131
-msgid "Boolean"
+#: gobject_creator/ui/goceditor.py:134 gobject_creator/ui/goceditor.py:167
+msgid "Save"
 msgstr ""
 
-#: gobject_creator/ui/property_dialog.py:132
-msgid "Integer"
+#: gobject_creator/ui/goceditor.py:136
+msgid "Save document"
 msgstr ""
 
-#: gobject_creator/ui/property_dialog.py:133
-msgid "Double"
-msgstr ""
-
-#: gobject_creator/ui/property_dialog.py:134
-msgid "String"
-msgstr ""
-
-#: gobject_creator/ui/property_dialog.py:135
-msgid "Pointer"
-msgstr ""
-
-#: gobject_creator/ui/property_dialog.py:136
-msgid "Object"
-msgstr ""
-
-#: gobject_creator/ui/property_dialog.py:137
-msgid "Enumeration"
-msgstr ""
-
-#: gobject_creator/ui/include_dialog.py:52
-msgid "Choose Model File"
-msgstr ""
-
-#: gobject_creator/ui/method_dialog.py:116
-msgid "Public"
-msgstr ""
-
-#: gobject_creator/ui/method_dialog.py:119
-msgid "Protected"
-msgstr ""
-
-#: gobject_creator/ui/method_dialog.py:120
-msgid "Private"
+#: gobject_creator/ui/goceditor.py:169
+msgid "Save document as"
 msgstr ""
 
 #: gobject_creator/ui/parameter_dialog.py:80
@@ -223,29 +192,60 @@ msgstr ""
 msgid "Dictionary"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:94 gobject_creator/ui/goceditor.py:133
-#: gobject_creator/ui/goceditor.py:166
-msgid "Cancel"
+#: gobject_creator/ui/property_dialog.py:114
+msgid "Read only"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:95
-msgid "Open"
+#: gobject_creator/ui/property_dialog.py:116
+msgid "Read/Initial Write"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:97
-msgid "Open document"
+#: gobject_creator/ui/property_dialog.py:119
+msgid "Read/Write"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:134 gobject_creator/ui/goceditor.py:167
-msgid "Save"
+#: gobject_creator/ui/property_dialog.py:135
+msgid "Boolean"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:136
-msgid "Save document"
+#: gobject_creator/ui/property_dialog.py:136
+msgid "Integer"
 msgstr ""
 
-#: gobject_creator/ui/goceditor.py:169
-msgid "Save document as"
+#: gobject_creator/ui/property_dialog.py:137
+msgid "Double"
+msgstr ""
+
+#: gobject_creator/ui/property_dialog.py:138
+msgid "String"
+msgstr ""
+
+#: gobject_creator/ui/property_dialog.py:139
+msgid "Pointer"
+msgstr ""
+
+#: gobject_creator/ui/property_dialog.py:140
+msgid "Object"
+msgstr ""
+
+#: gobject_creator/ui/property_dialog.py:141
+msgid "Enumeration"
+msgstr ""
+
+#: gobject_creator/ui/include_dialog.py:52
+msgid "Choose Model File"
+msgstr ""
+
+#: gobject_creator/ui/method_dialog.py:116
+msgid "Public"
+msgstr ""
+
+#: gobject_creator/ui/method_dialog.py:119
+msgid "Protected"
+msgstr ""
+
+#: gobject_creator/ui/method_dialog.py:120
+msgid "Private"
 msgstr ""
 
 #: gobject_creator/ui/resources/gocedit_info.ui:10
@@ -258,6 +258,40 @@ msgstr ""
 
 #: gobject_creator/ui/resources/gocedit_info.ui:13
 msgid "GPLv3"
+msgstr ""
+
+#: gobject_creator/ui/resources/property_dialog.ui:26
+#: gobject_creator/ui/resources/class_dialog.ui:26
+#: gobject_creator/ui/resources/method_dialog.ui:27
+#: gobject_creator/ui/resources/interface_dialog.ui:26
+#: gobject_creator/ui/resources/parameter_dialog.ui:31
+msgid "Name"
+msgstr ""
+
+#: gobject_creator/ui/resources/property_dialog.ui:33
+#: gobject_creator/ui/resources/parameter_dialog.ui:233
+msgid "Description"
+msgstr ""
+
+#: gobject_creator/ui/resources/property_dialog.ui:68
+#: gobject_creator/ui/resources/parameter_dialog.ui:53
+msgid "Type"
+msgstr ""
+
+#: gobject_creator/ui/resources/property_dialog.ui:90
+msgid "GObject Type"
+msgstr ""
+
+#: gobject_creator/ui/resources/property_dialog.ui:114
+msgid "Access"
+msgstr ""
+
+#: gobject_creator/ui/resources/property_dialog.ui:134
+msgid "Create Attribute for Implementation"
+msgstr ""
+
+#: gobject_creator/ui/resources/property_dialog.ui:149
+msgid "Attribute Name"
 msgstr ""
 
 #: gobject_creator/ui/resources/close_confirmation_dialog.ui:41
@@ -274,30 +308,8 @@ msgstr ""
 msgid "_Discard Changes"
 msgstr ""
 
-#: gobject_creator/ui/resources/property_dialog.ui:27
-#: gobject_creator/ui/resources/class_dialog.ui:26
-#: gobject_creator/ui/resources/parameter_dialog.ui:31
-#: gobject_creator/ui/resources/interface_dialog.ui:26
-#: gobject_creator/ui/resources/method_dialog.ui:27
-msgid "Name"
-msgstr ""
-
-#: gobject_creator/ui/resources/property_dialog.ui:34
-#: gobject_creator/ui/resources/parameter_dialog.ui:233
-msgid "Description"
-msgstr ""
-
-#: gobject_creator/ui/resources/property_dialog.ui:69
-#: gobject_creator/ui/resources/parameter_dialog.ui:53
-msgid "Type"
-msgstr ""
-
-#: gobject_creator/ui/resources/property_dialog.ui:91
-msgid "GObject Type"
-msgstr ""
-
-#: gobject_creator/ui/resources/property_dialog.ui:115
-msgid "Access"
+#: gobject_creator/ui/resources/include_dialog.ui:25
+msgid "Model File"
 msgstr ""
 
 #: gobject_creator/ui/resources/class_dialog.ui:7
@@ -329,8 +341,36 @@ msgstr ""
 msgid "<b>Font</b>"
 msgstr ""
 
-#: gobject_creator/ui/resources/include_dialog.ui:25
-msgid "Model File"
+#: gobject_creator/ui/resources/method_dialog.ui:7
+msgid "New Method"
+msgstr ""
+
+#: gobject_creator/ui/resources/method_dialog.ui:34
+msgid "Visibility"
+msgstr ""
+
+#: gobject_creator/ui/resources/method_dialog.ui:45
+msgid "Scope"
+msgstr ""
+
+#: gobject_creator/ui/resources/method_dialog.ui:76
+msgid "Instance"
+msgstr ""
+
+#: gobject_creator/ui/resources/method_dialog.ui:92
+msgid "Static"
+msgstr ""
+
+#: gobject_creator/ui/resources/method_dialog.ui:109
+msgid "Virtual"
+msgstr ""
+
+#: gobject_creator/ui/resources/method_dialog.ui:123
+msgid "Abstract"
+msgstr ""
+
+#: gobject_creator/ui/resources/interface_dialog.ui:7
+msgid "New Interface"
 msgstr ""
 
 #: gobject_creator/ui/resources/parameter_dialog.ui:77
@@ -389,10 +429,6 @@ msgstr ""
 msgid "Introspection"
 msgstr ""
 
-#: gobject_creator/ui/resources/interface_dialog.ui:7
-msgid "New Interface"
-msgstr ""
-
 #: gobject_creator/ui/resources/goceditor.ui:8
 msgid "GOCEditor"
 msgstr ""
@@ -423,32 +459,4 @@ msgstr ""
 
 #: gobject_creator/ui/resources/goceditor.ui:218
 msgid "toolbutton4"
-msgstr ""
-
-#: gobject_creator/ui/resources/method_dialog.ui:7
-msgid "New Method"
-msgstr ""
-
-#: gobject_creator/ui/resources/method_dialog.ui:34
-msgid "Visibility"
-msgstr ""
-
-#: gobject_creator/ui/resources/method_dialog.ui:45
-msgid "Scope"
-msgstr ""
-
-#: gobject_creator/ui/resources/method_dialog.ui:76
-msgid "Instance"
-msgstr ""
-
-#: gobject_creator/ui/resources/method_dialog.ui:92
-msgid "Static"
-msgstr ""
-
-#: gobject_creator/ui/resources/method_dialog.ui:109
-msgid "Virtual"
-msgstr ""
-
-#: gobject_creator/ui/resources/method_dialog.ui:123
-msgid "Abstract"
 msgstr ""

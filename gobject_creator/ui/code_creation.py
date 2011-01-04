@@ -305,7 +305,7 @@ def codesnippet_property(line_begin):
         return
     
     name, description, property_type, \
-        gobject_type, access_type = prop_attrs
+        gobject_type, access_type, attr_name = prop_attrs
     
     if not description:
         description = name
@@ -338,6 +338,20 @@ def codesnippet_property(line_begin):
     block.writeln("inDefault = None")
     block.writeln(')')
     
+    if attr_name:
+        # Create attribute for property implementation:
+        block.unindent()
+        block.writeln()
+        
+        attr_type = {
+                     PROP_BOOLEAN : "gboolean",
+                     PROP_INT : "gint",
+                     PROP_DOUBLE : "gdouble",
+                     PROP_STRING : "gchar*",
+                     PROP_POINTER : "gpointer"
+                     }
+        block.writeln('Attr("%s","%s")' % (attr_name, attr_type[property_type]))
+            
     return str(block)
 
 def codesnippet_signal(line_begin):

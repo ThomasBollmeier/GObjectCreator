@@ -42,7 +42,10 @@ class PropertyDialog(UserInterface):
         
         self._init_access_combo()
         self.access_type = PROP_ACCESS_READ
-            
+        
+        self.create_attribute.connect("clicked", self._on_create_attr_clicked)
+        self._on_create_attr_clicked(self.create_attribute)
+                    
     def run(self):
         
         if self.property_dialog.run() == gtk.RESPONSE_OK:
@@ -51,8 +54,9 @@ class PropertyDialog(UserInterface):
             property_type = self.property_type
             gobject_type = str(self.gobject_type.get_text())
             access_type = self.access_type
+            attr_name = str(self.attribute_name.get_text())
             res = (name, description, property_type, 
-                   gobject_type, access_type)
+                   gobject_type, access_type, attr_name)
         else:
             res = ()
             
@@ -152,6 +156,20 @@ class PropertyDialog(UserInterface):
             self.gobject_type.set_text("")
             self.gobject_type.set_sensitive(False)
             self.label_gobject_type.set_sensitive(False)
+            self.create_attribute.set_sensitive(True)
         else:
             self.gobject_type.set_sensitive(True)
             self.label_gobject_type.set_sensitive(True)
+            self.create_attribute.set_active(False)
+            self.create_attribute.set_sensitive(False)
+                        
+    def _on_create_attr_clicked(self, checkbutton, *args):
+        
+        create_attr = checkbutton.get_active()
+        
+        self.attribute_name.set_sensitive(create_attr)
+        
+        if create_attr:
+            self.attribute_name.set_text(self.name.get_text())
+        else:
+            self.attribute_name.set_text("")
