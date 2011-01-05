@@ -444,7 +444,7 @@ void $prefix$_dispose(GObject* in_object) {
 
 void $prefix$_finalize(GObject* in_object) {
 
-#! if hasPrivAttrs
+#! if hasProtAttrs
 	#! if not withNamespace
 	$Classname$* self = $BASENAME$(in_object);
 	#! else
