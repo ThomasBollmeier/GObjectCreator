@@ -317,6 +317,7 @@ void $prefix$_instance_init(
 	/* Initialize members. 
 	Init method of super classes are called automatically.
 	*/
+
 #! if hasPrivAttrs
 	self->priv = G_TYPE_INSTANCE_GET_PRIVATE(
 		self,
@@ -328,11 +329,12 @@ void $prefix$_instance_init(
 		$Classname$Private
 		);
 	
-	($Classname$Private*) g_new($Classname$Private, 1);
 #! end
+
 #! if hasProtAttrs
-  self->prot = ($Classname$Protected*) g_new($Classname$Protected, 1);
+	self->prot = ($Classname$Protected*) g_new($Classname$Protected, 1);
 #! end
+
 #! user_code instance_init
 	/* allocate memory if needed... */
 #! end

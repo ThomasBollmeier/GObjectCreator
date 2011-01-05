@@ -112,10 +112,11 @@ $Classname$* $prefix$_new(
 #! if hasConstructorArgs
 void $prefix$_init(
 	$Classname$* self,
-	$signature(class.constructor)$); /* to be called by derived classes */
+	$signature(class.constructor)$);
 #! else
-void $prefix$_init($Classname$* self); /* to be called by derived classes */
+void $prefix$_init($Classname$* self); 
 #! end
+/* To be called by derived classes: */
 void $prefix$_dispose(GObject* in_object); 
 void $prefix$_finalize(GObject* in_object);
 
