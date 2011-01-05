@@ -456,10 +456,6 @@ void $prefix$_finalize(GObject* in_object) {
 	/* free allocated memory ...*/
 #! end
 
-#! if hasPrivAttrs
-	g_free(self->priv);
-#! end
-
 #! if hasProtAttrs
   g_free(self->prot);
 #! end
