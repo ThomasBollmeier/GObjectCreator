@@ -103,6 +103,11 @@ void $prefix$_class_init($Classname$Class* in_class) {
 	#! end
 #! end
 
+#! if hasPrivAttrs
+	/* Register structure holding private attributes: */
+	g_type_class_add_private (in_class, sizeof($Classname$Private));
+#! end
+
 #! user_code class_init
 	/* init class members...*/
 #! end
@@ -313,7 +318,17 @@ void $prefix$_instance_init(
 	Init method of super classes are called automatically.
 	*/
 #! if hasPrivAttrs
-	self->priv = ($Classname$Private*) g_new($Classname$Private, 1);
+	self->priv = G_TYPE_INSTANCE_GET_PRIVATE(
+		self,
+	#! if not withNamespace
+		TYPE_$BASENAME$,
+	#! else
+		$NAMESPACE$_TYPE_$BASENAME$,
+	#! end
+		$Classname$Private
+		);
+	
+	($Classname$Private*) g_new($Classname$Private, 1);
 #! end
 #! if hasProtAttrs
   self->prot = ($Classname$Protected*) g_new($Classname$Protected, 1);
