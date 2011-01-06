@@ -35,6 +35,7 @@ class _WithContext(object):
 
 class DefinitionError(Exception): pass
 
+## Abstract base class for all components of a package
 class _PackageComponent(object):
     
     def __init__(self, inName, inAlias=""):
@@ -92,27 +93,24 @@ class _PackageComponent(object):
         return res
     
     gtypeName = property(getGTypeName)
-        
+    
+## Meta class of a package
+#
+# A package contains classes, interfaces, error domains and enumerations.
+# Objects in a package can be accessed by the "." notation. If e.g. class "Foo"
+# is part of package "FooPack" it can be referred to as "FooPack.Foo".
+
 class Package(_WithContext):
     
-    """
-    A package contains classes, interfaces, error domains and enumeration types.
-    Objects in a package can be accessed by the "." notation. If e.g. class "Foo"
-    is part of package "FooPack" it can be referred to as "FooPack.Foo".
-    """
-    
+        
     __instances = {}
     
+    ##
+    # Constructor
+    # @param inName package name
+    # @return package instance
+
     def __init__(self, inName):
-        """
-        Returns a (new) package instance. The package class implements the
-        multiton pattern: if a package has already been created for the given
-        name the old and the new instance will share their internal data.
-        
-        --> inName:     Package name
-        <--             Package
-        
-        """
         
         _WithContext.__init__(self)
         
@@ -196,6 +194,7 @@ class Package(_WithContext):
             else:
                 raise AttributeError
 
+## Abstract base class of class and interface definitions
 class _Clif(_WithContext, _PackageComponent):
     
     def __init__(self, inName, inAlias=""):
@@ -213,12 +212,19 @@ class _Clif(_WithContext, _PackageComponent):
 
         self.absName = self.getAbsoluteName # Alias aus Kompatibilitätsgründen
         
-    
+    ## Get type name
+    #
+    # This method derives the name of the class or interface type which
+    # has to be used during code generation. Attention: this method can only be
+    # used for GObject C code generation.
+    # @return Name of the class or interface type as string
     def typeName(self):
         
         # TODO: Sprachabhängigkeit besser berücksichtigen
         return "%s*" % self.absoluteName
 
+    ## Add a method
+    # @param inMethod method instance to be added to class or interface
     def addMethod(self, inMethod):
         
         for m in self.methods:
@@ -254,19 +260,14 @@ class _Clif(_WithContext, _PackageComponent):
         else:
             raise AttributeError, inName
         
+## Definition of an GObject interface
 class Interface(_Clif):
     
+    ## Constructor
+    # @param inName interface name
+    # @param inAlias alias name to be used as function prefix instead of inName
+    # @return new interface instance
     def __init__(self, inName, inAlias=""):
-        """
-        Creates a new interface.
-        
-        --> inName:     Interface name
-        --> inAlias:    Alias name. If given the alias name will be used
-                        in the prefix of the interface's functions instead of
-                        the interface name
-        <--             Interface
-        
-        """
         
         _Clif.__init__(self, inName, inAlias)
         
@@ -342,24 +343,19 @@ class IntfMethodInfo:
         else:
             return 0
                 
+## Definition of a GObject class                
 class Class(_Clif):
     
     _CONSTRUCTOR_NAME = "new"
-    
+
+    ## Constructor
+    # @param inName class name
+    # @param inSuperClass instance of super class (if any)
+    # @param inAlias alias name to be used as function prefix instead of inName
+    # @param inAbstract define class as abstract (="True")
+    # @return new class instance
     def __init__(self, inName, inSuperClass = None, inAlias="",
                  inAbstract = False):
-        """
-        Creates a new class.
-        
-        --> inName:         Class name
-        --> inSuperClass:   Super class instance
-        --> inAlias:        Alias name. If given the alias name will be used
-                            in the prefix of the classes functions instead of
-                            the class name
-        --> inAbstract:     If "True" the class will be defined as abstract
-        <--                 Class
-        
-        """
         
         _Clif.__init__(self, inName, inAlias)
         
@@ -450,17 +446,14 @@ class Class(_Clif):
                 return True
             cls = cls.superClass
         return False
-        
+
+## Definition of an error domain        
 class ErrorDomain(_WithContext, _PackageComponent):
     
+    ## Constructor
+    # @param inName name of error domain
+    # @return error domain instance
     def __init__(self, inName):
-        """
-        Creates a new error domain.
-        
-        --> inName: Name of error domain
-        <--         Error domain
-        
-        """
         
         _WithContext.__init__(self)
         _PackageComponent.__init__(self, inName)
@@ -491,8 +484,13 @@ class ErrorCode(object):
         
         domain.addErrorCode(self)
 
+## Definition of an enumeration 
 class Enumeration(_WithContext, _PackageComponent):
-    
+
+    ## Constructor
+    # @param inName of enumeration
+    # @param inIsFlagType if true interpret enumeration as set of flags
+    # @return error domain instance
     def __init__(self, inName, inIsFlagType=False):
         
         _WithContext.__init__(self)

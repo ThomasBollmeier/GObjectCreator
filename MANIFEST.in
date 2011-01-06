@@ -1,0 +1,9 @@
+include AUTHORS
+include COPYING
+include INSTALL
+include README
+include setup.py
+recursive-include bin *.py
+recursive-include doc *
+recursive-include examples *
+recursive-include gobject_creator *

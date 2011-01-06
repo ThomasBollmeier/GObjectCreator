@@ -1,3 +1,11 @@
-- Please read the INSTALL file for instructions on how to install and run GObjectCreator
-- Documentation is still to be done. As a first information you might find the generated pydoc API documentation helpful. See doc/meta_objects.html for details.
+INSTALLATION
+
+Please read the INSTALL file for instructions on how to install and run GObjectCreator
+
+DOCUMENTATION
+
+Documentation is still to be done. As a first information you might find the
+generated HTML documentation of the meta model helpful.
+
+See doc/html/index.html for details.
 
