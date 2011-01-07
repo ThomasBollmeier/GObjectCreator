@@ -1,0 +1,29 @@
+EXTRA_DIST = \
+audio_example_edited/audio_playerstatus.c \
+audio_example_edited/audio_iplayer.h \
+audio_example_edited/audio_error.h \
+audio_example_edited/audio_iplayer.c \
+audio_example_edited/audio_iplayer_marshaller.c \
+audio_example_edited/audio_format.h \
+audio_example_edited/demo.c \
+audio_example_edited/audio_oggplayer.c \
+audio_example_edited/audio_iplayer_marshaller.h \
+audio_example_edited/audio_oggplayer.h \
+audio_example_edited/audio_playerstatus.h \
+audio_example_edited/audio_error.c \
+audio_example_edited/audio_format.c \
+audio_example_edited/Makefile \
+audio_example_generated/audio_playerstatus.c \
+audio_example_generated/audio_iplayer.h \
+audio_example_generated/audio_error.h \
+audio_example_generated/audio_iplayer.c \
+audio_example_generated/audio_iplayer_marshaller.c \
+audio_example_generated/audio_format.h \
+audio_example_generated/audio_oggplayer.c \
+audio_example_generated/audio_iplayer_marshaller.h \
+audio_example_generated/audio_oggplayer.h \
+audio_example_generated/audio_playerstatus.h \
+audio_example_generated/audio_error.c \
+audio_example_generated/audio_format.c \
+audio.goc \
+generate_audio_example.sh

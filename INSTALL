@@ -1,26 +1,41 @@
 1. Installation
 
-GObjectCreator is installed with the standard python distribution utilities. Open a terminal, navigate to the GObjectCreator directory and enter:
+GObjectCreator uses the GNU autotools. To install extract the tarball to a directory. 
+Then move to that directory and enter:
 
-	python setup.py install 
+	./configure
 
-or 
-	python setup.py install --prefix=<your_install_path>.
+If you want to install GObjectCreator in a non-standard directory you can call:
+	
+	./configure --prefix=<your_install_path>
 
-For all available options run the setup.py script with the --help option.
+For all available options run the configure script with the --help option.
+
+After GObjectCreator has been configured simply type 
+
+	make
+	make install
+
+GObjectCreator will now be installed. If you have installed to a non-standard directory 
+you may have to adjust some environment variables (e.g. PATH).
+
+To install the documentation please enter
+
+	make install-html
+
+This will trigger the generation of a HTML documentation for some API methods to be used in
+your meta definition files. You will need doxygen for this (see http://www.stack.nl/~dimitri/doxygen).   
 
 2. Running GObjectCreator
 
-After GObjectCreator has been installed successfully you should find a script named "gobjects_create.py" in the "bin" subdirectory within your installation path. Make sure that <your_directory>/bin is in your PATH. To generate or update your GObject files enter:
+After GObjectCreator has been installed successfully you should find a script named "create_gobjects" in the "bin" subdirectory within your installation path. Make sure that <your_directory>/bin is in your PATH. To generate or update your GObject files enter:
 
-	gobjects_create.py <metafile1> [<metafile2> ...]
+	create_gobjects <metafile1> [<metafile2> ...]
 
-There are several options to control the code generation. See the --help option of gobjects_create.py for details.
+There are several options to control the code generation. See the --help option of create_gobjects for details.
 
 3. Syntax of Meta Definition
 
-There is still a lack of proper documentation (tutorials, etc.). You might however find the doc/meta_objects.html file helpful. It contains the pydoc generated documentation of the meta objects.
-
-
-
+There is still a lack of proper documentation (tutorials, etc.). A (doxygen) generated HTML docu of the metadata API is available however. If you have installed the documentation (see above) have a look at index.html in the HTML 
+docu directory.
 

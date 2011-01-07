@@ -1,0 +1,44 @@
+#!/bin/sh
+
+bindir=${1##@prefix@}
+pkgpythondir=${2##@prefix@}
+datapackagedir=${3##@prefix@}/@PACKAGE@
+
+writeln() {
+
+	echo $1 >> @PACKAGE@-@VERSION@.spec
+
+}
+
+rm -rf @PACKAGE@-@VERSION@.spec
+
+writeln "Summary: Tool to generate GObject headers and sources"
+writeln "Name: @PACKAGE@"
+writeln "Version: @PACKAGE_VERSION@"
+writeln "Release: 1"
+writeln "License: GPLv3"
+writeln "Group: Development/Tools"
+writeln "Icon: GObjectCreator.xpm"
+writeln "Source: http://www.bollmeier.de/GObjectCreator/sources/%{name}-%{version}.tar.gz"
+writeln "URL: http://www.bollmeier.de/GObjectCreator"
+writeln "Packager: Thomas Bollmeier <TBollmeier@web.de>"
+writeln ""
+writeln "%description"
+writeln "Command line tool to generate GObject headers and sources."
+writeln "Call \"create_gobjects --help\" for more information."
+writeln ""
+writeln "%prep"
+writeln "%setup"
+writeln ""
+writeln "%build"
+writeln "./configure --prefix=\$RPM_BUILD_ROOT@GOC_RPM_INSTALL@"
+writeln "make"
+writeln ""
+writeln "%install"
+writeln "make install"
+writeln ""
+writeln "%files"
+writeln "@GOC_RPM_INSTALL@$bindir/create_gobjects"
+writeln "@GOC_RPM_INSTALL@$pkgpythondir"
+writeln "@GOC_RPM_INSTALL@$datapackagedir"
+writeln ""

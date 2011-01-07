@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-gobjects_create.py -d audio_example_generated audio.py
+create_gobjects -d audio_example_generated audio.goc

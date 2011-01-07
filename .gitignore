@@ -1,9 +1,0 @@
-*.wpr
-*.pyc
-*.o
-*~
-build/
-dist/
-
-.project
-.pydevproject
