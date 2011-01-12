@@ -1,0 +1,56 @@
+$header_comment$
+
+#ifndef $ENUM_ABS_NAME$_H
+#define $ENUM_ABS_NAME$_H
+
+#include "glib-object.h"
+
+G_BEGIN_DECLS
+
+typedef enum _$EnumAbsName$ {
+#! for code in enum.codes
+    #! if first
+        #! if not last
+        	#! if not code.valueGiven
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$,
+    		#! else
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$ = $code.value$,
+    		#! end
+        #! else
+        	#! if not code.valueGiven
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$
+    		#! else
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$ = $code.value$
+    		#! end
+        #! end
+    #! elif last
+        #! if not code.valueGiven
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$
+    	#! else
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$ = $code.value$
+    	#! end
+    #! else
+        #! if not code.valueGiven
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$,
+    	#! else
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$ = $code.value$,
+    	#! end
+    #! end
+#! end
+} $EnumAbsName$;
+
+GType $prefix$_get_type();
+
+#! if withNamespace
+
+#define $NAMESPACE$_TYPE_$BASENAME$ $prefix$_get_type()
+
+#! else
+
+#define TYPE_$BASENAME$ $prefix$_get_type()
+
+#! end
+
+G_END_DECLS
+
+#endif

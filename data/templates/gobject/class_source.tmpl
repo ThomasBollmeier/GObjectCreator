@@ -1,0 +1,633 @@
+$header_comment$
+
+#! if hasProtAttrs or hasProtMethods
+#include "$filename(class)$_prot.h"
+#! else
+#include "$filename(class)$.h"
+#! end
+
+#! user_code source_top
+	#! if hasSignals
+#include "$filename(class)$_marshaller.h"
+	#! end
+/* add further definitions...*/
+#! end
+
+#! if hasPrivAttrs
+struct _$Classname$Private {
+	#! for attr in class.attrs
+		#! if equal attr.scope INSTANCE
+			#! if equal attr.visi PRIVATE
+	$attr.type_$ $attr.name$;
+			#! end
+		#! end	
+	#! end
+};
+#! end
+
+/* ===== Private Methods (Declaration) ===== */
+
+#! for meth in class.methods
+	#! if equal meth.visi PRIVATE
+$meth.resultType$ $prefix$_$meth.name$($signature(meth)$);
+	#! end 
+#! end
+#! for intf in allInterfaces
+	#! for meth in intf.methods where not meth.isSignal
+$meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$);
+	#! end
+#! end
+
+#! user_code further_methods
+	/* define further methods... */
+#! end
+
+/* ===== Properties ===== */
+
+#! if hasProperties
+enum {
+	#! for prop in class.props
+		#! if first
+			#! if not last
+	PROP_$upper($$prop.varname$$)$ = 1,
+			#! else
+	PROP_$upper($$prop.varname$$)$ = 1
+			#! end
+		#! else
+			#! if not last
+	PROP_$upper($$prop.varname$$)$,
+			#! else
+	PROP_$upper($$prop.varname$$)$
+			#! end
+		#! end
+	#! end
+};
+#! end
+
+void $prefix$_set_property(
+	GObject* in_object,
+	guint in_property_id,
+	const GValue* in_value,
+	GParamSpec* in_param_spec
+	);
+	 
+void $prefix$_get_property(
+	GObject* in_object,
+	guint in_property_id,
+	GValue* in_value,
+	GParamSpec* in_param_spec
+	);
+	
+#! if hasSignals
+/* ===== Signals ===== */
+
+enum {
+	#! for meth in class.methods
+		#! if meth.isSignal
+	$upper($$meth.name$$)$,
+		#! end
+	#! end
+	LAST_SIGNAL
+};
+static guint $classname$_signals[LAST_SIGNAL] = {0};
+
+#! end
+/* ===== Class-Initialization ===== */
+
+void $prefix$_class_init($Classname$Class* in_class) {
+
+	GObjectClass* gobj_class = G_OBJECT_CLASS(in_class);
+#! if hasProperties
+	#! for prop in class.props
+	GParamSpec* pspec_$lower($$prop.varname$$)$;
+	#! end
+#! end
+
+#! if hasPrivAttrs
+	/* Register structure holding private attributes: */
+	g_type_class_add_private (in_class, sizeof($Classname$Private));
+#! end
+
+#! user_code class_init
+	/* init class members...*/
+#! end
+	
+	gobj_class->dispose = $prefix$_dispose;
+	gobj_class->finalize = $prefix$_finalize;
+	gobj_class->set_property = $prefix$_set_property;
+	gobj_class->get_property = $prefix$_get_property;
+	
+	/* set default implementations of virtual methods */
+#! for meth in class.methods
+	#! if equal meth.visi PUBLIC or equal meth.visi PROTECTED
+		#! if meth.virtual and not meth.abstract
+	in_class->$meth.name$ = $prefix$_$meth.name$_im;
+		#! end
+	#! end
+#! end	
+
+	/* set implementations for redefined methods */
+#! for meth in redefinedMethods
+	($castDefiningClass(meth, in_class)$)->$meth.name$ = $prefix$_$meth.name$_im; 
+#! end	
+
+#! if hasProperties
+	/* add properties... */
+	#! for prop in class.props
+		#! user_code property_reg_$prop.varname$
+			#! if equal prop.type_ '0'
+	pspec_$lower($$prop.varname$$)$ = g_param_spec_boolean(
+		"$prop.name$",
+		"$prop.descr$",
+		"$prop.descr$",
+		$defaultProp(prop)$,
+				#! if equal prop.access '0'
+		G_PARAM_READABLE|G_PARAM_STATIC_STRINGS
+				#! elif equal prop.access '1'
+		G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY|G_PARAM_STATIC_STRINGS
+				#! else
+		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
+				#! end
+		);
+			#! elif equal prop.type_ '1'
+	pspec_$lower($$prop.varname$$)$ = g_param_spec_int(
+		"$prop.name$",
+		"$prop.descr$",
+		"$prop.descr$",
+		$minProp(prop)$,
+		$maxProp(prop)$,
+		$defaultProp(prop)$,
+				#! if equal prop.access '0'
+		G_PARAM_READABLE|G_PARAM_STATIC_STRINGS
+				#! elif equal prop.access '1'
+		G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY|G_PARAM_STATIC_STRINGS
+				#! else
+		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
+				#! end
+		);
+			#! elif equal prop.type_ '2'
+	pspec_$lower($$prop.varname$$)$ = g_param_spec_double(
+		"$prop.name$",
+		"$prop.descr$",
+		"$prop.descr$",
+		$minProp(prop)$,
+		$maxProp(prop)$,
+		$defaultProp(prop)$,
+				#! if equal prop.access '0'
+		G_PARAM_READABLE|G_PARAM_STATIC_STRINGS
+				#! elif equal prop.access '1'
+		G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY|G_PARAM_STATIC_STRINGS
+				#! else
+		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
+				#! end
+		);
+			#! elif equal prop.type_ '3'
+	pspec_$lower($$prop.varname$$)$ = g_param_spec_string(
+		"$prop.name$",
+		"$prop.descr$",
+		"$prop.descr$",
+		$defaultProp(prop)$,
+				#! if equal prop.access '0'
+		G_PARAM_READABLE|G_PARAM_STATIC_STRINGS
+				#! elif equal prop.access '1'
+		G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY|G_PARAM_STATIC_STRINGS
+				#! else
+		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
+				#! end
+		);
+			#! elif equal prop.type_ '4'
+	pspec_$lower($$prop.varname$$)$ = g_param_spec_pointer(
+		"$prop.name$",
+		"$prop.descr$",
+		"$prop.descr$",
+				#! if equal prop.access '0'
+		G_PARAM_READABLE|G_PARAM_STATIC_STRINGS
+				#! elif equal prop.access '1'
+		G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY|G_PARAM_STATIC_STRINGS
+				#! else
+		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
+				#! end
+		);
+			#! elif equal prop.type_ '5'
+	pspec_$lower($$prop.varname$$)$ = g_param_spec_object(
+		"$prop.name$",
+		"$prop.descr$",
+		"$prop.descr$",
+		$prop.gobjectType$,
+				#! if equal prop.access '0'
+		G_PARAM_READABLE|G_PARAM_STATIC_STRINGS
+				#! elif equal prop.access '1'
+		G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY|G_PARAM_STATIC_STRINGS
+				#! else
+		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
+				#! end
+		);
+			#! elif equal prop.type_ '6'
+	pspec_$lower($$prop.varname$$)$ = g_param_spec_enum(
+		"$prop.name$",
+		"$prop.descr$",
+		"$prop.descr$",
+		$prop.gobjectType$,
+		$defaultProp(prop)$,
+				#! if equal prop.access '0'
+		G_PARAM_READABLE|G_PARAM_STATIC_STRINGS
+				#! elif equal prop.access '1'
+		G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY|G_PARAM_STATIC_STRINGS
+				#! else
+		G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS
+				#! end
+		);
+			#! end
+		
+	g_object_class_install_property(
+		gobj_class,
+		PROP_$upper($$prop.varname$$)$,
+		pspec_$lower($$prop.varname$$)$
+		);
+
+		#! end
+	
+	#! end
+	
+#! end
+
+#! if hasSignals
+	/* add signals... */
+		#! for meth in class.methods
+			#! if meth.isSignal
+				#! user_code signal_$meth.name$
+
+	$classname$_signals[$upper($$meth.name$$)$] = 
+		g_signal_new(
+			"$meth.signalName$",
+			$classType(class)$,
+			G_SIGNAL_RUN_LAST|G_SIGNAL_DETAILED,
+			G_STRUCT_OFFSET($Classname$Class, $meth.name$),
+			NULL,
+			NULL,
+			$marshallerName(class, meth)$,
+			$marshallerResult(class, meth)$,
+					#! if marshallerHasArgs class meth
+			$marshallerNumArgs(class, meth)$,
+						#! for argGType in marshallerArgs class meth
+							#! if not last
+			$argGType$,
+							#! else
+			$argGType$
+							#! end
+						#! end
+					#! else
+			0
+					#! end
+			);
+				#! end
+			#! end
+		#! end
+#! end
+	
+}
+
+#! for intf in allInterfaces
+void $prefix$_$_prefix(intf)$_init($intf.absoluteName$Iface* in_iface) {
+	
+	#! for info in getMethodInfo intf
+		#! if not info.method.isSignal
+	in_iface->$info.name$ = $prefix$_$info.name$_im;
+		#! end
+	#! end
+
+}
+
+#! end
+
+#! user_code external_interfaces_init
+/* Initialize implementation of unmodeled interfaces... */
+#! end
+
+/* ===== Type Registration ===== */
+
+void $prefix$_instance_init(
+	GTypeInstance* in_object,
+        gpointer in_class
+	) {
+
+#! if hasPrivAttrs or hasProtAttrs	
+	$Classname$* self = ($Classname$*) in_object;
+#! end	
+	/* Initialize members. 
+	Init method of super classes are called automatically.
+	*/
+
+#! if hasPrivAttrs
+	self->priv = G_TYPE_INSTANCE_GET_PRIVATE(
+		self,
+	#! if not withNamespace
+		TYPE_$BASENAME$,
+	#! else
+		$NAMESPACE$_TYPE_$BASENAME$,
+	#! end
+		$Classname$Private
+		);
+	
+#! end
+
+#! if hasProtAttrs
+	self->prot = ($Classname$Protected*) g_new($Classname$Protected, 1);
+#! end
+
+#! user_code instance_init
+	/* allocate memory if needed... */
+#! end
+	
+}
+
+GType $prefix$_get_type() {
+
+	static GType $_prefix(class)$_type = 0;
+	
+	if (!$_prefix(class)$_type) {
+	
+		const GTypeInfo $_prefix(class)$_info = {
+			sizeof($Classname$Class),
+			NULL, /* base initializer */
+			NULL, /* base finalizer */
+			(GClassInitFunc) $prefix$_class_init,
+			NULL, /* class finalizer */
+			NULL, /* class data */
+			sizeof($Classname$),
+			0, 
+			$prefix$_instance_init
+			};
+			
+#! for intf in allInterfaces
+		const GInterfaceInfo $_prefix(intf)$_info = {
+			(GInterfaceInitFunc) $prefix$_$_prefix(intf)$_init,
+			NULL,
+			NULL
+			};
+
+#! end			
+			
+		$_prefix(class)$_type = g_type_register_static(
+#! if not hasSuperClass		
+			G_TYPE_OBJECT,
+#! else
+	#! if not withSuperNamespace
+			TYPE_$SUPER_BASENAME$,
+	#! else
+			$SUPER_NAMESPACE$_TYPE_$SUPER_BASENAME$,
+	#! end
+#! end
+			"$Classname$",
+			&$_prefix(class)$_info,
+	#! if not class.abstract
+			0
+	#! else
+			G_TYPE_FLAG_ABSTRACT
+	#! end
+			);
+			
+#! for intf in allInterfaces
+		g_type_add_interface_static(
+			$_prefix(class)$_type,
+			$interfaceType(intf)$,
+			&$_prefix(intf)$_info
+			);
+
+#! end		
+	
+#! user_code external_interfaces_register
+		/* Register implementation of unmodeled interfaces... */
+#! end
+	}
+	
+	return $_prefix(class)$_type;
+}
+
+/* ===== Implementation ===== */
+
+#! if hasConstructorArgs
+void $prefix$_init(
+	$Classname$* self,
+	$signature(class.constructor)$) {
+#! else
+void $prefix$_init($Classname$* self) {
+#! end
+
+#! user_code constructor
+	/* init your members */
+#! end
+	
+}
+
+#! if not class.abstract
+
+$annotation(prefix, class.constructor)$
+$Classname$* $prefix$_new($signature(class.constructor)$) {
+
+#! if not withNamespace
+	$Classname$* result = g_object_new(TYPE_$BASENAME$, $propertyInitArgs$);
+#! else
+	$Classname$* result = g_object_new($NAMESPACE$_TYPE_$BASENAME$, $propertyInitArgs$);
+#! end
+
+#! if hasConstructorArgs
+	$prefix$_init(result, $signature(class.constructor, False, True, False)$);
+#! else
+	$prefix$_init(result);
+#! end 
+
+	return result;
+}
+
+#! end
+
+void $prefix$_dispose(GObject* in_object) {
+
+#! user_code dispose
+	/* unref... */
+#! end
+
+}
+
+void $prefix$_finalize(GObject* in_object) {
+
+#! if hasProtAttrs
+	#! if not withNamespace
+	$Classname$* self = $BASENAME$(in_object);
+	#! else
+	$Classname$* self = $NAMESPACE$_$BASENAME$(in_object);
+	#! end
+#! end
+
+#! user_code destructor
+	/* free allocated memory ...*/
+#! end
+
+#! if hasProtAttrs
+  g_free(self->prot);
+#! end
+	
+}
+
+void $prefix$_set_property(
+	GObject* in_object,
+	guint in_property_id,
+	const GValue* in_value,
+	GParamSpec* in_param_spec
+	) {
+
+#! if hasWriteProperties	
+	
+	#! if not withNamespace
+	$Classname$* self = $BASENAME$(in_object);
+	#! else
+	$Classname$* self = $NAMESPACE$_$BASENAME$(in_object);
+	#! end
+
+	#! user_code property_set_data_decls
+	/* data declarations... */
+	#! end
+
+	switch(in_property_id) {
+	#! for prop in class.props
+		#! if not equal prop.access '0'
+	case PROP_$upper($$prop.varname$$)$:
+			#! user_code property_set_$prop.varname$
+		/* call setter...*/
+		g_object_notify(in_object, "$prop.name$");
+			#! end
+		break;
+		#! end
+	#! end
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID(
+			in_object, 
+			in_property_id, 
+			in_param_spec 
+			);
+		break;
+	}
+
+#! else
+
+	G_OBJECT_WARN_INVALID_PROPERTY_ID(
+		in_object, 
+		in_property_id,
+		in_param_spec
+		);
+		
+#! end
+}
+	 
+void $prefix$_get_property(
+	GObject* in_object,
+	guint in_property_id,
+	GValue* in_value,
+	GParamSpec* in_param_spec
+	) {
+
+#! if hasProperties	
+	#! if not withNamespace
+	$Classname$* self = $BASENAME$(in_object);
+	#! else
+	$Classname$* self = $NAMESPACE$_$BASENAME$(in_object);
+	#! end
+#! end
+#! user_code property_get_data_decls
+	/* data declarations... */
+#! end
+
+#! if hasProperties
+
+	switch(in_property_id) {
+#! for prop in class.props
+	case PROP_$upper($$prop.varname$$)$:
+	#! user_code property_get_$prop.varname$
+		
+	#! end
+		break;
+#! end
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID(
+			in_object, 
+			in_property_id, 
+			in_param_spec 
+			);
+		break;
+	}	
+
+#! else
+	
+	G_OBJECT_WARN_INVALID_PROPERTY_ID(
+		in_object, 
+		in_property_id, 
+		in_param_spec 
+		);
+
+#! end
+}
+
+/* ===== Methods ===== */
+
+#! for meth in class.methods
+	#! if equal meth.visi PUBLIC or equal meth.visi PROTECTED
+		#! if not meth.isSignal and not isConstructor class meth
+$annotation(prefix, meth)$
+$user_code($$meth.name$$_comment)$
+$meth.resultType$ $prefix$_$meth.name$($signature(meth)$) {
+			#! if not meth.virtual
+				#! user_code $meth.name$
+	
+				#! end
+			#! else
+	$Classname$Class* cls;
+				#! if not withNamespace
+	cls = $BASENAME$_GET_CLASS(self);
+				#! else
+	cls = $NAMESPACE$_$BASENAME$_GET_CLASS(self);
+				#! end
+				#! if equal meth.resultType 'void'
+	cls->$meth.name$($signature(meth, False, True, False)$);
+				#! else
+	return cls->$meth.name$($signature(meth, False, True, False)$);
+				#! end
+			#! end
+}
+		#! end
+
+		#! if meth.virtual and not meth.abstract
+$meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
+			#! user_code $meth.name$
+	
+			#! end
+}
+		#! end
+	#! elif not isConstructor class meth
+$meth.resultType$ $prefix$_$meth.name$($signature(meth)$) {
+		#! user_code $meth.name$
+	
+		#! end
+}
+	#! end
+#! end
+
+#! for meth in redefinedMethods
+$meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
+	#! user_code $meth.name$
+	
+	#! end
+}
+#! end
+
+#! for intf in allInterfaces
+	#! for meth in intf.methods where not meth.isSignal
+$meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
+		#! user_code $meth.name$
+	
+		#! end
+}
+	#! end
+#! end
+
+$user_code(source_bottom)$

@@ -1,0 +1,24 @@
+$header_comment$
+
+#ifndef $ENUM_ABS_NAME$_H
+#define $ENUM_ABS_NAME$_H
+
+#include "glib-object.h"
+
+G_BEGIN_DECLS
+
+typedef guint $EnumAbsName$Flags;
+
+enum {
+#! for code in enum.codes
+    #! if not last
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$ = 1 << $code.value$,
+    #! else
+    $ENUM_ABS_NAME$_$upper($$code.name$$)$ = 1 << $code.value$
+    #! end
+#! end
+};
+
+G_END_DECLS
+
+#endif

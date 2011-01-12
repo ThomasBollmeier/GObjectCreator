@@ -1,0 +1,137 @@
+$header_comment$
+
+#include "$filename(intf)$.h"
+
+#! user_code source_top
+	#! if hasSignals
+/* Marshaller functions to be used by signals: */	
+#include "$filename(intf)$_marshaller.h"
+	#! end
+#! end
+
+#! if hasSignals
+/* Signals: */
+
+enum {
+	#! for meth in intf.methods where meth.isSignal
+	$upper($$meth.name$$)$,
+	#! end
+	LAST_SIGNAL
+};
+static guint $intfname$_signals[LAST_SIGNAL] = {0};
+
+#! end
+
+void $prefix$_base_init($Intfname$Iface* in_class) {
+
+	static gboolean initialized = FALSE;
+	
+	if (initialized)
+		return;
+
+#! for meth in intf.methods where meth.isSignal
+
+	#! if first
+	/* Signal definition: */
+	
+	#! end
+	
+	#! user_code signal_$meth.name$
+
+	$intfname$_signals[$upper($$meth.name$$)$] = 
+		g_signal_new(
+			"$meth.signalName$",
+			$intf.gtypeName$,
+			G_SIGNAL_RUN_LAST|G_SIGNAL_DETAILED,
+			G_STRUCT_OFFSET($Intfname$Iface, $meth.name$),
+			NULL,
+			NULL,
+			$marshallerName(intf, meth)$,
+			$marshallerResult(intf, meth)$,
+		#! if marshallerHasArgs intf meth
+			$marshallerNumArgs(intf, meth)$,
+			#! for argGType in marshallerArgs intf meth
+				#! if not last
+			$argGType$,
+				#! else
+			$argGType$
+				#! end
+			#! end
+		#! else
+			0
+		#! end
+			);
+		
+	#! end
+
+#! end
+
+#! user_code interface_init
+	/* further initializations... */
+#! end	
+	
+	initialized = TRUE;
+
+}  
+
+void $prefix$_base_finalize($Intfname$Iface* in_class) {
+
+	static gboolean finalized = FALSE;
+	
+	if (finalized)
+		return;
+
+#! user_code interface_finalize
+	/* do some final stuff... */
+#! end	
+
+	finalized = TRUE;
+	
+}  
+
+GType $prefix$_get_type() {
+
+	static GType $prefix$_type = 0;
+	
+	if (!$prefix$_type) {
+	
+		const GTypeInfo $prefix$_info = {
+			sizeof($Intfname$Iface),
+			(GBaseInitFunc) $prefix$_base_init,
+			(GBaseFinalizeFunc) $prefix$_base_finalize
+			};
+			
+		$prefix$_type = g_type_register_static(
+			G_TYPE_INTERFACE,
+			"$Intfname$",
+			&$prefix$_info,
+			0
+			);
+		
+		/* all classes are allowed to implement this interface: */
+		g_type_interface_add_prerequisite($prefix$_type, G_TYPE_OBJECT);
+		
+	}
+	
+	return $prefix$_type;
+}
+
+#! for meth in intf.methods where not meth.isSignal
+$meth.resultType$
+$prefix$_$meth.name$($signature(meth)$) {
+
+	#! if withNamespace
+	$Intfname$Iface* intf = $NAMESPACE$_$BASENAME$_GET_INTERFACE(object);
+	#! else
+	$Intfname$Iface* intf = $BASENAME$_GET_INTERFACE(object);
+	#! end
+	
+	#! if not equal meth.resultType 'void'
+	return intf->$meth.name$($signature(meth, False, True, False)$);
+	#! else
+	intf->$meth.name$($signature(meth, False, True, False)$);
+	#! end
+
+}
+
+#! end
