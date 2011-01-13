@@ -55,8 +55,8 @@ io/include_handling.py
 install-data-local:
 	chmod +x create_config_module.sh
 	./create_config_module.sh $(datarootdir)
-	mkdir -p $(gocdir)
-	mv config.py $(gocdir)
+	mkdir -p $(DESTDIR)$(gocdir)
+	mv config.py $(DESTDIR)$(gocdir)
 
 uninstall-hook:
-	rm -rf $(pkgpythondir)
+	rm -rf $(DESTDIR)$(pkgpythondir)

@@ -23,18 +23,6 @@ AC_ARG_WITH(
 
 AC_SUBST([GOC_RPM_INSTALL])
 
-AC_ARG_WITH(
-[rpm-build],
-[AS_HELP_STRING(
-[--with-rmp-build=RPM_BUILD_DIR],
-[set build directory for RPM creation]
-)],
-[GOC_RPM_BUILD=${withval}],
-[GOC_RPM_BUILD=""]
-)
-
-AC_SUBST([GOC_RPM_BUILD])
-
 # Checks for programs.
 AC_PROG_CC
 AC_CHECK_PROG([GLIB_GENMARSHAL], [glib-genmarshal], [yes], [no])

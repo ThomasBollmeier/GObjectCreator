@@ -332,8 +332,7 @@ class IntfMethodInfo:
         if isinstance(inOther, IntfMethodInfo):
             return self.name < inOther.name
         else:
-            return false
-            val2 = id(inOther) 
+            return False
                         
 ## Definition of a GObject class                
 class Class(_Clif):
@@ -672,7 +671,8 @@ class Property(object):
                  inMin = None,
                  inMax = None,
                  inDefault = None,
-                 inGObjectType = ""
+                 inGObjectType = "",
+                 inAutoCreateAttr = False
                  ):
         
         self.name = inName
@@ -681,6 +681,11 @@ class Property(object):
         self.access = inAccess
         self.min = inMin
         self.max = inMax
+        
+        if not inAutoCreateAttr:
+            self.attr_name = ""
+        else:
+            self._auto_create_attribute()
 
         if isinstance(inDefault, EnumCode):
             self.default = inDefault.codeName()
@@ -701,10 +706,32 @@ class Property(object):
             raise DefinitionError
         cls.addProperty(self)
         
+    def BindAttr(self, inAttrName):
+        
+        self.attr_name = inAttrName
+          
     def _varname(self):
         return self.name.replace("-", "_")
-    varname = property(_varname)        
+    varname = property(_varname)
     
+    def _auto_create_attribute(self):
+        # => Create new attribute
+        # TODO: define types language independent
+        type_map = {
+                    PROP_BOOLEAN : "gboolean",
+                    PROP_INT : "gint",
+                    PROP_DOUBLE : "gdouble",
+                    PROP_STRING : "gchar*",
+                    PROP_POINTER : "gpointer"
+                    }
+            
+        if self.type_ not in type_map:
+            raise DefinitionError
+        
+        Attr(self.varname, type_map[self.type_])
+        
+        self.attr_name = self.varname
+        
 class Param(Value):
     
     def __init__(self, 
@@ -941,4 +968,6 @@ def _pop():
     except IndexError:
         return None
 
-from metamodel.object_catalog import ObjectCatalog
+from .object_catalog import ObjectCatalog
+
+import traceback

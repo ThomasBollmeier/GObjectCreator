@@ -20,6 +20,7 @@ along with GObjectCreator (see file COPYING). If not, see
 
 from .include_handling import PreProcessor
 from ..metamodel.meta_objects import *
+from ..metamodel.object_catalog import ObjectCatalog
 from ..metamodel.introspection_info import *
 from ..metamodel.introspection_decorators import *
 

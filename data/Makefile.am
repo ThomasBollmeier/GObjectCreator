@@ -33,4 +33,4 @@ dist_icon_DATA = \
 icons/GObjectCreator.xpm
 
 uninstall-hook:
-	rm -rf $(datadir)/$(PACKAGE)
+	rm -rf $(DESTDIR)$(datadir)/$(PACKAGE)

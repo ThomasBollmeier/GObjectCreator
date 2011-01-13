@@ -337,6 +337,19 @@ void $prefix$_instance_init(
 
 #! user_code instance_init
 	/* allocate memory if needed... */
+	#! for prop in class.props where prop.attr_name
+		#! if equal prop.type_ '0'
+	self->priv->$prop.attr_name$ = FALSE;
+		#! elif equal prop.type_ '1'
+	self->priv->$prop.attr_name$ = 0;		
+		#! elif equal prop.type_ '2'
+	self->priv->$prop.attr_name$ = 0.0;
+		#! elif equal prop.type_ '3'
+	self->priv->$prop.attr_name$ = NULL;
+		#! elif equal prop.type_ '4'
+	self->priv->$prop.attr_name$ = NULL;
+		#! end
+	#! end
 #! end
 	
 }
@@ -494,7 +507,23 @@ void $prefix$_set_property(
 		#! if not equal prop.access '0'
 	case PROP_$upper($$prop.varname$$)$:
 			#! user_code property_set_$prop.varname$
-		/* call setter...*/
+		/* call setter:*/
+				#! if prop.attr_name
+					#! if equal prop.type_ '0'
+		self->priv->$prop.attr_name$ = g_value_get_boolean(in_value);
+					#! elif equal prop.type_ '1'
+		self->priv->$prop.attr_name$ = g_value_get_int(in_value);		
+					#! elif equal prop.type_ '2'
+		self->priv->$prop.attr_name$ = g_value_get_double(in_value);
+					#! elif equal prop.type_ '3'
+		if (self->priv->$prop.attr_name$) {
+			g_free(self->priv->$prop.attr_name$);
+		}
+		self->priv->$prop.attr_name$ = g_value_dup_string(in_value);
+					#! elif equal prop.type_ '4'
+		self->priv->$prop.attr_name$ = g_value_get_pointer(in_value);
+					#! end
+				#! end
 		g_object_notify(in_object, "$prop.name$");
 			#! end
 		break;
@@ -544,7 +573,19 @@ void $prefix$_get_property(
 #! for prop in class.props
 	case PROP_$upper($$prop.varname$$)$:
 	#! user_code property_get_$prop.varname$
-		
+		#! if prop.attr_name
+			#! if equal prop.type_ '0'
+		g_value_set_boolean(in_value, self->priv->$prop.attr_name$);
+			#! elif equal prop.type_ '1'
+		g_value_set_int(in_value, self->priv->$prop.attr_name$);		
+			#! elif equal prop.type_ '2'
+		g_value_set_double(in_value, self->priv->$prop.attr_name$);
+			#! elif equal prop.type_ '3'
+		g_value_set_static_string(in_value, self->priv->$prop.attr_name$);
+			#! elif equal prop.type_ '4'
+		g_value_set_pointer(in_value, self->priv->$prop.attr_name$);
+			#! end
+		#! end
 	#! end
 		break;
 #! end
