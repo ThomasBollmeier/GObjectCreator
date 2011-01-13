@@ -1,0 +1,4 @@
+new in 3.0.4:
+- enable automatically generated attributes for property implementation
+- add DESTDIR support in build / install process
+

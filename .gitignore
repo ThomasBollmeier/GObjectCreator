@@ -1,2 +1,12 @@
 .project
 .pydevproject
+Makefile.in
+aclocal.m4
+configure
+data/Makefile.in
+doc/Makefile.in
+examples/Makefile.in
+src/Makefile.in
+src/gobject_creator/Makefile.in
+autom4te.cache/
+src/gobject_creator/__init__.pyc
