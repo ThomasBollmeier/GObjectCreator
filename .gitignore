@@ -10,3 +10,5 @@ src/Makefile.in
 src/gobject_creator/Makefile.in
 autom4te.cache/
 src/gobject_creator/__init__.pyc
+gobject_creator-3.0.4.tar.bz2
+gobject_creator-3.0.4.tar.gz

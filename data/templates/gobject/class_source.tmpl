@@ -29,12 +29,14 @@ struct _$Classname$Private {
 
 #! for meth in class.methods
 	#! if equal meth.visi PRIVATE
-$meth.resultType$ $prefix$_$meth.name$($signature(meth)$);
+static $meth.resultType$ 
+$prefix$_$meth.name$($signature(meth)$);
 	#! end 
 #! end
 #! for intf in allInterfaces
 	#! for meth in intf.methods where not meth.isSignal
-$meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$);
+static $meth.resultType$ 
+$prefix$_$meth.name$_im($signature(meth)$);
 	#! end
 #! end
 
@@ -64,14 +66,16 @@ enum {
 };
 #! end
 
-void $prefix$_set_property(
+static void 
+$prefix$_set_property(
 	GObject* in_object,
 	guint in_property_id,
 	const GValue* in_value,
 	GParamSpec* in_param_spec
 	);
 	 
-void $prefix$_get_property(
+static void 
+$prefix$_get_property(
 	GObject* in_object,
 	guint in_property_id,
 	GValue* in_value,
@@ -94,7 +98,8 @@ static guint $classname$_signals[LAST_SIGNAL] = {0};
 #! end
 /* ===== Class-Initialization ===== */
 
-void $prefix$_class_init($Classname$Class* in_class) {
+static void 
+$prefix$_class_init($Classname$Class* in_class) {
 
 	GObjectClass* gobj_class = G_OBJECT_CLASS(in_class);
 #! if hasProperties
@@ -288,7 +293,8 @@ void $prefix$_class_init($Classname$Class* in_class) {
 }
 
 #! for intf in allInterfaces
-void $prefix$_$_prefix(intf)$_init($intf.absoluteName$Iface* in_iface) {
+static void 
+$prefix$_$_prefix(intf)$_init($intf.absoluteName$Iface* in_iface) {
 	
 	#! for info in getMethodInfo intf
 		#! if not info.method.isSignal
@@ -306,7 +312,8 @@ void $prefix$_$_prefix(intf)$_init($intf.absoluteName$Iface* in_iface) {
 
 /* ===== Type Registration ===== */
 
-void $prefix$_instance_init(
+static void 
+$prefix$_instance_init(
 	GTypeInstance* in_object,
         gpointer in_class
 	) {
@@ -420,11 +427,13 @@ GType $prefix$_get_type() {
 /* ===== Implementation ===== */
 
 #! if hasConstructorArgs
-void $prefix$_init(
+void 
+$prefix$_init(
 	$Classname$* self,
 	$signature(class.constructor)$) {
 #! else
-void $prefix$_init($Classname$* self) {
+void 
+$prefix$_init($Classname$* self) {
 #! end
 
 #! user_code constructor
@@ -436,7 +445,8 @@ void $prefix$_init($Classname$* self) {
 #! if not class.abstract
 
 $annotation(prefix, class.constructor)$
-$Classname$* $prefix$_new($signature(class.constructor)$) {
+$Classname$* 
+$prefix$_new($signature(class.constructor)$) {
 
 #! if not withNamespace
 	$Classname$* result = g_object_new(TYPE_$BASENAME$, $propertyInitArgs$);
@@ -455,7 +465,8 @@ $Classname$* $prefix$_new($signature(class.constructor)$) {
 
 #! end
 
-void $prefix$_dispose(GObject* in_object) {
+void 
+$prefix$_dispose(GObject* in_object) {
 
 #! user_code dispose
 	/* unref... */
@@ -463,7 +474,8 @@ void $prefix$_dispose(GObject* in_object) {
 
 }
 
-void $prefix$_finalize(GObject* in_object) {
+void 
+$prefix$_finalize(GObject* in_object) {
 
 #! if hasProtAttrs
 	#! if not withNamespace
@@ -483,7 +495,8 @@ void $prefix$_finalize(GObject* in_object) {
 	
 }
 
-void $prefix$_set_property(
+void 
+$prefix$_set_property(
 	GObject* in_object,
 	guint in_property_id,
 	const GValue* in_value,
@@ -549,7 +562,8 @@ void $prefix$_set_property(
 #! end
 }
 	 
-void $prefix$_get_property(
+void 
+$prefix$_get_property(
 	GObject* in_object,
 	guint in_property_id,
 	GValue* in_value,
@@ -616,7 +630,8 @@ void $prefix$_get_property(
 		#! if not meth.isSignal and not isConstructor class meth
 $annotation(prefix, meth)$
 $user_code($$meth.name$$_comment)$
-$meth.resultType$ $prefix$_$meth.name$($signature(meth)$) {
+$meth.resultType$ 
+$prefix$_$meth.name$($signature(meth)$) {
 			#! if not meth.virtual
 				#! user_code $meth.name$
 	
@@ -638,14 +653,16 @@ $meth.resultType$ $prefix$_$meth.name$($signature(meth)$) {
 		#! end
 
 		#! if meth.virtual and not meth.abstract
-$meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
+$meth.resultType$ 
+$prefix$_$meth.name$_im($signature(meth)$) {
 			#! user_code $meth.name$
 	
 			#! end
 }
 		#! end
 	#! elif not isConstructor class meth
-$meth.resultType$ $prefix$_$meth.name$($signature(meth)$) {
+$meth.resultType$ 
+$prefix$_$meth.name$($signature(meth)$) {
 		#! user_code $meth.name$
 	
 		#! end
@@ -654,7 +671,8 @@ $meth.resultType$ $prefix$_$meth.name$($signature(meth)$) {
 #! end
 
 #! for meth in redefinedMethods
-$meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
+$meth.resultType$ 
+$prefix$_$meth.name$_im($signature(meth)$) {
 	#! user_code $meth.name$
 	
 	#! end
@@ -663,7 +681,8 @@ $meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
 
 #! for intf in allInterfaces
 	#! for meth in intf.methods where not meth.isSignal
-$meth.resultType$ $prefix$_$meth.name$_im($signature(meth)$) {
+$meth.resultType$ 
+$prefix$_$meth.name$_im($signature(meth)$) {
 		#! user_code $meth.name$
 	
 		#! end
