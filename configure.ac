@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.65])
-AC_INIT([gobject_creator], [m4_esyscmd([./get_goc_version.sh | tr -d '\n'])], [TBollmeier@web.de])
+AC_INIT([gobject_creator], [3.0.5a])], [TBollmeier@web.de])
 
 AM_INIT_AUTOMAKE
 
@@ -44,9 +44,11 @@ create_rpmspec.sh
 Makefile
 src/Makefile
 src/gobject_creator/Makefile
+src/gobject_creator/__init__.py
 src/gobject_creator/create_config_module.sh
 data/Makefile
 doc/Makefile
 examples/Makefile
 ])
+
 AC_OUTPUT

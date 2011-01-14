@@ -1,8 +1,5 @@
 AUTOMAKE_OPTIONS = dist-bzip2
 
-EXTRA_DIST = \
-get_goc_version.sh
-
 SUBDIRS = src data doc examples
 
 rpmspec:

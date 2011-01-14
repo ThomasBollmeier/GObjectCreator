@@ -1,8 +1,5 @@
 gocdir = $(pkgpythondir)
 
-goc_PYTHON = \
-__init__.py
-
 codegendir = $(gocdir)/code_generation
 
 codegen_PYTHON = \
